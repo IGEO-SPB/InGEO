@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="776.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.laborMethods.">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+
+                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор объекта" />
+                        <Separator prefHeight="26.0" prefWidth="28.0" />
+                        <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onLaborModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Лабораторный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onCameralModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                    </items>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                    </padding>
+                </ToolBar>
+
+            </children>
+        </VBox>
+    </top>
+    <bottom>
+        <VBox prefWidth="1247.0" BorderPane.alignment="CENTER">
+            <children>
+            <Separator prefWidth="200.0" />
+                <HBox prefHeight="17.0" prefWidth="1247.0">
+                    <children>
+                        <Label prefHeight="23.0" prefWidth="57.0" text="Проект:" />
+                        <Label fx:id="projectNameInFooter" prefHeight="22.0" prefWidth="116.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="64.0" text="Шифр:" />
+                        <Label fx:id="projectCipherInFooter" prefHeight="22.0" prefWidth="107.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Образцы:" />
+                        <Label prefHeight="23.0" prefWidth="131.0" text="Исполнитель:" />
+                        <Label prefHeight="23.0" prefWidth="133.0" text="Заказчик:" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Отдел:" />
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+            <ToolBar prefHeight="58.0" prefWidth="827.0">
+              <items>
+                        <VBox alignment="CENTER" prefWidth="184.0">
+                            <children>
+                                <Label text="Выбрать образец" />
+                            </children>
+                        </VBox>
+                          <HBox alignment="CENTER" prefHeight="30.0" prefWidth="119.0" spacing="5.0">
+                              <children>
+                                  <Button mnemonicParsing="false" onAction="#onPreviousSampleButtonClick" text="&lt;-" />
+                                  <ChoiceBox fx:id="sampleChoiceBox" onAction="#onChoiceBoxClicked">
+                           <tooltip>
+                              <Tooltip text="Выберите образец &#10;из выпадающего списка &#10;либо с помощью стрелочек" />
+                           </tooltip>
+                        </ChoiceBox>
+                                  <Button mnemonicParsing="false" onAction="#onNextSampleButtonClick" text="-&gt;" />
+                              </children>
+                          </HBox>
+                        <Separator orientation="VERTICAL" prefWidth="15.0" />
+              </items>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </padding>
+            </ToolBar>
+            <HBox alignment="TOP_CENTER" prefHeight="357.0" prefWidth="850.0" spacing="80.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="526.0" prefWidth="318.0">
+                     <children>
+                        <GridPane prefHeight="295.0" prefWidth="318.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.59996337890624" minWidth="10.0" prefWidth="229.99998779296874" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="0.0" prefWidth="86.80001220703122" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Водоносный горизонт" />
+                              <TextField GridPane.columnIndex="1" />
+                              <Label text="Место взятия пробы, скважина №" GridPane.rowIndex="1" />
+                              <Label text="Глубина отбора, м" GridPane.rowIndex="2" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Дата отбора пробы" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Дата поступления в лабораторию" GridPane.rowIndex="4" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label text="Лабораторный №" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                              <Label text="Физические свойства:" GridPane.rowIndex="6" />
+                              <Label text="прозрачность" GridPane.rowIndex="7" />
+                              <Label text="цвет" GridPane.rowIndex="8" />
+                              <Label text="запах" GridPane.rowIndex="9" />
+                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <VBox alignment="CENTER" prefHeight="526.0">
+                     <children>
+                        <GridPane prefHeight="326.0" prefWidth="364.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.00000762939453" minWidth="10.0" prefWidth="184.40003204345703" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.20001220703125" minWidth="10.0" prefWidth="95.79997558593752" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="10.0" prefWidth="77.4000244140625" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Сухой остаток" />
+                              <Label text="Dry" GridPane.columnIndex="1" />
+                              <TextField GridPane.columnIndex="2" />
+                              <Label text="Жесткость" GridPane.rowIndex="1" />
+                              <Label text="Общая" GridPane.rowIndex="2" />
+                              <Label text="HdnGen" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Label text="Временная" GridPane.rowIndex="3" />
+                              <Label text="HdnTmp" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <Label text="Постоянная" GridPane.rowIndex="4" />
+                              <Label text="HdnCon" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <Label text="Кремнекислота" GridPane.rowIndex="5" />
+                              <Label text="SiO2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                              <Label text="O2" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label text="CO2sv" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label text="CO2ag" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                              <Label text="окисляемость,мг" GridPane.rowIndex="6" />
+                              <Label text="углекислота свободная" GridPane.rowIndex="7" />
+                              <Label text="углекислота агрессивная" GridPane.rowIndex="8" />
+                              <Label text="реакция воды-среды" GridPane.rowIndex="9" />
+                              <Label text="сероводород" GridPane.rowIndex="10" />
+                              <Label text="органические вещества - гумус" GridPane.rowIndex="11" />
+                              <Label text="pH" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                              <Label text="H2S" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                              <Label text="Gum" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="68.0" prefHeight="304.0" prefWidth="850.0" spacing="35.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="289.0" prefWidth="476.0">
+                     <children>
+                        <GridPane prefHeight="266.0" prefWidth="402.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.59996337890624" minWidth="10.0" prefWidth="229.99998779296874" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="0.0" prefWidth="86.80001220703122" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Элементы химических анализов">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="щелочность гидрокарбонатов " GridPane.rowIndex="1" />
+                              <Label text="гидроксильная группа" GridPane.rowIndex="2" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <Label text="щелочность карбонатная" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <Label text="хлориды " GridPane.rowIndex="4" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <Label text="сульфаты" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                              <Label text="нитриты" GridPane.rowIndex="6" />
+                              <Label text="нитраты" GridPane.rowIndex="7" />
+                              <Label text="сумма анионов" GridPane.rowIndex="9" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Label text="мг-экв%" GridPane.columnIndex="4">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="мг-экв/л" GridPane.columnIndex="3">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="мг/л" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="HCO3-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="9" />
+                              <Label text="OH-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="CO22-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="SO42-" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label text="NO2-" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label text="NO3-" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label text="Cl-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <VBox alignment="CENTER" prefHeight="289.0" prefWidth="521.0" spacing="60.0">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                     <children>
+                        <GridPane prefHeight="226.0" prefWidth="448.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.59996337890624" minWidth="10.0" prefWidth="229.99998779296874" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="0.0" prefWidth="86.80001220703122" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.60009765625" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Элементы химических анализов">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="кальций" GridPane.rowIndex="1" />
+                              <Label text="магний" GridPane.rowIndex="2" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <Label text="натрий+калий в пересчете на Na+" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <Label text="аммоний" GridPane.rowIndex="4" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <Label text="железо Fe2+, Fe3+ &#10;в пересчете на Fe3+" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <Label text="сумма катионов" GridPane.rowIndex="7" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Label text="мг-экв%" GridPane.columnIndex="4">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="мг-экв/л" GridPane.columnIndex="3">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="мг/л" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Ca2+" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                              <TextField GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                              <Label text="Mg2+" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Na+" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Fe3+" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label text="NH4+" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+        </VBox>
+    </center>
+</BorderPane>

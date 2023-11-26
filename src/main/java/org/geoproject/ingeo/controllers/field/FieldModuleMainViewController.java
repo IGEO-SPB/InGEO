@@ -1,0 +1,267 @@
+package org.geoproject.ingeo.controllers;
+
+import org.geoproject.ingeo.dto.SurveyPointDTO;
+import org.geoproject.ingeo.models.*;
+import org.geoproject.ingeo.services.classificators.SurveyPointsTypesService;
+import org.geoproject.ingeo.services.mainViews.MainViewService;
+import org.geoproject.ingeo.services.mainViews.impl.ProjectsServiceImpl;
+import org.geoproject.ingeo.utils.CurrentState;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.FloatStringConverter;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
+
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
+@Component
+public class FieldModuleMainViewController extends AbstractMainViewController<SurveyPoint, SurveyPointDTO> implements Initializable {
+    private final SurveyPointsTypesService surveyPointsTypesService;
+    private final ProjectsServiceImpl projectsService;
+
+    @FXML
+    ChoiceBox<Project> chooseProjectChoiceBox;
+
+//    @FXML
+//    private TableView<SurveyPoint> tableView;
+    @FXML
+    private TableColumn<SurveyPoint, String> projectName;
+    //    @FXML private TableColumn<SurveyPoint, SurveyPointsType> surveyPointsType;
+    @FXML
+    private TableColumn<SurveyPoint, String> surveyPointsType;
+    @FXML
+    private TableColumn<SurveyPoint, String> pointNumber;
+    @FXML
+    private TableColumn<SurveyPoint, Float> depth;
+    @FXML
+    private TableColumn<SurveyPoint, Float> absoluteMark;
+    @FXML
+    private TableColumn<SurveyPoint, Float> coordinateX;
+    @FXML
+    private TableColumn<SurveyPoint, Float> coordinateY;
+    @FXML
+    private TableColumn<SurveyPoint, String> startDate;
+    @FXML
+    private TableColumn<SurveyPoint, String> endDate;
+    @FXML
+    private TableColumn<SurveyPoint, String> boringType;
+
+    public FieldModuleMainViewController(ConfigurableApplicationContext applicationContext,
+                                         MainViewService<SurveyPoint, SurveyPointDTO> service,
+                                         CurrentState currentState, SurveyPointsTypesService surveyPointsTypesService,
+                                         ProjectsServiceImpl projectsService) {
+        super(currentState, applicationContext, service);
+        this.surveyPointsTypesService = surveyPointsTypesService;
+        this.projectsService = projectsService;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("Survey Points Table init...");
+        init();
+        tableView.setEditable(true);
+        setChooseProjectChoiceBox();
+        showAllObjectsInCurrentProject();
+    }
+
+    @Override
+    public void showAllObjectsInCurrentProject() {
+        System.out.println("CURRENT PROJECT:");
+        System.out.println(currentState.getCurrentProject());
+
+//        projectName.setCellValueFactory(new PropertyValueFactory<SurveyPoint, Project>("project"));
+        projectName.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getProject().getProjectName()));
+
+        ObservableList<String> surveyPointsTypeObservableList = FXCollections.observableArrayList();
+        List<String> surveyPointsTypeShortNameList = surveyPointsTypesService.findAll().stream().map(e -> e.getSurveyTypeShortName()).collect(Collectors.toList());
+        surveyPointsTypeObservableList.addAll(surveyPointsTypeShortNameList);
+//        surveyPointsType.setCellValueFactory(new PropertyValueFactory<SurveyPoint, SurveyPointsType>("surveyPointsType"));
+        surveyPointsType.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getSurveyPointsType().getSurveyTypeShortName()));
+        surveyPointsType.setCellFactory(ChoiceBoxTableCell.forTableColumn(surveyPointsTypeObservableList));
+        surveyPointsType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, String> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                SurveyPointsType surveyPointsType = surveyPointsTypesService.findBySurveyTypeShortName(event.getNewValue());
+                surveyPoint.setSurveyPointsType(surveyPointsType);
+                System.out.println("Перед запуском обновления:");
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        pointNumber.setCellValueFactory(new PropertyValueFactory<SurveyPoint, String>("pointNumber"));
+        pointNumber.setCellFactory(TextFieldTableCell.forTableColumn());
+        pointNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, String> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                surveyPoint.setPointNumber(event.getNewValue());
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        depth.setCellValueFactory(new PropertyValueFactory<SurveyPoint, Float>("depth"));
+        depth.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+        depth.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, Float>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, Float> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                surveyPoint.setDepth(event.getNewValue());
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        absoluteMark.setCellValueFactory(new PropertyValueFactory<SurveyPoint, Float>("absoluteMark"));
+        absoluteMark.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+        absoluteMark.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, Float>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, Float> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                surveyPoint.setAbsoluteMark(event.getNewValue());
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        coordinateX.setCellValueFactory(new PropertyValueFactory<SurveyPoint, Float>("coordinateX"));
+        coordinateX.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+        coordinateX.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, Float>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, Float> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                surveyPoint.setCoordinateX(event.getNewValue());
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        coordinateY.setCellValueFactory(new PropertyValueFactory<SurveyPoint, Float>("coordinateY"));
+        coordinateY.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+        coordinateY.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, Float>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, Float> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                surveyPoint.setCoordinateY(event.getNewValue());
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        //todo добавить реализацию календаря, может переделать тип данных
+        startDate.setCellValueFactory(new PropertyValueFactory<SurveyPoint, String>("startDate"));
+        startDate.setCellFactory(TextFieldTableCell.forTableColumn());
+        startDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, String> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                surveyPoint.setStartDate(event.getNewValue());
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        endDate.setCellValueFactory(new PropertyValueFactory<SurveyPoint, String>("endDate"));
+        endDate.setCellFactory(TextFieldTableCell.forTableColumn());
+        endDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, String> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                surveyPoint.setEndDate(event.getNewValue());
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        //todo переделать на выпадающий список
+        boringType.setCellValueFactory(new PropertyValueFactory<SurveyPoint, String>("boringType"));
+        boringType.setCellFactory(TextFieldTableCell.forTableColumn());
+        boringType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<SurveyPoint, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<SurveyPoint, String> event) {
+                SurveyPoint surveyPoint = event.getRowValue();
+                surveyPoint.setBoringType(event.getNewValue());
+                updateObjectInListForView(surveyPoint);
+            }
+        });
+
+        tableView.getItems().setAll(objectListForView);
+    }
+
+    //кнопки
+
+    @Override
+    @FXML
+    public void onSaveAllObjectsButtonClicked() {
+        super.onSaveAllObjectsButtonClicked();
+        System.out.println("onSaveAllBoreholeLayersButtonClicked clicked...");
+    }
+
+    @Override
+    public List<SurveyPoint> setObjectListForObjectListForView() {
+        return service.getByProject(currentState.getCurrentProject());
+    }
+
+    @Override
+    @FXML
+    public void onAddNewRowButtonClicked() {
+        SurveyPoint surveyPoint = new SurveyPoint();
+        SurveyPointsType defaultSurveyPointsType = surveyPointsTypesService.findOne(1);
+        surveyPoint.setProject(currentState.getCurrentProject());
+        surveyPoint.setSurveyPointsType(defaultSurveyPointsType);
+
+        addNewObjectAtListForView(surveyPoint);
+    }
+    //todo придумать уведомление о необходимости нажать на сохранить для удаления из базы
+
+    @Override
+    @FXML
+    public void onDeleteRowButtonClicked() {
+        //todo реализовать выделение строки по умолчанию - следующая после удаленной
+        super.onDeleteRowButtonClicked();
+        System.out.println("onDeleteRowButtonClicked clicked...");
+    }
+
+    @FXML
+    public void onShowSurveyPointsFromAllProjectsButtonClicked() {
+        setObjectListForView();
+        showAllObjectsInCurrentProject();
+    }
+
+    @FXML
+    public void onChooseProjectChoiceBoxSelect() {
+        chooseProjectChoiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) ->
+                System.out.println("From listener: " + oldValue + " " + newValue));
+
+        chooseProjectChoiceBox.setOnAction(e -> tempSetListForTableView(chooseProjectChoiceBox));
+    }
+
+    //утилитные методы
+
+    private void setChooseProjectChoiceBox() {
+        List<Project> projectList = projectsService.getAll();
+//        List<String> projectNameList = projectList.stream().map(e -> e.getProjectName()).toList();
+//        System.out.println(projectNameList);
+        ObservableList<Project> projectNameObservableList = FXCollections.observableArrayList(projectList);
+        System.out.println(projectNameObservableList);
+        chooseProjectChoiceBox.getItems().addAll(projectNameObservableList);
+        chooseProjectChoiceBox.setValue(currentState.getCurrentProject());
+    }
+
+    private void tempSetListForTableView(ChoiceBox<Project> chooseProjectChoiceBox) {
+        System.out.println(chooseProjectChoiceBox.getValue().getProjectName());
+        Project currentProject = projectsService.getById(chooseProjectChoiceBox.getValue().getId());
+        currentState.setCurrentProject(currentProject);
+        JavaFXCommonMethods.setFooterElements(currentState, projectNameInFooter, projectCipherInFooter);
+        List<SurveyPoint> surveyPointList = service.getByProject(currentProject);
+        setObjectListForView(surveyPointList);
+        showAllObjectsInCurrentProject();
+    }
+}

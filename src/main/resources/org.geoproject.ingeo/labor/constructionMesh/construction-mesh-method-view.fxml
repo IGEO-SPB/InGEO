@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="933.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.labor.constructionMesh.ConstructionMeshMethodController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+
+                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор объекта" />
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <Button accessibleRole="MENU_BUTTON" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Редактировать объект" />
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <Separator prefHeight="26.0" prefWidth="9.0" />
+                        <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onLaborModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Лабораторный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onCameralModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                    </items>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                    </padding>
+                </ToolBar>
+
+            </children>
+        </VBox>
+    </top>
+    <bottom>
+        <VBox prefWidth="1247.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="17.0" prefWidth="1247.0">
+                    <children>
+                        <Label prefHeight="23.0" prefWidth="57.0" text="Проект:" />
+                        <Label fx:id="projectNameInFooter" prefHeight="22.0" prefWidth="116.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="64.0" text="Шифр:" />
+                        <Label fx:id="projectCipherInFooter" prefHeight="22.0" prefWidth="107.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Образцы:" />
+                        <Label prefHeight="23.0" prefWidth="131.0" text="Исполнитель:" />
+                        <Label prefHeight="23.0" prefWidth="133.0" text="Заказчик:" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Отдел:" />
+                    </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <children>
+            <HBox prefHeight="30.0" spacing="10.0">
+            <children>
+                  <VBox prefHeight="200.0" spacing="5.0">
+                     <children>
+                        <Label text="Выбрать образец" />
+                        <HBox prefHeight="100.0" spacing="5.0">
+                           <children>
+                            <Button mnemonicParsing="false" onAction="#onPreviousSampleButtonClick" text="&lt;-" />
+                            <ChoiceBox fx:id="sampleChoiceBox" onAction="#onChoiceBoxClicked" />
+                            <Button mnemonicParsing="false" onAction="#onNextSampleButtonClick" text="-&gt;" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                <Separator orientation="VERTICAL" prefHeight="43.0" prefWidth="15.0" />
+                <HBox prefHeight="48.0" prefWidth="596.0" spacing="10.0">
+                    <children>
+                        <VBox alignment="CENTER" prefHeight="43.0">
+                            <children>
+                                <Label text="Добавить или изменить" />
+                                <HBox alignment="CENTER" prefHeight="100.0" spacing="20.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#onSetPotButtonClick" prefHeight="26.0" text="Тигель" />
+                                    <Button disable="true" mnemonicParsing="false" prefHeight="26.0" text="Цилиндр и пипетка" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="30.0" layoutY="10.0" prefHeight="48.0" prefWidth="154.0">
+                           <children>
+                              <Label disable="true" text="Для всех лаб. №" />
+                              <HBox alignment="CENTER" prefHeight="100.0" spacing="20.0">
+                                 <children>
+                                    <Button disable="true" mnemonicParsing="false" prefHeight="26.0" text="Копировать объем" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="43.0" prefWidth="26.0" />
+                        <VBox alignment="CENTER" prefHeight="43.0" prefWidth="154.0">
+                            <children>
+                                <CheckBox fx:id="sandCheckBox" mnemonicParsing="false" text="Тип грунта: пески" />
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </HBox>
+            </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <VBox prefHeight="200.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="100.0" spacing="20.0">
+                           <children>
+                              <Label prefWidth="150.0" text="Общая навеска" />
+                              <TextField fx:id="totalSubsample" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="150.0" text="Навеска сито-пипетки" />
+                              <TextField fx:id="sieveDropperSubsample" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Label disable="true" prefWidth="150.0" text="Объем цилиндра" />
+                              <TextField disable="true" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Label disable="true" prefWidth="150.0" text="Объем пипетки" />
+                              <TextField disable="true" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="100.0" spacing="20.0">
+                           <children>
+                              <Label prefWidth="150.0" text="Номер тигля" />
+                              <TextField fx:id="potNumber" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Label prefWidth="150.0" text="Вес тигля (авто)" />
+                              <TextField fx:id="potMass" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Label prefWidth="150.0" text="Вес тигля с осадком" />
+                              <TextField fx:id="potMassWithSediment" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="117.0" prefWidth="224.0">
+                     <children>
+                        <Separator prefHeight="22.0" prefWidth="312.0" />
+                        <Button mnemonicParsing="false" onAction="#onCalculateConstructionMeshButtonClick" text="Рассчитать строительную сетку" />
+                        <Separator prefHeight="22.0" prefWidth="312.0" />
+                        <Button mnemonicParsing="false" onAction="#onShowResultTableButtonClick" text="Показать результирующую таблицу" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <VBox prefHeight="200.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="100.0" spacing="10.0">
+                           <children>
+                              <Label text="Размер частиц мм" />
+                              <Label text="Вес частиц г" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="&gt; 70" />
+                              <TextField fx:id="mass_X_more_70" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="70 - 40" />
+                              <TextField fx:id="mass_X_70_40" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="40 - 20" />
+                              <TextField fx:id="mass_X_40_20" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="20 - 10" />
+                              <TextField fx:id="mass_X_20_10" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="10 - 5" />
+                              <TextField fx:id="mass_X_10_5" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="100.0" spacing="10.0">
+                           <children>
+                              <Label text="Размер частиц мм" />
+                              <Label text="Вес частиц г" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="5 - 2,5" />
+                              <TextField fx:id="mass_X_5_25" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="2,5 - 2,0" />
+                              <TextField fx:id="mass_X_25_2" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="2,0 - 1,25" />
+                              <TextField fx:id="mass_X_2_125" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="1,25 - 1,0" />
+                              <TextField fx:id="mass_X_125_1" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="1,0 - 0,63" />
+                              <TextField fx:id="mass_X_1_063" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="100.0" spacing="10.0">
+                           <children>
+                              <Label text="Размер частиц мм" />
+                              <Label text="Вес частиц г" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="0,63 - 0,5" />
+                              <TextField fx:id="mass_X_063_050" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="0,5 - 0,315" />
+                              <TextField fx:id="mass_X_050_0315" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="0,315 - 0,25" />
+                              <TextField fx:id="mass_X_0315_025" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="0,25 - 0,16" />
+                              <TextField fx:id="mass_X_025_016" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label prefWidth="100.0" text="0,16 - 0,1" />
+                              <TextField fx:id="mass_X_016_01" prefHeight="26.0" prefWidth="70.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <Label text="Реакция с HCl" />
+                        <ChoiceBox fx:id="hClChoiceBox" onAction="#onHClChoiceBoxClicked" prefWidth="150.0" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+        </VBox>
+    </center>
+</BorderPane>

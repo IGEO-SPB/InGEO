@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.spreadsheet.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.labor.compression.CompressionDeformationTableController">
+<top>
+    <VBox>
+        <fx:include source="../../shared/header.fxml" />
+        <GridPane hgap="10.0" vgap="5.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-font-weight: bold;" text="Компрессия" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+                <font>
+                    <Font size="24.0" />
+                </font></Label>
+            <Label style="-fx-font-weight: bold;" text="таблица: деформация" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <font>
+                    <Font size="18.0" />
+                </font></Label>
+
+            <Button onAction="#onInputFormButtonClicked" prefHeight="64.0" prefWidth="189.0" text="Вернуться к форме ввода данных компрессии" wrapText="true" GridPane.rowSpan="2">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+
+            <Label alignment="CENTER" contentDisplay="CENTER" text="таблицы данных" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.fillWidth="True" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+                <font>
+                    <Font size="18.0" />
+                </font></Label>
+            <Button disable="true" onAction="#onDeformationTableClicked" text="Деформация" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button onAction="#onPorosityTableClicked" text="Пористость" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+            <padding>
+                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+            </padding>
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </VBox>
+</top>
+<bottom>
+    <fx:include source="../../shared/footer.fxml" />
+</bottom>
+<center>
+    <SpreadsheetView fx:id="spreadsheet" editable="true" showColumnHeader="true" showRowHeader="true" />
+</center>
+</BorderPane>

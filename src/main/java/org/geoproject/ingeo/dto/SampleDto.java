@@ -1,0 +1,160 @@
+package com.geoproject.igeo.dto;
+
+import com.geoproject.igeo.enums.dtoenums.SampleDtoFieldsEnum;
+import com.geoproject.igeo.models.Areometry;
+import com.geoproject.igeo.models.BoychenkoCone;
+import com.geoproject.igeo.models.ConstructionMesh;
+import com.geoproject.igeo.models.Density;
+import com.geoproject.igeo.models.GranCompositionAreometry;
+import com.geoproject.igeo.models.GranCompositionConstructionMesh;
+import com.geoproject.igeo.models.OrganicMatter;
+import com.geoproject.igeo.models.PhysicalProperties;
+import com.geoproject.igeo.models.RingDensity;
+import com.geoproject.igeo.models.Shear;
+import com.geoproject.igeo.models.SurveyPoint;
+import com.geoproject.igeo.models.WaterContent;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Getter
+@Setter
+public class SampleDto {
+
+    private Long id;
+    private SurveyPoint surveyPoint;
+    private String laborNumber;
+    private Float depthMin;
+    private Float depthMax;
+    private LocalDate samplingDate;
+    private Float averageDensity;
+    private Float subterraneanWatersLevel;
+    private String structure;
+    private Boolean isSand;
+    private String particleDensity;
+    private String bulkDensity;
+    private Float drySoilDensity;
+    private Float drySoilDensityForSandMaximal;
+    private Float drySoilDensityForSandMinimal;
+    private Float voidRatio;
+    private Float naturalWaterContent;
+    private Float saturationRatio;
+    private Float fullWaterContent;
+    private Float averageLiquidLimit;
+    private Float averagePlasticLimit;
+    private Float plasticityIndex;
+    private Float liquidityIndex;
+    private Float boychenkoConeUndisturbedStrImmersionDepthAverage;
+    private Float boychenkoConeBrokenStrImmersionDepthAverage;
+    private Float maximalBulkDensity;
+    private Float maximalDrySoilDensity;
+    private Float optimalMoisture;
+    private Float coefficientPermeability;
+    private Float rodKf;
+    private Float reposeAngleWhenDry;
+    private Float reposeAngleUnderWater;
+    private Float organicContent;
+    private Float decompositionDegree;
+    private Float ashContent;
+    private Float turingHumus;
+    private Float soilSoftengingRatio;
+    private Float rockDecompositionIndex;
+    private String soilType;
+    private Float crushability;
+    private Float abrasionResistance;
+    private Float frostResistanceGradeOne;
+    private Float frostResistanceGradeTwo;
+    private Float soilSpecificElectricalResistance;
+    private Float cathodeCurrentDensity;
+    private String passportAttachment;
+    private Integer passportListNumber;
+    private String passListCFIKN;
+    private String passListCFIKD;
+    private String passAttachCFIKN;
+    private String passAttachCFIKD;
+    private String soilTypeForPassport;
+
+    private Boolean isArchive;
+
+    private Areometry areometry;
+    private GranCompositionAreometry granCompositionAreometry;
+    private BoychenkoCone boychenkoCone;
+    private ConstructionMesh constructionMesh;
+    private GranCompositionConstructionMesh granCompositionConstructionMesh;
+    private Density density;
+    private OrganicMatter organicMatter;
+    private PhysicalProperties physicalProperties;
+    private RingDensity ringDensity;
+    private WaterContent waterContent;
+    private List<Shear> shearList;
+
+    public void setFieldValue(SampleDtoFieldsEnum field, Object value) {
+        switch (field) {
+            case ID -> id = (Long) value;
+            case SURVEY_POINT -> surveyPoint = (SurveyPoint) value;
+            case LABOR_NUMBER -> laborNumber = (String) value;
+            case DEPTH_MIN -> depthMin = (Float) value;
+            case DEPTH_MAX -> depthMax = (Float) value;
+            case AVERAGE_DENSITY -> averageDensity = (Float) value;
+            case SUBTERRANEAN_WATERS_LEVEL -> subterraneanWatersLevel = (Float) value;
+            case STRUCTURE -> structure = (String) value;
+            case IS_SAND -> isSand = (Boolean) value;
+            case PARTICLE_DENSITY -> particleDensity = (String) value;
+            case BULK_DENSITY -> bulkDensity = (String) value;
+            case DRY_SOIL_DENSITY -> drySoilDensity = (Float) value;
+            case DRY_SOIL_DENSITY_FOR_SAND_MAXIMAL -> drySoilDensityForSandMaximal = (Float) value;
+            case DRY_SOIL_DENSITY_FOR_SAND_MINIMAL -> drySoilDensityForSandMinimal = (Float) value;
+            case VOID_RATIO -> voidRatio = (Float) value;
+            case NATURAL_WATER_CONTENT -> naturalWaterContent = (Float) value;
+            case SATURATION_RATIO -> saturationRatio = (Float) value;
+            case FULL_WATER_CONTENT -> fullWaterContent = (Float) value;
+            case AVERAGE_LIQUID_LIMIT -> averageLiquidLimit = (Float) value;
+            case AVERAGE_PLASTIC_LIMIT -> averagePlasticLimit = (Float) value;
+            case PLASTICITY_INDEX -> plasticityIndex = (Float) value;
+            case LIQUIDITY_INDEX -> liquidityIndex = (Float) value;
+            case BOYCHENKO_CONE_UNDISTURBED_STR_IMMERSION_DEPTH_AVERAGE -> boychenkoConeUndisturbedStrImmersionDepthAverage = (Float) value;
+            case BOYCHENKO_CONE_BROKEN_STR_IMMERSION_DEPTH_AVERAGE -> boychenkoConeBrokenStrImmersionDepthAverage = (Float) value;
+            case MAXIMAL_BULK_DENSITY -> maximalBulkDensity = (Float) value;
+            case MAXIMAL_DRY_SOIL_DENSITY -> maximalDrySoilDensity = (Float) value;
+            case OPTIMAL_MOISTURE -> optimalMoisture = (Float) value;
+            case COEFFICIENT_PERMEABILITY -> coefficientPermeability = (Float) value;
+            case ROD_KF -> rodKf = (Float) value;
+            case REPOSE_ANGLE_WHEN_DRY -> reposeAngleWhenDry = (Float) value;
+            case REPOSE_ANGLE_UNDER_WATER -> reposeAngleUnderWater = (Float) value;
+            case ORGANIC_CONTENT -> organicContent = (Float) value;
+            case DECOMPOSITION_DEGREE -> decompositionDegree = (Float) value;
+            case ASH_CONTENT -> ashContent = (Float) value;
+            case TURING_HUMUS -> turingHumus = (Float) value;
+            case SOIL_SOFTENING_RATIO -> soilSoftengingRatio = (Float) value;
+            case ROCK_DECOMPOSITION_INDEX -> rockDecompositionIndex = (Float) value;
+            case SOIL_TYPE -> soilType = (String) value;
+            case CRUSHABILITY -> crushability = (Float) value;
+            case ABRASION_RESISTANCE -> abrasionResistance = (Float) value;
+            case FROST_RESISTANCE_GRADE_ONE -> frostResistanceGradeOne = (Float) value;
+            case FROST_RESISTANCE_GRADE_TWO -> frostResistanceGradeTwo = (Float) value;
+            case SOIL_SPECIFIC_ELECTRICAL_RESISTANCE -> soilSpecificElectricalResistance = (Float) value;
+            case CATHODE_CURRENT_DENSITY -> cathodeCurrentDensity = (Float) value;
+            case PASSPORT_ATTACHMENT -> passportAttachment = (String) value;
+            case PASSPORT_LIST_NUMBER -> passportListNumber = (Integer) value;
+            case PASS_LIST_CFIKN -> passListCFIKN = (String) value;
+            case PASS_LIST_CFIKD -> passListCFIKD = (String) value;
+            case PASS_ATTACH_CFIKN -> passAttachCFIKN = (String) value;
+            case PASS_ATTACH_CFIKD -> passAttachCFIKD = (String) value;
+            case SOIL_TYPE_FOR_PASSPORT -> soilTypeForPassport = (String) value;
+            case IS_ARCHIVE -> isArchive = (Boolean) value;
+            case AREOMETRY -> areometry = (Areometry) value;
+            case GRAN_COMPOSITION_AREOMETRY -> granCompositionAreometry = (GranCompositionAreometry) value;
+            case BOYCHENKO_CONE -> boychenkoCone = (BoychenkoCone) value;
+            case CONSTRUCTION_MESH -> constructionMesh = (ConstructionMesh) value;
+            case GRAN_COMPOSITION_CONSTRUCTION_MESH -> granCompositionConstructionMesh = (GranCompositionConstructionMesh) value;
+            case DENSITY -> density = (Density) value;
+            case ORGANIC_MATTER -> organicMatter = (OrganicMatter) value;
+            case PHYSICAL_PROPERTIES -> physicalProperties = (PhysicalProperties) value;
+            case RING_DENSITY -> ringDensity = (RingDensity) value;
+            case WATER_CONTENT -> waterContent = (WaterContent) value;
+            default -> throw new IllegalArgumentException("Invalid field: " + field);
+        }
+    }
+}

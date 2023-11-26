@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="1206.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.labor.areometry.GranCompositionLaborMethodResultTableController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+
+                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор объекта" />
+                        <Separator prefHeight="26.0" prefWidth="28.0" />
+                        <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onLaborModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Лабораторный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onCameralModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                    </items>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                    </padding>
+                </ToolBar>
+
+            </children>
+        </VBox>
+    </top>
+    <bottom>
+        <VBox prefWidth="1247.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="17.0" prefWidth="1247.0">
+                    <children>
+                        <Label prefHeight="23.0" prefWidth="57.0" text="Проект:" />
+                        <Label fx:id="projectNameInFooter" prefHeight="22.0" prefWidth="116.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="64.0" text="Шифр:" />
+                        <Label fx:id="projectCipherInFooter" prefHeight="22.0" prefWidth="107.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Образцы:" />
+                        <Label prefHeight="23.0" prefWidth="131.0" text="Исполнитель:" />
+                        <Label prefHeight="23.0" prefWidth="133.0" text="Заказчик:" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Отдел:" />
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="1248.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <children>
+                <Separator prefWidth="200.0" />
+            <Button mnemonicParsing="false" onAction="#onSaveChangesButtonClicked" text="Сохранить введенные изменения (данные в базе данных будут заменены)" />
+            <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="laborNumber" editable="false" prefWidth="46.39999234676361" text="Лаб. №" />
+                <TableColumn fx:id="surveyPointNumber" editable="false" prefWidth="31.999969482421875" text="№ выработки" />
+                  <TableColumn fx:id="depth" editable="false" prefWidth="223.20001983642578" text="Глубина отбора">
+                     <columns>
+                        <TableColumn fx:id="depthMin" editable="false" prefWidth="44.000038146972656" text="Min" />
+                        <TableColumn fx:id="depthMax" editable="false" prefWidth="32.000038146972656" text="Max" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="percentage" editable="false" prefWidth="191.199951171875" text="Зерновой состав в % при размере частиц в мм">
+                     <columns>
+                        <TableColumn fx:id="included_more_2" prefWidth="41.5999755859375" text="Вкл &gt; 2 мм" />
+                        <TableColumn editable="false" minWidth="0.0" prefWidth="52.80006408691406" text="Галька">
+                           <columns>
+                              <TableColumn fx:id="X_more_10" prefWidth="75.0" text="&gt; 10 мм" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="90.39999389648438" text="Гравий">
+                           <columns>
+                              <TableColumn fx:id="X_10_5_old_10_2" prefWidth="56.000030517578125" text="10 - 5" />
+                              <TableColumn fx:id="X_5_2" prefWidth="59.20001220703125" text="5 - 2" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="311.199951171875" text="Песок">
+                           <columns>
+                              <TableColumn fx:id="X_2_1" prefWidth="52.799957275390625" text="2 - 1" />
+                              <TableColumn fx:id="X_1_05" prefWidth="47.999908447265625" text="1 - 0,5" />
+                              <TableColumn fx:id="X_05_025" prefWidth="72.79998779296875" text="0,5 - 0,25" />
+                              <TableColumn fx:id="X_025_01" prefWidth="63.99993896484375" text="0,25 - 0,1" />
+                              <TableColumn fx:id="X_01_005" prefWidth="46.4000244140625" text="0,1 - 0,05" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="75.0" text="Пыль">
+                           <columns>
+                              <TableColumn fx:id="X_005_001" prefWidth="75.0" text="0,05 - 0,01" />
+                              <TableColumn fx:id="X_001_0002_old_001_0005" prefWidth="75.0" text="0,01 - 0,002" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="75.0" text="Глина">
+                           <columns>
+                              <TableColumn fx:id="X_less_0002" prefWidth="75.0" text="&lt; 0,002" />
+                           </columns>
+                        </TableColumn>
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="sum" editable="false" prefWidth="75.0" text="Сумма фракций, %">
+                     <columns>
+                        <TableColumn editable="false" prefWidth="75.0" text="Песок">
+                           <columns>
+                              <TableColumn fx:id="sum_2_005" prefWidth="75.0" text="2 - 0,05" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="75.0" text="Пыль">
+                           <columns>
+                              <TableColumn fx:id="sum_005_0002_old_005_0005" prefWidth="75.0" text="0,05 - 0,002" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="75.0" text="Глина">
+                           <columns>
+                              <TableColumn fx:id="sum_less_0002_old_less_0005" prefWidth="75.0" text="&lt; 0,002" />
+                           </columns>
+                        </TableColumn>
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="soilKind" editable="false" prefWidth="75.0" text="Разновидность грунта" />
+                  <TableColumn fx:id="uniformityCoefficient" prefWidth="75.0" text="К-т неод-сти" />
+                  <TableColumn fx:id="uniformityDegree" editable="false" prefWidth="75.0" text="Ст. неод-ности" />
+                  <TableColumn fx:id="dispersityIndex" prefWidth="75.0" text="Показ. дисперсн." />
+                  <TableColumn fx:id="heavingDegree" editable="false" prefWidth="75.0" text="Пучинистость" />
+                  <TableColumn fx:id="isSand" editable="false" prefWidth="75.0" text="Песок" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </center>
+</BorderPane>

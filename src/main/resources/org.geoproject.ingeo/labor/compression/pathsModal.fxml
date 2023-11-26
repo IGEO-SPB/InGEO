@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.labor.compression.CompressionPathsModalController">
+    <top>
+        <Text strokeWidth="2.0" text="Ввод путей файлов компрессии" textAlignment="CENTER" BorderPane.alignment="TOP_CENTER">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
+    </top>
+    <center>
+        <GridPane alignment="TOP_CENTER" hgap="10.0" vgap="5.0" BorderPane.alignment="TOP_LEFT">
+            <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="путь 203k" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+            <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="путь 208k" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+            <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="путь 213k" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+            <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="путь log файлов" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+            <TextField fx:id="path203k" alignment="TOP_RIGHT" prefWidth="59.0" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <TextField fx:id="path208k" alignment="TOP_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="path213k" alignment="TOP_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="pathLog" alignment="TOP_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+         <BorderPane.margin>
+            <Insets top="40.0" />
+         </BorderPane.margin>
+        </GridPane>
+    </center>
+    <bottom>
+        <Button onAction="#onSaveClicked" text="Сохранить" BorderPane.alignment="TOP_CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+    </bottom>
+
+
+</BorderPane>

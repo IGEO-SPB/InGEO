@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.cameral.EgeListViewController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+
+                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор проекта" />
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onLaborModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Лабораторный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                    </items>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                    </padding>
+                </ToolBar>
+
+            </children>
+        </VBox>
+    </top>
+    <bottom>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <HBox>
+                    <children>
+                        <Label prefHeight="23.0" prefWidth="57.0" text="Проект:" />
+                        <Label fx:id="projectNameInFooter" prefHeight="22.0" prefWidth="116.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="64.0" text="Шифр:" />
+                        <Label fx:id="projectCipherInFooter" prefHeight="22.0" prefWidth="107.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Образцы:" />
+                        <Label prefHeight="23.0" prefWidth="131.0" text="Исполнитель:" />
+                        <Label prefHeight="23.0" prefWidth="133.0" text="Заказчик:" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Отдел:" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+            <VBox prefHeight="235.0" prefWidth="922.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="922.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="923.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="55.0" prefWidth="923.0" spacing="20.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#onCameralModuleMainViewButtonClicked" prefHeight="42.0" prefWidth="192.0" text="Главная" />
+                                    <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                                    <Button layoutX="10.0" layoutY="12.0" mnemonicParsing="false" onAction="#onPumpButtonClicked" prefHeight="42.0" prefWidth="184.0" text="Колонка" />
+                                    <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                                    <Button mnemonicParsing="false" onAction="#onStatisticalProcesssingButtonClicked" prefHeight="42.0" prefWidth="214.0" text="Статистическая обработка" />
+                                    <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+                      <HBox prefHeight="44.0" prefWidth="902.0" spacing="30.0">
+                          <children>
+                              <Button mnemonicParsing="false" onAction="#onEgeListButtonClicked" text="Список ИГЭ (лок.список грунт.)" />
+                              <Button mnemonicParsing="false" onAction="#onBoreholeLayerButtonClicked" text="Послойное описание (лит.+конс.)" />
+                        <Button layoutX="228.0" layoutY="10.0" mnemonicParsing="false" text="Гидрогеология" />
+                        <Button layoutX="460.0" layoutY="10.0" mnemonicParsing="false" text="Консистенция" />
+                        <Button layoutX="692.0" layoutY="10.0" mnemonicParsing="false" text="Опробование" />
+                          </children>
+                          <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                          </VBox.margin>
+                      </HBox>
+                  <Separator prefWidth="200.0" />
+                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                          <children>
+                                <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="111.0" text="Взять список&#10;из другого &#10;объекта" />
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox alignment="CENTER" prefHeight="91.0" prefWidth="432.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#onSoilKindChoiceViewButtonClicked" text="Заполнение классификатора КГА" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                              <VBox prefHeight="91.0" prefWidth="272.0" spacing="5.0">
+                                  <children>
+                                      <Button mnemonicParsing="false" text="Запись как по классификатору&#10;для локальный список грн." />
+                                      <Button mnemonicParsing="false" text="Запись как по классификатору&#10;для описания для камеральной задачи" />
+                                  </children>
+                              </VBox>
+                          </children>
+                      </HBox>
+                  <Separator prefWidth="200.0" />
+                      <HBox prefHeight="39.0" prefWidth="922.0" spacing="5.0">
+                          <children>
+                              <Button fx:id="saveAllEges" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" prefHeight="26.0" prefWidth="122.0" text="Сохранить" />
+                              <Button fx:id="saveAllEges1" mnemonicParsing="false" onAction="#onAddNewRowButtonClicked" prefHeight="26.0" prefWidth="127.0" text="Добавить строку" />
+                              <Button fx:id="saveAllEges11" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="26.0" prefWidth="136.0" text="Удалить строку" />
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="226.0" text="Дублировать выделенную строку" />
+                          </children>
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                      </HBox>
+               </children>
+            </VBox>
+                <TableView fx:id="tableView" prefHeight="367.0" prefWidth="922.0">
+                    <columns>
+                        <TableColumn fx:id="codeNumber" prefWidth="48.80001753568649" text="№ п/п" />
+                        <TableColumn fx:id="number" prefWidth="48.80001753568649" text="№ ИГЭ" />
+                        <TableColumn fx:id="shortName" prefWidth="72.79994583129883" text="Вид грунта (коротко)" />
+                        <TableColumn fx:id="genesis" prefWidth="50.39996337890625" text="Генезис" />
+                        <TableColumn fx:id="soilKindEnum" prefWidth="100.0" text="Вид грунта (быстро)" />
+                        <TableColumn fx:id="descriptionCredoFormular" minWidth="0.0" prefWidth="86.39996337890625" text="Локальный список гр. - для чертежа, CREDO и ФОД" />
+                        <TableColumn fx:id="descriptionKga" prefWidth="101.60003662109375" text="Описание грунтов по классификатору КГА" />
+                        <TableColumn fx:id="descriptionForCameralTask" prefWidth="122.4000244140625" text="Описание для камеральной задачи ЛенТИСИЗ">
+                            <columns>
+                                <TableColumn fx:id="genesisDescription" prefWidth="108.79998779296875" text="Описание генезиса" />
+                                <TableColumn fx:id="descriptionForOrganisation" prefWidth="108.79998779296875" text="Описание грунтов" />
+                            </columns>
+                        </TableColumn>
+                        <TableColumn fx:id="hatchingNameCredoAutocad" minWidth="0.0" prefWidth="94.39996337890625" text="Штриховка" />
+                        <TableColumn fx:id="consistency" minWidth="9.60003662109375" prefWidth="51.99993896484375" text="Консистенция" />
+                        <TableColumn fx:id="color" prefWidth="70.4000244140625" text="Цвет" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1148.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.labor.shear.ShearWaterContentCutRingMethodController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+
+                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор объекта" />
+                        <Separator prefHeight="26.0" prefWidth="28.0" />
+                        <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onLaborModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Лабораторный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                        <Region prefHeight="26.0" prefWidth="6.0" />
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onCameralModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                        </SplitMenuButton>
+                    </items>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                    </padding>
+                </ToolBar>
+
+            </children>
+        </VBox>
+    </top>
+    <bottom>
+        <VBox prefWidth="1247.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="17.0" prefWidth="1247.0">
+                    <children>
+                        <Label prefHeight="23.0" prefWidth="57.0" text="Проект:" />
+                        <Label fx:id="projectNameInFooter" prefHeight="22.0" prefWidth="116.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="64.0" text="Шифр:" />
+                        <Label fx:id="projectCipherInFooter" prefHeight="22.0" prefWidth="107.0" text="Проект не выбран" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Образцы:" />
+                        <Label prefHeight="23.0" prefWidth="131.0" text="Исполнитель:" />
+                        <Label prefHeight="23.0" prefWidth="133.0" text="Заказчик:" />
+                        <Label prefHeight="23.0" prefWidth="91.0" text="Отдел:" />
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
+    <center>
+        <VBox prefHeight="704.0" prefWidth="1148.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <children>
+            <HBox alignment="CENTER" prefHeight="20.0" prefWidth="923.0" spacing="20.0">
+               <children>
+                  <Button minHeight="50.0" mnemonicParsing="false" onAction="#onEnterShearDataButtonClicked" prefHeight="60.0" prefWidth="192.0" text="Ввод данных" />
+                  <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                  <Button layoutX="10.0" layoutY="12.0" minHeight="50.0" mnemonicParsing="false" onAction="#onShearDensityAndWaterContentButtonClicked" prefHeight="60.0" prefWidth="184.0" text="Сдвиг - &#10;влажность, режущее кольцо" />
+                  <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                  <Button minHeight="50.0" mnemonicParsing="false" onAction="#onShearResultTableButtonClicked" prefHeight="60.0" prefWidth="214.0" text="Результат" />
+                  <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                  <Button disable="true" layoutX="229.0" layoutY="12.0" minHeight="50.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="150.0" text="Результирующая&#10;таблица хим.состава" />
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="TOP_CENTER" prefHeight="626.0" prefWidth="1127.0" spacing="10.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="618.0" prefWidth="538.0" spacing="30.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="50.0" prefWidth="245.0" spacing="5.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="28.0" prefWidth="122.0" spacing="30.0">
+                                 <children>
+                                          <VBox prefHeight="48.0" prefWidth="156.0" spacing="5.0">
+                                              <children>
+                                                  <Label text="Выбрать образец" />
+                                                  <HBox prefHeight="100.0" spacing="5.0">
+                                                      <children>
+                                                          <Button mnemonicParsing="false" onAction="#onPreviousSampleButtonClick" text="&lt;-" />
+                                                          <ChoiceBox fx:id="sampleChoiceBox" onAction="#onChoiceBoxClicked" />
+                                                          <Button mnemonicParsing="false" onAction="#onNextSampleButtonClick" text="-&gt;" />
+                                                      </children>
+                                                  </HBox>
+                                              </children>
+                                          </VBox>
+                                    <VBox alignment="CENTER" prefHeight="48.0" prefWidth="213.0">
+                                       <children>
+                                          <Label prefHeight="19.0" prefWidth="218.0" text="Номер точки сдвиговых испытаний" />
+                                          <HBox alignment="CENTER" prefHeight="28.0" prefWidth="142.0" spacing="5.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#onPreviousShearPointButtonClick" text="&lt;-" />
+                                                <ChoiceBox fx:id="shearPointChoiceBox" onAction="#onShearPointChoiceBoxClicked" />
+                                                <Button mnemonicParsing="false" onAction="#onNextShearPointButtonClick" text="-&gt;" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <HBox prefHeight="48.0" prefWidth="125.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#onCalculateShearButtonClicked" text="Рассчитать" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox prefHeight="278.0" prefWidth="639.0" spacing="20.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="278.0" prefWidth="370.0" spacing="10.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="62.0" text="Влажность" />
+                                    <GridPane hgap="3.0" prefHeight="230.0" prefWidth="207.0" vgap="3.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label alignment="CENTER" prefHeight="32.0" prefWidth="65.0" text="До &#10;опыта" textAlignment="CENTER" GridPane.columnIndex="1" />
+                                          <Label alignment="CENTER" prefHeight="32.0" prefWidth="64.0" text="После &#10;опыта" textAlignment="CENTER" GridPane.columnIndex="2" />
+                                          <Label text="Плотность грунта" GridPane.rowIndex="6" />
+                                          <Label text="Влажность грунта" GridPane.rowIndex="5" />
+                                          <Label text="Вес с сух. грунтом" GridPane.rowIndex="4" />
+                                          <Label text="Вес с вл. грунтом" GridPane.rowIndex="3" />
+                                          <Label text="Вес пуст. б. (авто)" GridPane.rowIndex="2" />
+                                          <Label text="Номер бюкса" GridPane.rowIndex="1" />
+                                          <Label text="Плотн. ск. грунта" GridPane.rowIndex="7" />
+                                          <TextField fx:id="shearNaturalWaterContentWeighingBottleNumberFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="shearNaturalWaterContentEmptyWeighingBottleMassFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="shearNaturalWaterContentWeighingBottleWithWetSoilMassFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="shearNaturalWaterContentWeighingBottleWithDrySoilMassFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="shearNaturalWaterContentWeighingBottleFirstMeasurement" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                          <TextField fx:id="shearRingDensityFirstMeasurement" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                          <TextField fx:id="shearRingDrySoilDensityFirstMeasurement" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                          <TextField fx:id="shearNaturalWaterContentWeighingBottleNumberSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <TextField fx:id="shearNaturalWaterContentEmptyWeighingBottleMassSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField fx:id="shearNaturalWaterContentWeighingBottleWithWetSoilMassSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <TextField fx:id="shearNaturalWaterContentWeighingBottleWithDrySoilMassSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                          <TextField fx:id="shearNaturalWaterContentWeighingBottleSecondMeasurement" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                          <TextField fx:id="shearRingDensitySecondMeasurement" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                          <TextField fx:id="shearRingDrySoilDensitySecondMeasurement" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="TOP_CENTER" prefHeight="278.0" prefWidth="310.0" spacing="10.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="62.0" text="Плотность" />
+                                    <GridPane prefHeight="145.0" prefWidth="214.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Объем к. (авто)" GridPane.rowIndex="4" />
+                                          <Label text="Вес с вл. грунтом" GridPane.rowIndex="3" />
+                                          <Label text="Вес пуст. к. (авто)" GridPane.rowIndex="2" />
+                                          <Label text="Номер кольца" GridPane.rowIndex="1" />
+                                          <TextField fx:id="shearRingNumberFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="shearEmptyRingMassFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="shearRingWithWetSoilMassFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="shearRingVolumeFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="shearRingNumberSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <TextField fx:id="shearEmptyRingMassSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField fx:id="shearRingWithWetSoilMassSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <TextField fx:id="shearRingVolumeSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                          <Label alignment="CENTER" prefHeight="32.0" prefWidth="65.0" text="До &#10;опыта" textAlignment="CENTER" GridPane.columnIndex="1" />
+                                          <Label alignment="CENTER" prefHeight="32.0" prefWidth="65.0" text="После &#10;опыта" textAlignment="CENTER" GridPane.columnIndex="2" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <HBox alignment="TOP_CENTER" prefHeight="129.0" prefWidth="446.0">
+                           <children>
+                              <GridPane prefHeight="133.0" prefWidth="248.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.80003051757814" minWidth="10.0" prefWidth="175.2000244140625" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="137.4000030517578" minWidth="10.0" prefWidth="99.99997558593753" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TextField fx:id="naturalShearAverageWaterContentFirstMeasurement" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <effect>
+                                          <SepiaTone />
+                                       </effect></TextField>
+                                    <Label prefHeight="18.0" prefWidth="167.0" text="Средние значения по лаб.№" />
+                                    <Label prefHeight="18.0" prefWidth="130.0" text="Влажность грунта" GridPane.rowIndex="1" />
+                                    <TextField fx:id="shearRingDensityAverageFirstMeasurement" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <effect>
+                                          <SepiaTone />
+                                       </effect></TextField>
+                                    <Label prefHeight="18.0" prefWidth="116.0" text="Плотность грунта" GridPane.rowIndex="2" />
+                                    <Label prefHeight="18.0" prefWidth="62.0" text="До опыта" GridPane.columnIndex="1" />
+                                    <Label prefHeight="18.0" prefWidth="134.0" text="Плотн.скелета грунта" GridPane.rowIndex="3" />
+                                    <TextField fx:id="shearRingDrySoilDensityAverageFirstMeasurement" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <effect>
+                                          <SepiaTone />
+                                       </effect></TextField>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <VBox alignment="TOP_CENTER" prefHeight="619.0" prefWidth="558.0" spacing="5.0">
+                     <children>
+                        <HBox prefHeight="324.0" prefWidth="428.0" spacing="50.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="324.0" prefWidth="330.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#onRestoreDataFromPhysicalPropertiesButtonClick" prefHeight="88.0" prefWidth="210.0" text="Восстановить влажность &#10;и плотность в физ. св-вах&#10;по исходным (введенным ниже)&#10;" />
+                                    <VBox alignment="TOP_CENTER" prefHeight="149.0" prefWidth="215.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="156.0" text="Определение влажности" />
+                                          <GridPane prefHeight="135.0" prefWidth="214.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label text="Вес с с. грунтом" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <Label text="Вес с вл. грунтом" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label text="Вес пуст. бюкса" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label text="Номер бюкса" GridPane.columnIndex="1" />
+                                                <TextField fx:id="naturalWaterContentWeighingBottleNumberFirstMeasurement" GridPane.columnIndex="2" />
+                                                <TextField fx:id="naturalWaterContentEmptyWeighingBottleMassFirstMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <TextField fx:id="naturalWaterContentWeighingBottleWithWetSoilMassFirstMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <TextField fx:id="naturalWaterContentWeighingBottleWithDrySoilMassFirstMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                                <TextField fx:id="naturalWaterContentWeighingBottleNumberSecondMeasurement" GridPane.columnIndex="3" />
+                                                <TextField fx:id="naturalWaterContentEmptyWeighingBottleMassSecondMeasurement" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                <TextField fx:id="naturalWaterContentWeighingBottleWithWetSoilMassSecondMeasurement" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                                <TextField fx:id="naturalWaterContentWeighingBottleWithDrySoilMassSecondMeasurement" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="148.0" prefWidth="215.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="145.0" text="Определение плотности" />
+                                          <GridPane prefHeight="135.0" prefWidth="214.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label text="Объем кольца" GridPane.rowIndex="3" />
+                                                <Label text="Вес с вл. грунтом" GridPane.rowIndex="2" />
+                                                <Label text="Вес пуст.кольца" GridPane.rowIndex="1" />
+                                                <Label text="Номер кольца" />
+                                                <TextField fx:id="ringNumberFirstMeasurement" GridPane.columnIndex="1" />
+                                                <TextField fx:id="ringEmptyMassFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <TextField fx:id="ringWithWetSoilMassFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <TextField fx:id="ringVolumeFirstMeasurement" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <TextField fx:id="ringNumberSecondMeasurement" GridPane.columnIndex="2" />
+                                                <TextField fx:id="ringEmptyMassSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <TextField fx:id="ringWithWetSoilMassSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <TextField fx:id="ringVolumeSecondMeasurement" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="324.0" prefWidth="238.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" prefHeight="310.0" prefWidth="238.0" spacing="20.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="226.0" text="Глубина погружения конуса Бойченко" />
+                                          <GridPane hgap="3.0" prefHeight="177.0" prefWidth="211.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label text="3" GridPane.rowIndex="3" />
+                                                <Label text="2" GridPane.rowIndex="2" />
+                                                <Label text="1" GridPane.rowIndex="1" />
+                                                <TextField fx:id="undisturbedStrImmersionDepthFirstMeasur" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <TextField fx:id="undisturbedStrImmersionDepthAverage" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                   <effect>
+                                                      <SepiaTone />
+                                                   </effect></TextField>
+                                                <TextField fx:id="brokenStrImmersionDepthThirdMeasur" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                                <TextField fx:id="undisturbedStrImmersionDepthThirdMeasur" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <TextField fx:id="brokenStrImmersionDepthSecondMeasur" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <TextField fx:id="brokenStrImmersionDepthFirstMeasur" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <TextField fx:id="undisturbedStrImmersionDepthSecondMeasur" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <TextField fx:id="brokenStrImmersionDepthAverage" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                                   <effect>
+                                                      <SepiaTone />
+                                                   </effect></TextField>
+                                                <Label alignment="CENTER" prefHeight="32.0" prefWidth="65.0" text="Ненаруш.&#10;стр-ра" textAlignment="CENTER" GridPane.columnIndex="1" />
+                                                <Label alignment="CENTER" prefHeight="32.0" prefWidth="65.0" text="Наруш.&#10;стр-ра" textAlignment="CENTER" GridPane.columnIndex="2" />
+                                                <Label alignment="CENTER" prefHeight="18.0" prefWidth="72.0" text="Среднее" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <Label alignment="CENTER" prefHeight="18.0" prefWidth="72.0" text="Среднее" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <HBox prefHeight="72.0" prefWidth="428.0" spacing="70.0">
+                           <children>
+                              <VBox prefHeight="72.0" prefWidth="170.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="131.0" text="Влажность на границе" />
+                                    <GridPane prefHeight="57.0" prefWidth="181.0" vgap="5.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="72.4000244140625" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <TextField fx:id="averageLiquidLimit" editable="false" GridPane.columnIndex="1" />
+                                          <TextField fx:id="averagePlasticLimit" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label prefHeight="18.0" prefWidth="62.0" text="Текучести" />
+                                          <Label prefHeight="18.0" prefWidth="62.0" text="Раскатки" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="238.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="131.0" />
+                                    <GridPane prefHeight="54.0" prefWidth="238.0" vgap="5.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints maxWidth="151.9999755859375" minWidth="67.200048828125" prefWidth="151.9999755859375" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.199951171875" minWidth="10.0" prefWidth="75.20002441406248" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label prefHeight="31.0" prefWidth="122.0" text="Число пластичности" />
+                                          <TextField fx:id="plasticityIndex" editable="false" prefHeight="26.0" prefWidth="96.0" GridPane.columnIndex="1">
+                                             <effect>
+                                                <ColorAdjust brightness="0.26" contrast="-0.09" hue="-1.0" saturation="1.0" />
+                                             </effect></TextField>
+                                          <Label prefHeight="18.0" prefWidth="150.0" text="Плотность частиц грунта" GridPane.rowIndex="1" />
+                                          <TextField fx:id="averageDensity" editable="false" prefHeight="26.0" prefWidth="63.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <VBox prefHeight="162.0" prefWidth="558.0" spacing="10.0">
+                           <children>
+                              <HBox prefHeight="161.0" prefWidth="558.0" spacing="20.0">
+                                 <children>
+                                    <GridPane prefHeight="97.0" prefWidth="193.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.4000244140625" minWidth="10.0" prefWidth="114.4000244140625" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.5999755859375" minWidth="10.0" prefWidth="67.1999755859375" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="33.60001220703125" minHeight="10.0" prefHeight="29.60001220703125" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="39.99998168945312" minHeight="10.0" prefHeight="29.599987792968747" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="66.40000457763674" minHeight="10.0" prefHeight="66.40000457763674" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <TextField fx:id="additionalAverageWaterContentField" editable="false" prefHeight="26.0" prefWidth="61.0" GridPane.columnIndex="1">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                          <TextField fx:id="additionalRingDensityAverageField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                          <TextField fx:id="additionalRingDrySoilDensityField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                             <effect>
+                                                <SepiaTone />
+                                             </effect></TextField>
+                                          <Label prefHeight="18.0" prefWidth="83.0" text="Влажн. грунта" />
+                                          <Label prefHeight="18.0" prefWidth="87.0" text="Плотн. грунта" GridPane.rowIndex="1" />
+                                          <Label prefHeight="18.0" prefWidth="86.0" text="Пл. скелета гр." GridPane.rowIndex="2" />
+                                          <Label prefHeight="58.0" prefWidth="75.0" text="Средние &#10;по сдвиг. &#10;испыт." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                       </children>
+                                    </GridPane>
+                                    <Button mnemonicParsing="false" onAction="#onSetPhysicalPropertiesFromShearButtonClick" prefHeight="119.0" prefWidth="94.0" text="Запись &#10;физ.св-в &#10;по &#10;сдвиговым &#10;испытаниям&#10;=&gt;" />
+                                    <GridPane layoutX="10.0" layoutY="10.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="70.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="32.60001220703125" minHeight="10.0" prefHeight="29.4" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="35.60001220703124" minHeight="10.0" prefHeight="29.39999999999999" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="66.79995574951172" minHeight="10.0" prefHeight="66.79995574951172" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <TextField fx:id="naturalAverageWaterContent" editable="false">
+                                             <effect>
+                                                <Lighting>
+                                                   <bumpInput>
+                                                      <Shadow />
+                                                   </bumpInput>
+                                                   <light>
+                                                      <Light.Distant />
+                                                   </light>
+                                                </Lighting>
+                                             </effect></TextField>
+                                          <TextField fx:id="ringDensityAverage" editable="false" GridPane.rowIndex="1">
+                                             <effect>
+                                                <Lighting>
+                                                   <bumpInput>
+                                                      <Shadow />
+                                                   </bumpInput>
+                                                   <light>
+                                                      <Light.Distant />
+                                                   </light>
+                                                </Lighting>
+                                             </effect></TextField>
+                                          <TextField fx:id="ringDrySoilDensity" editable="false" GridPane.rowIndex="2">
+                                             <effect>
+                                                <Lighting>
+                                                   <bumpInput>
+                                                      <Shadow />
+                                                   </bumpInput>
+                                                   <light>
+                                                      <Light.Distant />
+                                                   </light>
+                                                </Lighting>
+                                             </effect></TextField>
+                                          <Label prefHeight="54.0" prefWidth="62.0" text="По опр.&#10;физ.&#10;свойств" GridPane.rowIndex="3" />
+                                       </children>
+                                    </GridPane>
+                                    <VBox prefHeight="162.0" prefWidth="197.0">
+                                       <children>
+                                          <GridPane prefHeight="122.0" prefWidth="183.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.199951171875" minWidth="10.0" prefWidth="72.5999755859375" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.4000244140625" minWidth="10.0" prefWidth="70.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="48.8000244140625" minHeight="10.0" prefHeight="33.59998779296875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="28.000012207031247" minHeight="10.0" prefHeight="28.000012207031247" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="liquidityIndex" editable="false" GridPane.columnIndex="1">
+                                                   <effect>
+                                                      <ColorAdjust brightness="0.38" hue="-1.0" saturation="1.0" />
+                                                   </effect>
+                                                </TextField>
+                                                <TextField fx:id="voidRatio" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <effect>
+                                                      <ColorAdjust brightness="0.33" hue="-1.0" saturation="1.0" />
+                                                   </effect>
+                                                </TextField>
+                                                <Label prefHeight="38.0" prefWidth="80.0" text="Показатель&#10;текучести" />
+                                                <Label prefHeight="18.0" prefWidth="77.0" text="К-т порист." GridPane.rowIndex="1" />
+                                                <TextField fx:id="fullWaterContent" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <effect>
+                                                      <ColorAdjust brightness="0.33" hue="-1.0" saturation="1.0" />
+                                                   </effect>
+                                                </TextField>
+                                                <TextField fx:id="saturationRatio" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <effect>
+                                                      <ColorAdjust brightness="0.33" hue="-1.0" saturation="1.0" />
+                                                   </effect>
+                                                </TextField>
+                                                <Label prefHeight="18.0" prefWidth="89.0" text="Полная вл-емк" GridPane.rowIndex="2" />
+                                                <Label prefHeight="18.0" prefWidth="80.0" text="К-т водонас." GridPane.rowIndex="3" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.labor.compression.CompressionInputController">
+    <top>
+        <VBox>
+            <fx:include source="../../shared/header.fxml" />
+            <GridPane hgap="10.0" vgap="5.0">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="198.0" style="-fx-font-weight: bold;" text="Компрессия" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+                <Label style="-fx-font-weight: bold;" text="ввод данных" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+
+                <Label alignment="CENTER" contentDisplay="CENTER" text="таблицы данных" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.fillWidth="True" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+                <Button onAction="#onDeformationTableClicked" text="Деформация" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button onAction="#onPorosityTableClicked" text="Пористость" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+                <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                    <Label alignment="BOTTOM_LEFT" text="Выбрать образец" textAlignment="CENTER" />
+                    <Button mnemonicParsing="false" onAction="#onPreviousSampleButtonClick" text="&lt;-" />
+                    <ChoiceBox fx:id="sampleChoiceBox" onAction="#onSampleChosen" prefHeight="25.0" prefWidth="104.0" />
+                    <Button mnemonicParsing="false" onAction="#onNextSampleButtonClick" text="-&gt;" />
+                </HBox>
+                <HBox alignment="BASELINE_LEFT" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <Label text="Нач. Коэфф. пористости" />
+                    <TextField fx:id="porosityCoef" prefHeight="25.0" prefWidth="142.0" />
+                </HBox>
+
+
+                <Label GridPane.columnIndex="4" GridPane.rowIndex="0">Номер кольца</Label>
+                <Label GridPane.columnIndex="4" GridPane.rowIndex="1">Высота кольца</Label>
+                <TextField fx:id="ringHeightTextField" prefHeight="25.0" prefWidth="73.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                <ChoiceBox fx:id="ringNumberChoiceBox" onAction="#ringNumberChoiceBoxSelected" prefHeight="25.0" prefWidth="75.0" GridPane.columnIndex="5" />
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+               <ColumnConstraints />
+               <ColumnConstraints />
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            <padding>
+               <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+            </padding>
+            </GridPane>
+<!--            <Button onAction="#onCalculateClicked">Расчет отн. деф. и пористости</Button>-->
+        </VBox>
+    </top>
+    <bottom>
+        <fx:include source="../../shared/footer.fxml" />
+    </bottom>
+   <center>
+             <GridPane alignment="CENTER" hgap="20.0" vgap="20.0" BorderPane.alignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+
+                 <GridPane alignment="TOP_RIGHT" hgap="4.0" prefHeight="436.0" prefWidth="666.0" vgap="4.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                     <Label text="Давление [МПа]" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+                         <font>
+                             <Font size="14.0" />
+                         </font>
+                         <opaqueInsets>
+                             <Insets right="10.0" />
+                         </opaqueInsets>
+               </Label>
+                     <Label prefHeight="20.0" prefWidth="90.0" text="Нагрузка" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+                         <font>
+                             <Font size="14.0" />
+                         </font>
+               </Label>
+                     <Label text="Разгрузка" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+                         <font>
+                             <Font size="14.0" />
+                         </font>
+                         <opaqueInsets>
+                             <Insets />
+                         </opaqueInsets>
+               </Label>
+
+                     <Label alignment="TOP_CENTER" text="0.0000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                     <TextField fx:id="pressureInput00000" alignment="TOP_RIGHT" prefWidth="59.0" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     <TextField fx:id="pressureInput00125" alignment="TOP_RIGHT" text="2.1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     <TextField fx:id="pressureInput00250" alignment="TOP_RIGHT" text="3.1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     <TextField fx:id="pressureInput00500" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                     <TextField fx:id="pressureInput00750" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     <TextField fx:id="pressureInput01000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                     <TextField fx:id="pressureInput02000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                     <TextField fx:id="pressureInput03000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                     <TextField fx:id="pressureInput04000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                     <TextField fx:id="pressureInput05000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                     <TextField fx:id="pressureInput06000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                     <TextField fx:id="pressureInput07000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                     <TextField fx:id="pressureInput08000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                     <TextField fx:id="pressureInput09000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                     <TextField fx:id="pressureInput10000" alignment="TOP_RIGHT" text="1.1" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                     <TextField fx:id="offloadInput00000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+                     <Label alignment="TOP_CENTER" text="0.0125" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                     <TextField fx:id="offloadInput00125" alignment="TOP_RIGHT" text="2.2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+                     <Label alignment="TOP_CENTER" text="0.0250" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                     <TextField fx:id="offloadInput00250" alignment="TOP_RIGHT" text="3.2" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+
+                     <Label alignment="TOP_CENTER" text="0.0500" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                     <TextField fx:id="offloadInput00500" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+
+                     <Label alignment="TOP_CENTER" text="0.0750" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+                     <TextField fx:id="offloadInput00750" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+
+                     <Label alignment="TOP_CENTER" text="0.1000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                     <TextField fx:id="offloadInput01000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+
+                     <Label alignment="TOP_CENTER" text="0.2000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                     <TextField fx:id="offloadInput02000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+
+                     <Label alignment="TOP_CENTER" text="0.3000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+                     <TextField fx:id="offloadInput03000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+
+                     <Label alignment="TOP_CENTER" text="0.4000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
+                     <TextField fx:id="offloadInput04000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+
+                     <Label alignment="TOP_CENTER" text="0.5000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="10" />
+                     <TextField fx:id="offloadInput05000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+
+                     <Label alignment="TOP_CENTER" text="0.6000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="11" />
+                     <TextField fx:id="offloadInput06000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+
+                     <Label alignment="TOP_CENTER" text="0.7000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="12" />
+                     <TextField fx:id="offloadInput07000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+
+                     <Label alignment="TOP_CENTER" text="0.8000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="13" />
+                     <TextField fx:id="offloadInput08000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+
+                     <Label alignment="TOP_CENTER" text="0.9000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="14" />
+                     <TextField fx:id="offloadInput09000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+
+                     <Label alignment="TOP_CENTER" text="1.0000" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="15" />
+                     <TextField fx:id="offloadInput10000" alignment="TOP_RIGHT" text="1.2" GridPane.columnIndex="2" GridPane.rowIndex="15" />
+                     <columnConstraints>
+                         <ColumnConstraints maxWidth="311.0" minWidth="57.0" prefWidth="119.0" />
+                         <ColumnConstraints maxWidth="275.0" minWidth="31.0" prefWidth="84.0" />
+                         <ColumnConstraints maxWidth="200.0" minWidth="61.0" prefWidth="75.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                     </rowConstraints>
+                 </GridPane>
+
+                 <VBox prefHeight="450.0" prefWidth="181.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                     <Button onAction="#onImportk203Clicked" prefHeight="29.0" prefWidth="231.0" text="Взять данные к.203 -DB2" textAlignment="CENTER" textFill="#4981d7" />
+                     <Button onAction="#onImportk213Clicked" prefHeight="29.0" prefWidth="231.0" text="Взять данные к.213 -DB2" textAlignment="CENTER" textFill="#4981d7" />
+                     <Button onAction="#onImportk208LogClicked" prefHeight="29.0" prefWidth="231.0" text="Взять данные к.208 -log по Лаб. №" textAlignment="CENTER" textFill="#4981d7" />
+                     <Button onAction="#onImportAnyLogClicked" prefHeight="29.0" prefWidth="231.0" text="Взять данные из .log файла" textAlignment="CENTER" textFill="#4981d7" />
+                     <Button onAction="#onInputPathsButtonClicked" prefHeight="29.0" prefWidth="231.0" text="Пути ввода" textAlignment="CENTER" textFill="#4981d7" />
+                 </VBox>
+
+                 <Button onAction="#onSaveClicked" prefHeight="29.0" prefWidth="231.0" text="Сохранить" textAlignment="CENTER" textFill="#4981d7" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+               <LineChart fx:id="chart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="450.0" prefWidth="340.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                 <xAxis>
+                   <NumberAxis side="BOTTOM" />
+                 </xAxis>
+                 <yAxis>
+                   <NumberAxis side="LEFT" />
+                 </yAxis>
+               </LineChart>
+            <columnConstraints>
+               <ColumnConstraints hgrow="ALWAYS" maxWidth="489.0" minWidth="124.0" prefWidth="455.0" />
+               <ColumnConstraints maxWidth="245.0" minWidth="0.0" prefWidth="209.0" />
+               <ColumnConstraints maxWidth="302.0" minWidth="142.0" prefWidth="296.0" />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints maxHeight="450.0" minHeight="382.0" prefHeight="408.0" />
+               <RowConstraints maxHeight="112.0" minHeight="41.0" prefHeight="44.0" />
+            </rowConstraints>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+             </GridPane>
+   </center>
+</BorderPane>

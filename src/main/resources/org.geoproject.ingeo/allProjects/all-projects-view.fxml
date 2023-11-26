@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.objectChoice.AllProjectsEditableTableMainViewController">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+               <items>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Проекты" />
+                  <Region prefHeight="26.0" prefWidth="6.0" />
+                  <Region prefHeight="26.0" prefWidth="6.0" />
+                  <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                  </SplitMenuButton>
+                  <Region prefHeight="26.0" prefWidth="6.0" />
+                  <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onLaborModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Лабораторный модуль">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                  </SplitMenuButton>
+                  <Region prefHeight="26.0" prefWidth="6.0" />
+                  <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onCameralModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                  </SplitMenuButton>
+               </items>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </ToolBar>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <VBox prefHeight="25.0" prefWidth="923.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                   <Label prefHeight="23.0" prefWidth="57.0" text="Проект:" />
+                   <Label fx:id="projectNameInFooter" prefHeight="22.0" prefWidth="116.0" text="Проект не выбран" />
+                   <Label prefHeight="23.0" prefWidth="64.0" text="Шифр:" />
+                   <Label fx:id="projectCipherInFooter" prefHeight="22.0" prefWidth="107.0" text="Проект не выбран" />
+                   <Label prefHeight="23.0" prefWidth="91.0" text="Образцы:" />
+                   <Label prefHeight="23.0" prefWidth="131.0" text="Исполнитель:" />
+                   <Label prefHeight="23.0" prefWidth="133.0" text="Заказчик:" />
+                   <Label prefHeight="23.0" prefWidth="91.0" text="Отдел:" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <center>
+      <VBox prefHeight="588.0" prefWidth="550.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="30.0" prefWidth="923.0" spacing="20.0">
+               <children>
+                  <Button fx:id="createProject" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCreateProjectButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Создать проект" />
+                  <Button fx:id="editProject" accessibleRole="MENU_BUTTON" mnemonicParsing="false" onAction="#onEditProjectButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Редактировать проект" />
+                  <Button fx:id="saveAllEges11" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="26.0" prefWidth="160.0" text="Удалить проект" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="tableView" prefHeight="549.0" prefWidth="497.0" tableMenuButtonVisible="true">
+              <columns>
+                  <TableColumn fx:id="contractNumber" prefWidth="-1.0" text="Шифр" />
+                  <TableColumn fx:id="archiveNumber" prefWidth="-1.0" text="Архивный №" />
+                  <TableColumn fx:id="projectName" prefWidth="-1.0" text="Проект" />
+                  <TableColumn fx:id="region" prefWidth="-1.0" text="Область" />
+                  <TableColumn fx:id="city" prefWidth="-1.0" text="Город" />
+                  <TableColumn fx:id="district" prefWidth="-1.0" text="Район" />
+                  <TableColumn fx:id="town" prefWidth="-1.0" text="Поселок" />
+                  <TableColumn fx:id="street" prefWidth="-1.0" text="Улица" />
+                  <TableColumn fx:id="constructionType" prefWidth="-1.0" text="Тип &#10;строительства" />
+                  <TableColumn fx:id="createdBy" minWidth="5.60003662109375" prefWidth="5.60003662109375" text="Создал" />
+                  <TableColumn fx:id="assignmentDate" minWidth="5.60003662109375" prefWidth="5.60003662109375" text="Дата &#10;создания" />
+      <!--            <TableColumn prefWidth="100.0" text="Точка на карте" />-->
+      <!--            <TableColumn prefWidth="100.0" text="Широта" />-->
+      <!--            <TableColumn prefWidth="100.0" text="Долгота" />-->
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding></VBox>
+   </center>
+   <right>
+      <VBox prefHeight="588.0" prefWidth="380.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="426.0" text="Карта">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="533.0" fitWidth="382.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

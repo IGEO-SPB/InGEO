@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.*?>
+<?import org.controlsfx.control.spreadsheet.*?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.labor.corrosion.SoilCorrosionResultTableController">
+    <top>
+        <VBox>
+            <fx:include source="../../shared/header.fxml" />
+            <fx:include source="header.fxml" />
+            <BorderPane>
+                <left>
+                    <Button onAction="#onCalculateClicked" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="200.0" mnemonicParsing="false" text="Расчёт степени корр. аггрессивности" textAlignment="CENTER" textFill="#2c63c9" textOverrun="CLIP" wrapText="true">
+                        <font>
+                            <Font size="20.0" />
+                        </font>
+                    </Button>
+                </left>
+                <right>
+                    <HBox>
+                        <Button onAction="#onPrintClicked" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="200.0" mnemonicParsing="false" text="Таблица для печати" textAlignment="CENTER" textFill="#2c63c9" textOverrun="CLIP" wrapText="true">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Button>
+                        <VBox >
+                            <HBox >
+                                <TextField prefHeight="23.0" prefWidth="57.0" id="printTableAttachmentNumber" fx:id="printTableAttachmentNumber" />
+                                <Label labelFor="$printTableAttachmentNumber" alignment="BASELINE_RIGHT" text="Приложение" />
+                            </HBox>
+                            <HBox>
+                                <TextField id="printTablePageNumber" fx:id="printTablePageNumber" />
+                                <Label labelFor="$printTablePageNumber" alignment="BASELINE_RIGHT" text="Лист" />
+                            </HBox>
+                            <VBox>
+                                <Label labelFor="$printTableCreatorFullName" text="Составил:" />
+                                <TextField id="printTableCreatorFullName" fx:id="printTableCreatorFullName"/>
+                            </VBox>
+                        </VBox>
+                    </HBox>
+                </right>
+
+            </BorderPane>
+        </VBox>
+    </top>
+    <bottom>
+        <fx:include source="../../shared/footer.fxml" />
+    </bottom>
+   <left>
+       <SpreadsheetView fx:id="spreadsheet" editable="true" showRowHeader="true" showColumnHeader="true" />
+   </left>
+</BorderPane>

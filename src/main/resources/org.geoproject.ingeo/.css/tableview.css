@@ -1,0 +1,11 @@
+.non-editable-column
+{
+    -fx-background-color: darkred;
+    -fx-text-background-color: white;
+}
+
+.editable-column
+{
+    -fx-background-color: lightgreen;
+    -fx-text-background-color: black;
+}
