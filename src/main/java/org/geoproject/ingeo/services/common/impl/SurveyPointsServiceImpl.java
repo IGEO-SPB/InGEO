@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.mainViews.impl;
+package org.geoproject.ingeo.services.common.impl;
 
 import org.geoproject.ingeo.dto.SurveyPointDTO;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
@@ -9,7 +9,7 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.repositories.SurveyPointsRepository;
-import org.geoproject.ingeo.services.mainViews.SurveyPointsService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
 import org.geoproject.ingeo.utils.CurrentState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;

@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.tableViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.WaterSampleResultDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
@@ -14,9 +14,9 @@ import org.geoproject.ingeo.models.labor.WaterSample;
 import org.geoproject.ingeo.models.labor.WaterSampleResult;
 import org.geoproject.ingeo.models.classificators.WaterGroup;
 import org.geoproject.ingeo.repositories.labor.WaterSampleResultRepository;
-import org.geoproject.ingeo.services.mainViews.SurveyPointsService;
-import org.geoproject.ingeo.services.tableViews.WaterSampleResultService;
-import org.geoproject.ingeo.services.tableViews.WaterSampleService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
+import org.geoproject.ingeo.services.labor.WaterSampleResultService;
+import org.geoproject.ingeo.services.labor.WaterSampleService;
 import org.geoproject.ingeo.utils.CurrentState;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;

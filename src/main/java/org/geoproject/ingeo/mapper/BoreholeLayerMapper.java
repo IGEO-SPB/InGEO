@@ -1,8 +1,8 @@
-package com.geoproject.igeo.mapper;
+package org.geoproject.ingeo.mapper;
 
-import com.geoproject.igeo.config.MapStructConfiguration;
-import com.geoproject.igeo.dto.mainViewsDto.BoreholeLayerDTO;
-import com.geoproject.igeo.models.BoreholeLayer;
+import org.geoproject.ingeo.config.MapStructConfiguration;
+import org.geoproject.ingeo.dto.mainViewsDtos.BoreholeLayerDTO;
+import org.geoproject.ingeo.models.BoreholeLayer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

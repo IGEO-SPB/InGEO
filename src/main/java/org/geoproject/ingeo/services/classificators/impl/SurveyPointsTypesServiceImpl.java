@@ -1,8 +1,8 @@
-package com.geoproject.igeo.services.classificators.impl;
+package org.geoproject.ingeo.services.classificators.impl;
 
-import com.geoproject.igeo.models.SurveyPointsType;
-import com.geoproject.igeo.repositories.SurveyPointsTypesRepository;
-import com.geoproject.igeo.services.classificators.SurveyPointsTypesService;
+import org.geoproject.ingeo.models.classificators.SurveyPointsType;
+import org.geoproject.ingeo.repositories.classificators.SurveyPointsTypesRepository;
+import org.geoproject.ingeo.services.classificators.SurveyPointsTypesService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

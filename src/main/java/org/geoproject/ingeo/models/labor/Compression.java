@@ -1,5 +1,6 @@
-package org.geoproject.ingeo.models;
+package org.geoproject.ingeo.models.labor;
 
+import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.classificators.Ring;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

@@ -1,10 +1,11 @@
-package org.geoproject.ingeo.services.tableViews;
+package org.geoproject.ingeo.services.labor;
 
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.models.labor.WaterExtractFull;
+import org.geoproject.ingeo.services.TableService;
 
 import java.util.List;
 

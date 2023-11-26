@@ -1,6 +1,6 @@
-package com.geoproject.igeo.services.classificators;
+package org.geoproject.ingeo.services.classificators;
 
-import com.geoproject.igeo.models.classificators.BoychenkoConeLiquidityConsistency;
+import org.geoproject.ingeo.models.classificators.BoychenkoConeLiquidityConsistency;
 
 public interface BoychenkoConeLiquidityConsistencyService {
 

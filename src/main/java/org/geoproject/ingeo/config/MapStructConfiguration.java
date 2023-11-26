@@ -1,4 +1,4 @@
-package com.geoproject.igeo.config;
+package org.geoproject.ingeo.config;
 
 
 import org.mapstruct.InjectionStrategy;

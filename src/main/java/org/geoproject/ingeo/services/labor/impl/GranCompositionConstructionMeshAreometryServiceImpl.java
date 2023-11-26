@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.tableViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshAreometryResultDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
@@ -9,7 +9,7 @@ import org.geoproject.ingeo.models.*;
 import org.geoproject.ingeo.models.labor.GranCompositionConstructionMeshAreometry;
 import org.geoproject.ingeo.repositories.labor.GranCompositionConstructionMeshAreometryRepository;
 import org.geoproject.ingeo.repositories.SamplesRepository;
-import org.geoproject.ingeo.services.tableViews.GranCompositionConstructionMeshAreometryService;
+import org.geoproject.ingeo.services.labor.GranCompositionConstructionMeshAreometryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.stereotype.Service;

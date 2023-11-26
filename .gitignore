@@ -1,5 +1,6 @@
-HELP.md
 target/
+\target\
+/target
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -15,9 +16,16 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+out/
 *.iws
 *.iml
 *.ipr
+
+modules.xml
+
+*.class
+*.log
+
 
 ### NetBeans ###
 /nbproject/private/
@@ -31,3 +39,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+
+
+

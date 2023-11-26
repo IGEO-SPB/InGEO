@@ -1,4 +1,4 @@
-package com.geoproject.igeo.spreadsheetlib;
+package org.geoproject.ingeo.spreadsheetlib;
 
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;

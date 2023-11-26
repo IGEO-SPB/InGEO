@@ -1,8 +1,8 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.SoilCorrosionResultDto;
-import org.geoproject.ingeo.models.SoilCorrosionResult;
+import org.geoproject.ingeo.models.labor.SoilCorrosionResult;
 import org.mapstruct.Mapper;
 
 @Mapper(config = MapStructConfiguration.class)

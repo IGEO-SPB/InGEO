@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.ShearDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
@@ -10,8 +10,8 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.labor.Shear;
 import org.geoproject.ingeo.repositories.labor.ShearRepository;
-import org.geoproject.ingeo.services.methodViews.ShearWaterContentCutRingService;
-import org.geoproject.ingeo.services.tableViews.GranCompositionAreometryService;
+import org.geoproject.ingeo.services.labor.ShearWaterContentCutRingService;
+import org.geoproject.ingeo.services.labor.GranCompositionAreometryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

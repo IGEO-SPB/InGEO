@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.tableViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.ShearDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
@@ -9,9 +9,9 @@ import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.labor.Shear;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.repositories.labor.ShearRepository;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.tableViews.PhysicalPropertiesService;
-import org.geoproject.ingeo.services.tableViews.ShearService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.PhysicalPropertiesService;
+import org.geoproject.ingeo.services.labor.ShearService;
 import org.geoproject.ingeo.utils.CurrentState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

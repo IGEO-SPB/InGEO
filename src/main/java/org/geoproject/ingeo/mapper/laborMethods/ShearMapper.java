@@ -1,9 +1,9 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.ShearDto;
 import org.geoproject.ingeo.mapper.qualifier.ShearMapperQualifier;
-import org.geoproject.ingeo.models.Shear;
+import org.geoproject.ingeo.models.labor.Shear;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

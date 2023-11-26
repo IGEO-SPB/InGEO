@@ -1,10 +1,10 @@
-package com.geoproject.igeo.controllers.modalWindows;
+package org.geoproject.ingeo.controllers.modalWindows;
 
-import com.geoproject.igeo.dto.classificators.PotDto;
-import com.geoproject.igeo.enums.dtoenums.classificators.PotDtoFieldsEnum;
-import com.geoproject.igeo.models.classificators.Pot;
-import com.geoproject.igeo.services.classificators.PotService;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.dto.classificators.PotDto;
+import org.geoproject.ingeo.enums.dtoenums.classificators.PotDtoFieldsEnum;
+import org.geoproject.ingeo.models.classificators.Pot;
+import org.geoproject.ingeo.services.classificators.PotService;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

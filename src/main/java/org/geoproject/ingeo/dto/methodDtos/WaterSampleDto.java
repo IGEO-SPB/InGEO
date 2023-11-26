@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.dto;
+package org.geoproject.ingeo.dto.methodDtos;
 
 import org.geoproject.ingeo.enums.dtoenums.WaterSampleDtoFieldsEnum;
 import javafx.beans.property.FloatProperty;

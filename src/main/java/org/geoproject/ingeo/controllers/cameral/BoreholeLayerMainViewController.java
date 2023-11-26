@@ -1,10 +1,14 @@
-package org.geoproject.ingeo.controllers;
+package org.geoproject.ingeo.controllers.cameral;
 
-import org.geoproject.ingeo.dto.mainViewsDto.BoreholeLayerDTO;
-import org.geoproject.ingeo.models.*;
-import org.geoproject.ingeo.services.mainViews.EgesServise;
-import org.geoproject.ingeo.services.mainViews.MainViewService;
-import org.geoproject.ingeo.services.mainViews.SurveyPointsService;
+import org.geoproject.ingeo.controllers.AbstractMainViewController;
+import org.geoproject.ingeo.dto.mainViewsDtos.BoreholeLayerDTO;
+import org.geoproject.ingeo.models.BoreholeLayer;
+import org.geoproject.ingeo.models.Ege;
+import org.geoproject.ingeo.models.Project;
+import org.geoproject.ingeo.models.SurveyPoint;
+import org.geoproject.ingeo.services.cameral.EgesServise;
+import org.geoproject.ingeo.services.MainViewService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.GeoCommonMethods;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;

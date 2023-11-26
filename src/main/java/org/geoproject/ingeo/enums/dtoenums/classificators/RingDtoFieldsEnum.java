@@ -1,4 +1,4 @@
-package com.geoproject.igeo.enums.dtoenums.classificators;
+package org.geoproject.ingeo.enums.dtoenums.classificators;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

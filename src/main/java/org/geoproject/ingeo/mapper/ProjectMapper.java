@@ -1,11 +1,11 @@
-package com.geoproject.igeo.mapper;
+package org.geoproject.ingeo.mapper;
 
-import com.geoproject.igeo.config.MapStructConfiguration;
-import com.geoproject.igeo.dto.mainViewsDto.EditProjectDto;
-import com.geoproject.igeo.dto.mainViewsDto.ProjectDto;
-import com.geoproject.igeo.models.Employee;
-import com.geoproject.igeo.models.Project;
-import com.geoproject.igeo.models.classificators.ConstructionType;
+import org.geoproject.ingeo.config.MapStructConfiguration;
+import org.geoproject.ingeo.dto.mainViewsDtos.EditProjectDto;
+import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;
+import org.geoproject.ingeo.models.Employee;
+import org.geoproject.ingeo.models.Project;
+import org.geoproject.ingeo.models.classificators.ConstructionType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import static com.geoproject.igeo.constants.JavaFXConstants.EMPLOYEE_FIELD_PATTERN;
+import static org.geoproject.ingeo.constants.JavaFXConstants.EMPLOYEE_FIELD_PATTERN;
 
 @Mapper(config = MapStructConfiguration.class,
 imports = {Employee.class, ConstructionType.class, LocalDate.class})

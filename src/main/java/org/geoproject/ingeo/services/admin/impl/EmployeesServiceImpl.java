@@ -1,11 +1,9 @@
-package com.geoproject.igeo.services.admin.impl;
+package org.geoproject.ingeo.services.admin.impl;
 
-import com.geoproject.igeo.exceptions.NotFoundException;
-import com.geoproject.igeo.models.Employee;
-import com.geoproject.igeo.repositories.EmployeesRepository;
-import com.geoproject.igeo.services.admin.EmployeesService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import org.geoproject.ingeo.exceptions.NotFoundException;
+import org.geoproject.ingeo.models.Employee;
+import org.geoproject.ingeo.repositories.EmployeesRepository;
+import org.geoproject.ingeo.services.admin.EmployeesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

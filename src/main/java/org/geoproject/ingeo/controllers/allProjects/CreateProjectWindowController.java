@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.controllers.objectChoice;
+package org.geoproject.ingeo.controllers.allProjects;
 
 import org.geoproject.ingeo.controllers.modalWindows.AbstractTextFiledModalController;
 import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;

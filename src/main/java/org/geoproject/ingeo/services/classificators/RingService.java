@@ -1,7 +1,7 @@
-package com.geoproject.igeo.services.classificators;
+package org.geoproject.ingeo.services.classificators;
 
-import com.geoproject.igeo.dto.classificators.RingDto;
-import com.geoproject.igeo.models.classificators.Ring;
+import org.geoproject.ingeo.dto.classificators.RingDto;
+import org.geoproject.ingeo.models.classificators.Ring;
 
 import java.util.List;
 

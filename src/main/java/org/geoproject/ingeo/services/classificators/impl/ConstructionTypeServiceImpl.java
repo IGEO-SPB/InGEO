@@ -1,9 +1,9 @@
-package com.geoproject.igeo.services.classificators.impl;
+package org.geoproject.ingeo.services.classificators.impl;
 
-import com.geoproject.igeo.exceptions.NotFoundException;
-import com.geoproject.igeo.models.classificators.ConstructionType;
-import com.geoproject.igeo.repositories.classificators.ConstructionTypeRepository;
-import com.geoproject.igeo.services.classificators.ConstructionTypeService;
+import org.geoproject.ingeo.exceptions.NotFoundException;
+import org.geoproject.ingeo.models.classificators.ConstructionType;
+import org.geoproject.ingeo.repositories.classificators.ConstructionTypeRepository;
+import org.geoproject.ingeo.services.classificators.ConstructionTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

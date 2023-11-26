@@ -1,4 +1,4 @@
-package com.geoproject.igeo.exceptions;
+package org.geoproject.ingeo.exceptions;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

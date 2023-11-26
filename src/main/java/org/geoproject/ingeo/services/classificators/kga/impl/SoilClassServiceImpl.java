@@ -1,8 +1,8 @@
-package com.geoproject.igeo.services.classificators.kga.impl;
+package org.geoproject.ingeo.services.classificators.kga.impl;
 
-import com.geoproject.igeo.models.classificators.kga.SoilClass;
-import com.geoproject.igeo.repositories.classificators.kga.SoilClassRepository;
-import com.geoproject.igeo.services.classificators.kga.SoilClassService;
+import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.repositories.classificators.kga.SoilClassRepository;
+import org.geoproject.ingeo.services.classificators.kga.SoilClassService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

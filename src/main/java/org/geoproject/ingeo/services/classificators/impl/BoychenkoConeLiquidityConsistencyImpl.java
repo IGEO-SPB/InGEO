@@ -1,9 +1,9 @@
-package com.geoproject.igeo.services.classificators.impl;
+package org.geoproject.ingeo.services.classificators.impl;
 
-import com.geoproject.igeo.enums.laborenums.BoychenkoConeLiquidityConsistencyNameEnum;
-import com.geoproject.igeo.models.classificators.BoychenkoConeLiquidityConsistency;
-import com.geoproject.igeo.repositories.classificators.BoychenkoConeLiquidityConsistencyRepository;
-import com.geoproject.igeo.services.classificators.BoychenkoConeLiquidityConsistencyService;
+import org.geoproject.ingeo.enums.laborenums.BoychenkoConeLiquidityConsistencyNameEnum;
+import org.geoproject.ingeo.models.classificators.BoychenkoConeLiquidityConsistency;
+import org.geoproject.ingeo.repositories.classificators.BoychenkoConeLiquidityConsistencyRepository;
+import org.geoproject.ingeo.services.classificators.BoychenkoConeLiquidityConsistencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

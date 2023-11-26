@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.objectChoice.impl;
+package org.geoproject.ingeo.services.allProjects.impl;
 
 import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;
 import org.geoproject.ingeo.exceptions.NotFoundException;
@@ -11,7 +11,7 @@ import org.geoproject.ingeo.models.classificators.ConstructionType;
 import org.geoproject.ingeo.repositories.EmployeesRepository;
 import org.geoproject.ingeo.repositories.ProjectsRepository;
 import org.geoproject.ingeo.services.classificators.ConstructionTypeService;
-import org.geoproject.ingeo.services.objectChoice.ProjectsService;
+import org.geoproject.ingeo.services.allProjects.ProjectsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

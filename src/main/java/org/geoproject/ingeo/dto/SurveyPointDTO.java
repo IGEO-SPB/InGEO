@@ -1,15 +1,9 @@
-package com.geoproject.igeo.dto;
+package org.geoproject.ingeo.dto;
 
-import com.geoproject.igeo.models.BoreholeLayer;
-import com.geoproject.igeo.models.Project;
-import com.geoproject.igeo.models.Sample;
-import com.geoproject.igeo.models.SurveyPointsType;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import org.geoproject.ingeo.models.BoreholeLayer;
+import org.geoproject.ingeo.models.Project;
+import org.geoproject.ingeo.models.Sample;
+import org.geoproject.ingeo.models.classificators.SurveyPointsType;
 import lombok.Getter;
 import lombok.Setter;
 

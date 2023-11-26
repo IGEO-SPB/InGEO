@@ -131,29 +131,25 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                           </VBox.margin>
                       </HBox>
-                  <Separator prefWidth="200.0" />
-                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                          <children>
-                                <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="111.0" text="Взять список&#10;из другого &#10;объекта" />
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <VBox alignment="CENTER" prefHeight="91.0" prefWidth="432.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="62.0" prefWidth="432.0" spacing="5.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" onAction="#onSoilKindChoiceViewButtonClicked" text="Заполнение классификатора КГА" />
-                                 </children>
-                              </HBox>
+                              <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="126.0" text="Взять список&#10;из другого объекта" />
+                              <Button mnemonicParsing="false" onAction="#onSoilKindChoiceViewButtonClicked" prefHeight="63.0" prefWidth="136.0" text="Заполнение &#10;классификатора КГА" />
                            </children>
-                        </VBox>
+                        </HBox>
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
-                              <VBox prefHeight="91.0" prefWidth="272.0" spacing="5.0">
-                                  <children>
-                                      <Button mnemonicParsing="false" text="Запись как по классификатору&#10;для локальный список грн." />
-                                      <Button mnemonicParsing="false" text="Запись как по классификатору&#10;для описания для камеральной задачи" />
-                                  </children>
-                              </VBox>
-                          </children>
-                      </HBox>
+                        <HBox alignment="CENTER" prefHeight="62.0" prefWidth="432.0" spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Запись как по классификатору&#10;для локальный список грн." />
+                              <Button mnemonicParsing="false" text="Запись как по классификатору&#10;для описания для камеральной задачи" />
+                           </children>
+                        </HBox>
+                        <VBox prefHeight="91.0" prefWidth="272.0" spacing="5.0" />
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
                   <Separator prefWidth="200.0" />
                       <HBox prefHeight="39.0" prefWidth="922.0" spacing="5.0">
                           <children>

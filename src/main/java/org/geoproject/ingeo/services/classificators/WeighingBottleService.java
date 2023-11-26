@@ -1,7 +1,7 @@
-package com.geoproject.igeo.services.classificators;
+package org.geoproject.ingeo.services.classificators;
 
-import com.geoproject.igeo.dto.classificators.WeighingBottleDto;
-import com.geoproject.igeo.models.classificators.WeighingBottle;
+import org.geoproject.ingeo.dto.classificators.WeighingBottleDto;
+import org.geoproject.ingeo.models.classificators.WeighingBottle;
 
 import java.util.List;
 

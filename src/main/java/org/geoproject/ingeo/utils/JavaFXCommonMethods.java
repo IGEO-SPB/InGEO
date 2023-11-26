@@ -1,24 +1,22 @@
-package com.geoproject.igeo.utils;
+package org.geoproject.ingeo.utils;
 
-import com.geoproject.igeo.controllers.laborMethods.functionalInterfaces.EntitiesUpdateable;
-import com.geoproject.igeo.controllers.laborMethods.functionalInterfaces.NewRowAddable;
-import com.geoproject.igeo.dto.WaterExtractFullDto;
-import com.geoproject.igeo.dto.WaterExtractPartialDto;
-import com.geoproject.igeo.dto.WaterSampleResultDto;
-import com.geoproject.igeo.dto.classificators.AbstractClassificator;
-import com.geoproject.igeo.dto.mainViewsDto.ProjectDto;
-import com.geoproject.igeo.enums.StageTitleEnum;
-import com.geoproject.igeo.enums.ViewsEnum;
-import com.geoproject.igeo.exceptions.UnpredictableException;
-import com.geoproject.igeo.models.Project;
-import com.geoproject.igeo.models.classificators.Pot;
-import com.geoproject.igeo.models.classificators.Ring;
-import com.geoproject.igeo.models.classificators.WeighingBottle;
-import com.geoproject.igeo.services.classificators.ClassificatorService;
+import org.geoproject.ingeo.controllers.labor.functionalInterfaces.EntitiesUpdateable;
+import org.geoproject.ingeo.controllers.labor.functionalInterfaces.NewRowAddable;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterSampleResultDto;
+import org.geoproject.ingeo.dto.classificators.AbstractClassificator;
+import org.geoproject.ingeo.enums.StageTitleEnum;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.exceptions.UnpredictableException;
+import org.geoproject.ingeo.models.Project;
+import org.geoproject.ingeo.models.classificators.Pot;
+import org.geoproject.ingeo.models.classificators.Ring;
+import org.geoproject.ingeo.models.classificators.WeighingBottle;
+import org.geoproject.ingeo.services.classificators.ClassificatorService;
 import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.Property;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,7 +45,6 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -59,15 +56,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.geoproject.igeo.constants.JavaFXConstants.FLOAT_SPLIT_PATTERN;
-import static com.geoproject.igeo.constants.JavaFXConstants.IS_FLOAT_VALUE_PATTERN;
-import static com.geoproject.igeo.constants.JavaFXConstants.SINGLE_COLUMN_INDEX;
-import static com.geoproject.igeo.constants.JavaFXConstants.SINGLE_ROW_COUNT;
-import static com.geoproject.igeo.constants.JavaFXConstants.TEXTFIELD_NUMERIC_PATTERN;
-import static com.geoproject.igeo.constants.ServiceConstants.SCIENTIFIC_NOTATION_PATTERN;
+import static org.geoproject.ingeo.constants.JavaFXConstants.FLOAT_SPLIT_PATTERN;
+import static org.geoproject.ingeo.constants.JavaFXConstants.IS_FLOAT_VALUE_PATTERN;
+import static org.geoproject.ingeo.constants.JavaFXConstants.SINGLE_COLUMN_INDEX;
+import static org.geoproject.ingeo.constants.JavaFXConstants.SINGLE_ROW_COUNT;
+import static org.geoproject.ingeo.constants.JavaFXConstants.TEXTFIELD_NUMERIC_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.SCIENTIFIC_NOTATION_PATTERN;
 
 @Log4j2
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JavaFXCommonMethods {
 
@@ -93,13 +89,13 @@ public final class JavaFXCommonMethods {
         try {
             changeScene(event, scenePath, applicationContext, title);
         } catch (IOException ignored) {
-            System.out.println("could not change scene");
+            log.info("could not change scene");
         }
     }
 
     public static void changeScene(Stage stage, String scenePath, ApplicationContext applicationContext,
                                    String title) throws IOException {
-        URL url = JavaFXCommonMethods.class.getClassLoader().getResource("com.geoproject.igeo/" + scenePath);
+        URL url = JavaFXCommonMethods.class.getClassLoader().getResource("org.geoproject.ingeo/" + scenePath);
         FXMLLoader fxmlLoader = new FXMLLoader(url);
 
         fxmlLoader.setControllerFactory(applicationContext::getBean);
@@ -132,7 +128,7 @@ public final class JavaFXCommonMethods {
         Stage dialog = new Stage();
         dialog.setTitle(title);
 
-        URL url = JavaFXCommonMethods.class.getClassLoader().getResource("com.geoproject.igeo/" + scenePath);
+        URL url = JavaFXCommonMethods.class.getClassLoader().getResource("org.geoproject.ingeo/" + scenePath);
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         fxmlLoader.setControllerFactory(applicationContext::getBean);
 

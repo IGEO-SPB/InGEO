@@ -1,5 +1,6 @@
-package org.geoproject.ingeo.models;
+package org.geoproject.ingeo.models.labor;
 
+import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.models.classificators.WaterGroup;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.geoproject.igeo.exceptions;
+package org.geoproject.ingeo.exceptions;
 
 public class ZeroDivisionException extends RuntimeException {
     public ZeroDivisionException(String message) {

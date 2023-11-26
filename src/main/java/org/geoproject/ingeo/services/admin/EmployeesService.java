@@ -1,7 +1,6 @@
-package com.geoproject.igeo.services.admin;
+package org.geoproject.ingeo.services.admin;
 
-import com.geoproject.igeo.models.Employee;
-import javafx.collections.ObservableList;
+import org.geoproject.ingeo.models.Employee;
 
 import java.util.List;
 

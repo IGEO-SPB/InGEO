@@ -1,11 +1,10 @@
-package com.geoproject.igeo.controllers;
+package org.geoproject.ingeo.controllers;
 
-import com.geoproject.igeo.enums.StageTitleEnum;
-import com.geoproject.igeo.enums.ViewsEnum;
-import com.geoproject.igeo.exceptions.NotFoundException;
-import com.geoproject.igeo.services.mainViews.MainViewService;
-import com.geoproject.igeo.utils.CurrentState;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.exceptions.NotFoundException;
+import org.geoproject.ingeo.services.MainViewService;
+import org.geoproject.ingeo.utils.CurrentState;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,8 +37,8 @@ public abstract class AbstractMainViewController<T, Y> {
     @FXML
     protected TableView<T> tableView;
 
-    @FXML Label projectNameInFooter;
-    @FXML Label projectCipherInFooter;
+    protected @FXML Label projectNameInFooter;
+    protected @FXML Label projectCipherInFooter;
 
 
     public AbstractMainViewController(CurrentState currentState,ConfigurableApplicationContext applicationContext, MainViewService<T, Y> service) {

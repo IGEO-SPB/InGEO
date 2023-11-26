@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshAreometryDto;
 import org.geoproject.ingeo.mapper.laborMethods.ConstructionMeshAreometryMapper;
@@ -7,9 +7,9 @@ import org.geoproject.ingeo.models.labor.ConstructionMeshAreometry;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.repositories.labor.ConstructionMeshAreometryRepository;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.methodViews.ConstructionMeshAreometryService;
-import org.geoproject.ingeo.services.tableViews.GranCompositionConstructionMeshAreometryService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.ConstructionMeshAreometryService;
+import org.geoproject.ingeo.services.labor.GranCompositionConstructionMeshAreometryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

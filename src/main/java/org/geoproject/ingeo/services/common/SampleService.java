@@ -1,9 +1,10 @@
-package org.geoproject.ingeo.services.mainViews;
+package org.geoproject.ingeo.services.common;
 
 import org.geoproject.ingeo.dto.*;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
+import org.geoproject.ingeo.services.MainViewService;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;

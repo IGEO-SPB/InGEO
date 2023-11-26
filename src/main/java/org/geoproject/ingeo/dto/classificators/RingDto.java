@@ -1,6 +1,6 @@
-package com.geoproject.igeo.dto.classificators;
+package org.geoproject.ingeo.dto.classificators;
 
-import com.geoproject.igeo.enums.dtoenums.classificators.RingDtoFieldsEnum;
+import org.geoproject.ingeo.enums.dtoenums.classificators.RingDtoFieldsEnum;
 import lombok.Getter;
 import lombok.Setter;
 

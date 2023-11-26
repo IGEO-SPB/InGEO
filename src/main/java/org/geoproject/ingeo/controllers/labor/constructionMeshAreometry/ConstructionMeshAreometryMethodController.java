@@ -1,15 +1,15 @@
-package org.geoproject.ingeo.controllers.laborMethods.constructionMeshAreometry;
+package org.geoproject.ingeo.controllers.labor.constructionMeshAreometry;
 
-import org.geoproject.ingeo.controllers.laborMethods.AbstractLaborMethodController;
-import org.geoproject.ingeo.dto.ConstructionMeshAreometryDto;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodController;
+import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshAreometryDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.enums.laborenums.HCLStatusEnum;
-import org.geoproject.ingeo.models.ConstructionMeshAreometry;
+import org.geoproject.ingeo.models.labor.ConstructionMeshAreometry;
 import org.geoproject.ingeo.services.classificators.PotService;
 import org.geoproject.ingeo.services.classificators.RingService;
 import org.geoproject.ingeo.services.classificators.WeighingBottleService;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.methodViews.MethodViewService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.MethodViewService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;

@@ -1,9 +1,9 @@
-package org.geoproject.ingeo.controllers.laborMethods.corrosion;
+package org.geoproject.ingeo.controllers.labor.corrosion;
 
-import org.geoproject.ingeo.dto.SoilCorrosionInputDto;
+import org.geoproject.ingeo.dto.methodDtos.SoilCorrosionInputDto;
 import org.geoproject.ingeo.models.Sample;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.methodViews.SoilCorrosionService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.SoilCorrosionService;
 import org.geoproject.ingeo.spreadsheetlib.SpreadsheetHeader;
 import org.geoproject.ingeo.utils.CurrentState;
 import javafx.beans.property.FloatProperty;

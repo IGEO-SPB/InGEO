@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.mainViews.impl;
+package org.geoproject.ingeo.services.common.impl;
 
 import org.geoproject.ingeo.dto.SampleDto;
 import org.geoproject.ingeo.exceptions.ConflictException;
@@ -8,7 +8,7 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.repositories.SamplesRepository;
-import org.geoproject.ingeo.services.mainViews.SampleService;
+import org.geoproject.ingeo.services.common.SampleService;
 import org.geoproject.ingeo.utils.CurrentState;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NotImplementedException;

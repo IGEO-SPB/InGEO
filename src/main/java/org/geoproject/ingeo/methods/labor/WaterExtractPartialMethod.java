@@ -1,7 +1,7 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.WaterExtractPartialDto;
-import com.geoproject.igeo.dto.WaterExtractPartialResultDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialResultDto;
 
 import java.util.Objects;
 

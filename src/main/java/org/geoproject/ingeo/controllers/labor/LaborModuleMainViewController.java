@@ -1,13 +1,14 @@
-package org.geoproject.ingeo.controllers;
+package org.geoproject.ingeo.controllers.labor;
 
+import org.geoproject.ingeo.controllers.AbstractMainViewController;
 import org.geoproject.ingeo.dto.SampleDto;
 import org.geoproject.ingeo.enums.LaborMethodsEnum;
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.models.*;
-import org.geoproject.ingeo.services.mainViews.MainViewService;
-import org.geoproject.ingeo.services.mainViews.SurveyPointsService;
-import org.geoproject.ingeo.services.mainViews.impl.ProjectsServiceImpl;
+import org.geoproject.ingeo.services.MainViewService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
+import org.geoproject.ingeo.services.allProjects.impl.ProjectsServiceImpl;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.beans.property.SimpleObjectProperty;

@@ -1,4 +1,4 @@
-package com.geoproject.igeo.exceptions;
+package org.geoproject.ingeo.exceptions;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

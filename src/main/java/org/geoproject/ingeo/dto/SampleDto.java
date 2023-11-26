@@ -1,18 +1,18 @@
-package com.geoproject.igeo.dto;
+package org.geoproject.ingeo.dto;
 
-import com.geoproject.igeo.enums.dtoenums.SampleDtoFieldsEnum;
-import com.geoproject.igeo.models.Areometry;
-import com.geoproject.igeo.models.BoychenkoCone;
-import com.geoproject.igeo.models.ConstructionMesh;
-import com.geoproject.igeo.models.Density;
-import com.geoproject.igeo.models.GranCompositionAreometry;
-import com.geoproject.igeo.models.GranCompositionConstructionMesh;
-import com.geoproject.igeo.models.OrganicMatter;
-import com.geoproject.igeo.models.PhysicalProperties;
-import com.geoproject.igeo.models.RingDensity;
-import com.geoproject.igeo.models.Shear;
-import com.geoproject.igeo.models.SurveyPoint;
-import com.geoproject.igeo.models.WaterContent;
+import org.geoproject.ingeo.enums.dtoenums.SampleDtoFieldsEnum;
+import org.geoproject.ingeo.models.labor.Areometry;
+import org.geoproject.ingeo.models.labor.BoychenkoCone;
+import org.geoproject.ingeo.models.labor.ConstructionMesh;
+import org.geoproject.ingeo.models.labor.Density;
+import org.geoproject.ingeo.models.labor.GranCompositionAreometry;
+import org.geoproject.ingeo.models.labor.GranCompositionConstructionMesh;
+import org.geoproject.ingeo.models.labor.OrganicMatter;
+import org.geoproject.ingeo.models.labor.PhysicalProperties;
+import org.geoproject.ingeo.models.labor.RingDensity;
+import org.geoproject.ingeo.models.labor.Shear;
+import org.geoproject.ingeo.models.SurveyPoint;
+import org.geoproject.ingeo.models.labor.WaterContent;
 import lombok.Getter;
 import lombok.Setter;
 

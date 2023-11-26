@@ -1,8 +1,8 @@
-package org.geoproject.ingeo.controllers.resultTables;
+package org.geoproject.ingeo.controllers.labor;
 
 import org.geoproject.ingeo.enums.ViewsEnum;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;
@@ -25,7 +25,7 @@ import static org.geoproject.ingeo.enums.StageTitleEnum.FIELD_MODULE;
 import static org.geoproject.ingeo.enums.StageTitleEnum.LABOR_MODULE;
 import static org.geoproject.ingeo.enums.StageTitleEnum.PROJECTS;
 
-public abstract class AbstractResultTableController<T, Y> {
+public abstract class AbstractLaborMethodResultTableController<T, Y> {
     protected final ConfigurableApplicationContext applicationContext;
     protected final SampleService sampleService;
     protected final CurrentState currentState;
@@ -52,8 +52,8 @@ public abstract class AbstractResultTableController<T, Y> {
     public Map<TableColumn<Y, ?>, String> columnsMap;
 
 
-    public AbstractResultTableController(ConfigurableApplicationContext applicationContext, SampleService sampleService,
-                                         CurrentState currentState, TableService<T, Y> service) {
+    public AbstractLaborMethodResultTableController(ConfigurableApplicationContext applicationContext, SampleService sampleService,
+                                                    CurrentState currentState, TableService<T, Y> service) {
         this.applicationContext = applicationContext;
         this.sampleService = sampleService;
         this.currentState = currentState;

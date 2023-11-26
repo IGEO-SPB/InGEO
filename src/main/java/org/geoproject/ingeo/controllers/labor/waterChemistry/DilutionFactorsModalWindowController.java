@@ -1,9 +1,9 @@
-package org.geoproject.ingeo.controllers.modalWindows;
+package org.geoproject.ingeo.controllers.labor.waterChemistry;
 
-import org.geoproject.ingeo.dto.WaterSampleDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterSampleDto;
 import org.geoproject.ingeo.enums.dtoenums.WaterSampleDtoFieldsEnum;
-import org.geoproject.ingeo.models.WaterSample;
-import org.geoproject.ingeo.services.tableViews.WaterSampleService;
+import org.geoproject.ingeo.models.labor.WaterSample;
+import org.geoproject.ingeo.services.labor.WaterSampleService;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

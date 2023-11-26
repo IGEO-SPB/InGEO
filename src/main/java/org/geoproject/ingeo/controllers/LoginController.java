@@ -1,9 +1,8 @@
-package com.geoproject.igeo.controllers;
+package org.geoproject.ingeo.controllers;
 
-import com.geoproject.igeo.enums.StageTitleEnum;
-import com.geoproject.igeo.enums.ViewsEnum;
-import com.geoproject.igeo.utils.CurrentState;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.utils.CurrentState;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import lombok.RequiredArgsConstructor;

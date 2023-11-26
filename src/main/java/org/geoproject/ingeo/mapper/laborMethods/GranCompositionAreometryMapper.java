@@ -1,8 +1,8 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.GranCompositionDTO;
-import org.geoproject.ingeo.models.GranCompositionAreometry;
+import org.geoproject.ingeo.models.labor.GranCompositionAreometry;
 import org.geoproject.ingeo.models.Sample;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

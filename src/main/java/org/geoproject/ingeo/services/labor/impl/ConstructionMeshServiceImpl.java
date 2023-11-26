@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshDTO;
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshResultDto;
@@ -10,9 +10,9 @@ import org.geoproject.ingeo.models.labor.GranCompositionConstructionMesh;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.repositories.labor.ConstructionMeshRepository;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.methodViews.ConstructionMeshService;
-import org.geoproject.ingeo.services.tableViews.GranCompositionConstructionMeshService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.ConstructionMeshService;
+import org.geoproject.ingeo.services.labor.GranCompositionConstructionMeshService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.geoproject.igeo.enums;
+package org.geoproject.ingeo.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

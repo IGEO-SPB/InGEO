@@ -1,4 +1,4 @@
-package com.geoproject.igeo.exceptions;
+package org.geoproject.ingeo.exceptions;
 
 public class NotImplemented extends RuntimeException {
     public NotImplemented(String message) {

@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.controllers.laborMethods.waterExtract;
+package org.geoproject.ingeo.controllers.labor.waterExtract;
 
 import org.geoproject.ingeo.enums.StageTitleEnum;
 import org.geoproject.ingeo.enums.ViewsEnum;

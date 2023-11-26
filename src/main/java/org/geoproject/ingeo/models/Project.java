@@ -1,6 +1,6 @@
-package com.geoproject.igeo.models;
+package org.geoproject.ingeo.models;
 
-import com.geoproject.igeo.models.classificators.ConstructionType;
+import org.geoproject.ingeo.models.classificators.ConstructionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

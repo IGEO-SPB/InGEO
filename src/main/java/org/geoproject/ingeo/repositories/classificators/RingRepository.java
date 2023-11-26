@@ -1,6 +1,6 @@
-package com.geoproject.igeo.repositories.classificators;
+package org.geoproject.ingeo.repositories.classificators;
 
-import com.geoproject.igeo.models.classificators.Ring;
+import org.geoproject.ingeo.models.classificators.Ring;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

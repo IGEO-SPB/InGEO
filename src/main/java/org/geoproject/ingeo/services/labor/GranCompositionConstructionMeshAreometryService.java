@@ -1,9 +1,10 @@
-package org.geoproject.ingeo.services.tableViews;
+package org.geoproject.ingeo.services.labor;
 
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshAreometryResultDto;
 import org.geoproject.ingeo.models.labor.GranCompositionConstructionMeshAreometry;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
+import org.geoproject.ingeo.services.TableService;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.WaterContentDTO;
 import org.geoproject.ingeo.exceptions.NotFoundException;
@@ -9,7 +9,7 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.labor.WaterContent;
 import org.geoproject.ingeo.repositories.labor.WaterContentRepository;
-import org.geoproject.ingeo.services.methodViews.WaterContentService;
+import org.geoproject.ingeo.services.labor.WaterContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

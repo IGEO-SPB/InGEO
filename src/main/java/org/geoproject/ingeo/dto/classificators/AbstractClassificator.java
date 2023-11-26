@@ -1,4 +1,4 @@
-package com.geoproject.igeo.dto.classificators;
+package org.geoproject.ingeo.dto.classificators;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

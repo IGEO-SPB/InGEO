@@ -1,8 +1,8 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshAreometryDto;
-import org.geoproject.ingeo.models.ConstructionMeshAreometry;
+import org.geoproject.ingeo.models.labor.ConstructionMeshAreometry;
 import org.geoproject.ingeo.models.Sample;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

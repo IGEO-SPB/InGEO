@@ -1,8 +1,8 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshResultDto;
-import org.geoproject.ingeo.models.GranCompositionConstructionMesh;
+import org.geoproject.ingeo.models.labor.GranCompositionConstructionMesh;
 import org.geoproject.ingeo.models.Sample;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

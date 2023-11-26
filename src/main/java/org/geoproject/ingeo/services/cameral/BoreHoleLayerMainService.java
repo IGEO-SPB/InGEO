@@ -1,10 +1,11 @@
-package org.geoproject.ingeo.services.mainViews;
+package org.geoproject.ingeo.services.cameral;
 
 import org.geoproject.ingeo.dto.mainViewsDtos.BoreholeLayerDTO;
 import org.geoproject.ingeo.models.BoreholeLayer;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
+import org.geoproject.ingeo.services.MainViewService;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.geoproject.igeo.controllers.cameral;
+package org.geoproject.ingeo.controllers.cameral;
 
-import com.geoproject.igeo.enums.ViewsEnum;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

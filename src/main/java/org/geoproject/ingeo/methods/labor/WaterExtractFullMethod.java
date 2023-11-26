@@ -1,7 +1,7 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.WaterExtractFullDto;
-import com.geoproject.igeo.dto.WaterExtractFullResultDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullResultDto;
 
 import java.util.Objects;
 

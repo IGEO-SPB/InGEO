@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.controllers.objectChoice;
+package org.geoproject.ingeo.controllers.allProjects;
 
 import org.geoproject.ingeo.controllers.AbstractEditableTableMainViewController;
 import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;
@@ -8,7 +8,7 @@ import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.UserInterfaceException;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.services.MainViewService;
-import org.geoproject.ingeo.services.objectChoice.ProjectsService;
+import org.geoproject.ingeo.services.allProjects.ProjectsService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;

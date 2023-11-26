@@ -1,9 +1,9 @@
-package com.geoproject.igeo.services.classificators.impl;
+package org.geoproject.ingeo.services.classificators.impl;
 
-import com.geoproject.igeo.exceptions.NotFoundException;
-import com.geoproject.igeo.models.classificators.PeatDecayDegree;
-import com.geoproject.igeo.repositories.classificators.PeatDecayDegreeRepository;
-import com.geoproject.igeo.services.classificators.PeatDecayDegreeService;
+import org.geoproject.ingeo.exceptions.NotFoundException;
+import org.geoproject.ingeo.models.classificators.PeatDecayDegree;
+import org.geoproject.ingeo.repositories.classificators.PeatDecayDegreeRepository;
+import org.geoproject.ingeo.services.classificators.PeatDecayDegreeService;
 import org.springframework.stereotype.Service;
 
 @Service

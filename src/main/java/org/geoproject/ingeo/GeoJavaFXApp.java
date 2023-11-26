@@ -1,18 +1,16 @@
-package com.geoproject.igeo;
+package org.geoproject.ingeo;
 
-import com.geoproject.igeo.enums.ViewsEnum;
-import com.geoproject.igeo.repositories.ProjectsRepository;
-import com.geoproject.igeo.services.mainViews.ProjectsService;
-import com.geoproject.igeo.services.mainViews.SampleService;
-import com.geoproject.igeo.services.mainViews.SurveyPointsService;
-import com.geoproject.igeo.utils.CurrentState;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.services.allProjects.ProjectsService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
+import org.geoproject.ingeo.utils.CurrentState;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.domain.Sort;
 
@@ -52,7 +50,7 @@ public class GeoJavaFXApp extends javafx.application.Application {
 
     @Override
     public void init() throws Exception {
-        applicationContext = new SpringApplicationBuilder(GeoProjectApplication.class).run();
+        applicationContext = new SpringApplicationBuilder(InGeoApplication.class).run();
     }
 
     @Override

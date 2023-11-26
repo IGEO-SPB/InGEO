@@ -1,13 +1,12 @@
-package com.geoproject.igeo.services.classificators.impl;
+package org.geoproject.ingeo.services.classificators.impl;
 
-import com.geoproject.igeo.dto.classificators.PotDto;
-import com.geoproject.igeo.exceptions.ConflictException;
-import com.geoproject.igeo.exceptions.NoActiveEntitiesException;
-import com.geoproject.igeo.exceptions.NotFoundException;
-import com.geoproject.igeo.mapper.classificators.PotMapper;
-import com.geoproject.igeo.models.classificators.Pot;
-import com.geoproject.igeo.repositories.classificators.PotRepository;
-import com.geoproject.igeo.services.classificators.PotService;
+import org.geoproject.ingeo.dto.classificators.PotDto;
+import org.geoproject.ingeo.exceptions.ConflictException;
+import org.geoproject.ingeo.exceptions.NotFoundException;
+import org.geoproject.ingeo.mapper.classificators.PotMapper;
+import org.geoproject.ingeo.models.classificators.Pot;
+import org.geoproject.ingeo.repositories.classificators.PotRepository;
+import org.geoproject.ingeo.services.classificators.PotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.geoproject.igeo.constants.ServiceConstants.ENTITY_IS_NOT_ACTIVE;
+import static org.geoproject.ingeo.constants.ServiceConstants.ENTITY_IS_NOT_ACTIVE;
 
 @Service
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.objectChoice.impl;
+package org.geoproject.ingeo.services.allProjects.impl;
 
 import org.geoproject.ingeo.dto.mainViewsDtos.EditProjectDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;

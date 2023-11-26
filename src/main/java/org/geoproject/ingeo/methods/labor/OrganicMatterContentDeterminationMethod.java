@@ -1,7 +1,7 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.OrganicMatterDTO;
-import com.geoproject.igeo.utils.CommonOperations;
+import org.geoproject.ingeo.dto.methodDtos.OrganicMatterDTO;
+import org.geoproject.ingeo.utils.CommonOperations;
 
 public class OrganicMatterContentDeterminationMethod {
 

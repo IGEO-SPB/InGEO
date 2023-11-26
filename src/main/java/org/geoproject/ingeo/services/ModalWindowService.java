@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.modalWindows;
+package org.geoproject.ingeo.services;
 
 public interface ModalWindowService<T, Y> {
 

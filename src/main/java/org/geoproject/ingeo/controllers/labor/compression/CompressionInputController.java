@@ -1,13 +1,13 @@
-package org.geoproject.ingeo.controllers.laborMethods.compression;
+package org.geoproject.ingeo.controllers.labor.compression;
 
-import org.geoproject.ingeo.dto.CompressionDto;
+import org.geoproject.ingeo.dto.methodDtos.CompressionDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.classificators.Ring;
 import org.geoproject.ingeo.services.classificators.RingService;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.methodViews.CompressionService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.CompressionService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.beans.binding.Bindings;

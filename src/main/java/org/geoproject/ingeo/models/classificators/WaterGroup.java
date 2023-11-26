@@ -1,7 +1,6 @@
-package com.geoproject.igeo.models.classificators;
+package org.geoproject.ingeo.models.classificators;
 
-import com.geoproject.igeo.models.Project;
-import com.geoproject.igeo.models.WaterSampleResult;
+import org.geoproject.ingeo.models.labor.WaterSampleResult;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.mainViews.impl;
+package org.geoproject.ingeo.services.cameral.impl;
 
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
 import org.geoproject.ingeo.exceptions.NotFoundException;
@@ -8,7 +8,7 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.repositories.EgesRepository;
-import org.geoproject.ingeo.services.mainViews.EgesServise;
+import org.geoproject.ingeo.services.cameral.EgesServise;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.data.domain.Sort;

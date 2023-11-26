@@ -1,10 +1,10 @@
-package com.geoproject.igeo.controllers.modalWindows;
+package org.geoproject.ingeo.controllers.modalWindows;
 
-import com.geoproject.igeo.dto.classificators.RingDto;
-import com.geoproject.igeo.enums.dtoenums.classificators.RingDtoFieldsEnum;
-import com.geoproject.igeo.models.classificators.Ring;
-import com.geoproject.igeo.services.classificators.RingService;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.dto.classificators.RingDto;
+import org.geoproject.ingeo.enums.dtoenums.classificators.RingDtoFieldsEnum;
+import org.geoproject.ingeo.models.classificators.Ring;
+import org.geoproject.ingeo.services.classificators.RingService;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

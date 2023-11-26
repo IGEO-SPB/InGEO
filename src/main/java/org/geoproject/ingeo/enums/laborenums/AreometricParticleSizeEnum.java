@@ -1,4 +1,4 @@
-package com.geoproject.igeo.enums.laborenums;
+package org.geoproject.ingeo.enums.laborenums;
 
 import lombok.Getter;
 

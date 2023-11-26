@@ -1,14 +1,11 @@
-package com.geoproject.igeo.utils;
+package org.geoproject.ingeo.utils;
 
-import com.geoproject.igeo.models.Project;
-import com.geoproject.igeo.models.Sample;
-import com.geoproject.igeo.models.SurveyPoint;
+import org.geoproject.ingeo.models.Project;
+import org.geoproject.ingeo.models.Sample;
+import org.geoproject.ingeo.models.SurveyPoint;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 @Component
 public class CurrentState {

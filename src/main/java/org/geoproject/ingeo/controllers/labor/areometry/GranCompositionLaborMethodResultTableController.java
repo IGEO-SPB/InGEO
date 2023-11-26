@@ -1,10 +1,11 @@
-package org.geoproject.ingeo.controllers.resultTables;
+package org.geoproject.ingeo.controllers.labor.areometry;
 
-import org.geoproject.ingeo.dto.GranCompositionDTO;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodResultTableController;
+import org.geoproject.ingeo.dto.methodDtos.GranCompositionDTO;
 import org.geoproject.ingeo.enums.dtoenums.GranCompositionDTOFieldsEnum;
-import org.geoproject.ingeo.models.GranCompositionAreometry;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.models.labor.GranCompositionAreometry;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.fxml.Initializable;
@@ -16,11 +17,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class GranCompositionResultTableController extends AbstractResultTableController<GranCompositionAreometry, GranCompositionDTO> implements Initializable {
+public class GranCompositionLaborMethodResultTableController extends AbstractLaborMethodResultTableController<GranCompositionAreometry, GranCompositionDTO> implements Initializable {
 
-    public GranCompositionResultTableController(ConfigurableApplicationContext applicationContext, SampleService sampleService,
-                                                CurrentState currentState,
-                                                TableService<GranCompositionAreometry, GranCompositionDTO> service) {
+    public GranCompositionLaborMethodResultTableController(ConfigurableApplicationContext applicationContext, SampleService sampleService,
+                                                           CurrentState currentState,
+                                                           TableService<GranCompositionAreometry, GranCompositionDTO> service) {
         super(applicationContext, sampleService, currentState, service);
     }
 

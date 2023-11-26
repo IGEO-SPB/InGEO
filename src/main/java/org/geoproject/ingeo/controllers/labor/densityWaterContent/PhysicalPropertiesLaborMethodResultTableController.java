@@ -1,10 +1,11 @@
-package org.geoproject.ingeo.controllers.resultTables;
+package org.geoproject.ingeo.controllers.labor.densityWaterContent;
 
-import org.geoproject.ingeo.dto.PhysicalPropertiesDTO;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodResultTableController;
+import org.geoproject.ingeo.dto.methodDtos.PhysicalPropertiesDTO;
 import org.geoproject.ingeo.enums.dtoenums.PhysicalPropertiesDTOFieldsEnum;
-import org.geoproject.ingeo.models.PhysicalProperties;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.models.labor.PhysicalProperties;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.fxml.Initializable;
@@ -16,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class PhysicalPropertiesResultTableController extends AbstractResultTableController<PhysicalProperties, PhysicalPropertiesDTO> implements Initializable {
+public class PhysicalPropertiesLaborMethodResultTableController extends AbstractLaborMethodResultTableController<PhysicalProperties, PhysicalPropertiesDTO> implements Initializable {
 
     //todo нейминг + коррозионный метод
     //Корроз. агр. грунта, Om*m
@@ -24,8 +25,8 @@ public class PhysicalPropertiesResultTableController extends AbstractResultTable
     //Корроз. агр. грунта, A/m^2
     //Корроз. агр. грунта, A/m^2
 
-    public PhysicalPropertiesResultTableController(ConfigurableApplicationContext applicationContext, SampleService sampleService,
-                                                   CurrentState currentState, TableService<PhysicalProperties, PhysicalPropertiesDTO> service) {
+    public PhysicalPropertiesLaborMethodResultTableController(ConfigurableApplicationContext applicationContext, SampleService sampleService,
+                                                              CurrentState currentState, TableService<PhysicalProperties, PhysicalPropertiesDTO> service) {
         super(applicationContext, sampleService, currentState, service);
     }
 

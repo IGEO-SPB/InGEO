@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.models;
+package org.geoproject.ingeo.models.labor;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.geoproject.ingeo.models.Sample;
 
 import java.time.LocalDate;
 

@@ -102,7 +102,7 @@
             <children>
                 <Separator prefWidth="200.0" />
             <Button mnemonicParsing="false" onAction="#onSaveChangesButtonClicked" text="Сохранить введенные изменения (данные в базе данных будут заменены)" />
-            <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/tableview.css">
+            <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../.css/tableview.css">
               <columns>
                 <TableColumn fx:id="laborNumber" editable="false" minWidth="60.0" prefWidth="0.0" text="Лаб. №" />
                 <TableColumn fx:id="surveyPointNumber" editable="false" minWidth="80.0" prefWidth="0.0" text="№ &#10;выработки" />

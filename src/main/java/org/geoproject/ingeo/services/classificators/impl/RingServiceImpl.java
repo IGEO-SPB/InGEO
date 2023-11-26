@@ -1,24 +1,20 @@
-package com.geoproject.igeo.services.classificators.impl;
+package org.geoproject.ingeo.services.classificators.impl;
 
-import com.geoproject.igeo.dto.classificators.RingDto;
-import com.geoproject.igeo.exceptions.ConflictException;
-import com.geoproject.igeo.exceptions.NoActiveEntitiesException;
-import com.geoproject.igeo.exceptions.NoContainerNumberEnteredException;
-import com.geoproject.igeo.exceptions.NotFoundException;
-import com.geoproject.igeo.mapper.classificators.RingMapper;
-import com.geoproject.igeo.models.classificators.Ring;
-import com.geoproject.igeo.models.classificators.WeighingBottle;
-import com.geoproject.igeo.repositories.classificators.RingRepository;
-import com.geoproject.igeo.services.classificators.RingService;
+import org.geoproject.ingeo.dto.classificators.RingDto;
+import org.geoproject.ingeo.exceptions.NoContainerNumberEnteredException;
+import org.geoproject.ingeo.exceptions.NotFoundException;
+import org.geoproject.ingeo.mapper.classificators.RingMapper;
+import org.geoproject.ingeo.models.classificators.Ring;
+import org.geoproject.ingeo.repositories.classificators.RingRepository;
+import org.geoproject.ingeo.services.classificators.RingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import static com.geoproject.igeo.constants.ServiceConstants.ENTITY_IS_NOT_ACTIVE;
+import static org.geoproject.ingeo.constants.ServiceConstants.ENTITY_IS_NOT_ACTIVE;
 
 @Service
 @RequiredArgsConstructor

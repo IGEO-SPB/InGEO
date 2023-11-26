@@ -1,10 +1,9 @@
-package com.geoproject.igeo.controllers.cameral;
+package org.geoproject.ingeo.controllers.cameral;
 
-import com.geoproject.igeo.dto.mainViewsDto.EgeDTO;
-import com.geoproject.igeo.dto.mainViewsDto.ProjectDto;
-import com.geoproject.igeo.models.classificators.kga.SoilClass;
-import com.geoproject.igeo.services.classificators.kga.SoilClassService;
-import com.geoproject.igeo.utils.CurrentState;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
+import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.services.classificators.kga.SoilClassService;
+import org.geoproject.ingeo.utils.CurrentState;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +21,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static com.geoproject.igeo.constants.ServiceConstants.ZERO_INDEX;
+import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Log4j2
 @Component

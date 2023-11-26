@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.tableViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.BoychenkoConeDTO;
 import org.geoproject.ingeo.dto.methodDtos.DensityDTO;
@@ -20,9 +20,9 @@ import org.geoproject.ingeo.models.classificators.BoychenkoConeLiquidityConsiste
 import org.geoproject.ingeo.repositories.labor.PhysicalPropertiesRepository;
 import org.geoproject.ingeo.repositories.SamplesRepository;
 import org.geoproject.ingeo.services.classificators.BoychenkoConeLiquidityConsistencyService;
-import org.geoproject.ingeo.services.methodViews.WaterContentService;
-import org.geoproject.ingeo.services.tableViews.GranCompositionAreometryService;
-import org.geoproject.ingeo.services.tableViews.PhysicalPropertiesService;
+import org.geoproject.ingeo.services.labor.WaterContentService;
+import org.geoproject.ingeo.services.labor.GranCompositionAreometryService;
+import org.geoproject.ingeo.services.labor.PhysicalPropertiesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

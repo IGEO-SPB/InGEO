@@ -1,4 +1,4 @@
-package com.geoproject.igeo.constants;
+package org.geoproject.ingeo.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

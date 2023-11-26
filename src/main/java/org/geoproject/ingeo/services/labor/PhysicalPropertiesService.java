@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.tableViews;
+package org.geoproject.ingeo.services.labor;
 
 import org.geoproject.ingeo.dto.methodDtos.BoychenkoConeDTO;
 import org.geoproject.ingeo.dto.methodDtos.DensityDTO;
@@ -9,6 +9,7 @@ import org.geoproject.ingeo.dto.methodDtos.WaterContentDTO;
 import org.geoproject.ingeo.models.labor.PhysicalProperties;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
+import org.geoproject.ingeo.services.TableService;
 
 import java.util.List;
 

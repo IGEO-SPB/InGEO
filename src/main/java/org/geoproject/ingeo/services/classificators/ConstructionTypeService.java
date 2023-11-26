@@ -1,6 +1,6 @@
-package com.geoproject.igeo.services.classificators;
+package org.geoproject.ingeo.services.classificators;
 
-import com.geoproject.igeo.models.classificators.ConstructionType;
+import org.geoproject.ingeo.models.classificators.ConstructionType;
 
 import java.util.List;
 

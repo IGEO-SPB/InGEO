@@ -1,6 +1,6 @@
-package com.geoproject.igeo.services.classificators.kga;
+package org.geoproject.ingeo.services.classificators.kga;
 
-import com.geoproject.igeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 
 import java.util.List;
 

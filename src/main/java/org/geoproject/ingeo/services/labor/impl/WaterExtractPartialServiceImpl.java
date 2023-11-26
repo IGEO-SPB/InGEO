@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.tableViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialResultDto;
@@ -13,8 +13,8 @@ import org.geoproject.ingeo.models.labor.WaterExtractPartial;
 import org.geoproject.ingeo.models.labor.WaterExtractPartialResult;
 import org.geoproject.ingeo.repositories.labor.WaterExtractPartialRepository;
 import org.geoproject.ingeo.repositories.labor.WaterExtractPartialResultRepository;
-import org.geoproject.ingeo.services.tableViews.WaterExtractPartialResultService;
-import org.geoproject.ingeo.services.tableViews.WaterExtractPartialService;
+import org.geoproject.ingeo.services.labor.WaterExtractPartialResultService;
+import org.geoproject.ingeo.services.labor.WaterExtractPartialService;
 import org.geoproject.ingeo.utils.CurrentState;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;

@@ -1,9 +1,9 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.WaterSampleDto;
 import org.geoproject.ingeo.models.SurveyPoint;
-import org.geoproject.ingeo.models.WaterSample;
+import org.geoproject.ingeo.models.labor.WaterSample;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

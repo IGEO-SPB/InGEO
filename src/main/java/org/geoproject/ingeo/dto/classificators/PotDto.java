@@ -1,6 +1,6 @@
-package com.geoproject.igeo.dto.classificators;
+package org.geoproject.ingeo.dto.classificators;
 
-import com.geoproject.igeo.enums.dtoenums.classificators.PotDtoFieldsEnum;
+import org.geoproject.ingeo.enums.dtoenums.classificators.PotDtoFieldsEnum;
 import lombok.Getter;
 import lombok.Setter;
 

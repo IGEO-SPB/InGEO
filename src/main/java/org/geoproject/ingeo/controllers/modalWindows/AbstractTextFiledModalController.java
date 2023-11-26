@@ -1,8 +1,8 @@
-package com.geoproject.igeo.controllers.modalWindows;
+package org.geoproject.ingeo.controllers.modalWindows;
 
-import com.geoproject.igeo.services.mainViews.SampleService;
-import com.geoproject.igeo.services.modalWindows.ModalWindowService;
-import com.geoproject.igeo.utils.CurrentState;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.ModalWindowService;
+import org.geoproject.ingeo.utils.CurrentState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

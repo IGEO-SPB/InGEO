@@ -1,10 +1,11 @@
-package org.geoproject.ingeo.services.mainViews;
+package org.geoproject.ingeo.services.cameral;
 
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
+import org.geoproject.ingeo.services.MainViewService;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;

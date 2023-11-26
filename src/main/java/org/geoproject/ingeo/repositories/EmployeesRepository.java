@@ -1,6 +1,6 @@
-package com.geoproject.igeo.repositories;
+package org.geoproject.ingeo.repositories;
 
-import com.geoproject.igeo.models.Employee;
+import org.geoproject.ingeo.models.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

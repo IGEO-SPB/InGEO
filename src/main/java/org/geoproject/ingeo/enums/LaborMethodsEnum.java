@@ -1,8 +1,7 @@
-package com.geoproject.igeo.enums;
+package org.geoproject.ingeo.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor
 @Getter
@@ -16,5 +15,6 @@ public enum LaborMethodsEnum {
     SOIL_CORROSION_METHOD("Коррозионная агрессивность грунта"),
     COMPRESSION_METHOD("Компрессия"),
     WATER_CHEMISTRY_METHOD("Химия воды");
-    String name;
+
+    private String name;
 }

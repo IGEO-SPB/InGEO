@@ -1,13 +1,13 @@
-package com.geoproject.igeo.mapper.qualifier;
+package org.geoproject.ingeo.mapper.qualifier;
 
-import com.geoproject.igeo.dto.WaterExtractFullDto;
-import com.geoproject.igeo.dto.WaterExtractFullResultDto;
-import com.geoproject.igeo.dto.WaterExtractPartialDto;
-import com.geoproject.igeo.dto.WaterExtractPartialResultDto;
-import com.geoproject.igeo.exceptions.ExceptionTypeEnum;
-import com.geoproject.igeo.exceptions.NotFoundException;
-import com.geoproject.igeo.models.Sample;
-import com.geoproject.igeo.repositories.SamplesRepository;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullResultDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialResultDto;
+import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
+import org.geoproject.ingeo.exceptions.NotFoundException;
+import org.geoproject.ingeo.models.Sample;
+import org.geoproject.ingeo.repositories.SamplesRepository;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Component;

@@ -1,19 +1,8 @@
-package com.geoproject.igeo.spreadsheetlib;
+package org.geoproject.ingeo.spreadsheetlib;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +13,6 @@ import org.controlsfx.control.spreadsheet.SpreadsheetCellType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class SpreadsheetHeader {

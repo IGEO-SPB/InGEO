@@ -1,4 +1,4 @@
-package com.geoproject.igeo.controllers.shared;
+package org.geoproject.ingeo.controllers.shared;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

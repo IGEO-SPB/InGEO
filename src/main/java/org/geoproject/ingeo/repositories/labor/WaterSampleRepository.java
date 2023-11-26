@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.repositories;
+package org.geoproject.ingeo.repositories.labor;
 
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.SurveyPoint;

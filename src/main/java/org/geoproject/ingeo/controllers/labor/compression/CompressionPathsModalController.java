@@ -1,7 +1,7 @@
-package org.geoproject.ingeo.controllers.laborMethods.compression;
+package org.geoproject.ingeo.controllers.labor.compression;
 
-import org.geoproject.ingeo.models.CompressionPaths;
-import org.geoproject.ingeo.repositories.CompressionPathsRepository;
+import org.geoproject.ingeo.models.labor.CompressionPaths;
+import org.geoproject.ingeo.repositories.labor.CompressionPathsRepository;
 import org.geoproject.ingeo.utils.CurrentState;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;

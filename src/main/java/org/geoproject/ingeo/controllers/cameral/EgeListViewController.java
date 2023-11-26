@@ -1,14 +1,14 @@
-package com.geoproject.igeo.controllers.cameral;
+package org.geoproject.ingeo.controllers.cameral;
 
-import com.geoproject.igeo.controllers.AbstractMainViewController;
-import com.geoproject.igeo.dto.mainViewsDto.EgeDTO;
-import com.geoproject.igeo.enums.ViewsEnum;
-import com.geoproject.igeo.models.Ege;
-import com.geoproject.igeo.models.Genesis;
-import com.geoproject.igeo.services.classificators.impl.GenesisServiceImpl;
-import com.geoproject.igeo.services.mainViews.MainViewService;
-import com.geoproject.igeo.utils.CurrentState;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.controllers.AbstractMainViewController;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.models.Ege;
+import org.geoproject.ingeo.models.classificators.Genesis;
+import org.geoproject.ingeo.services.classificators.impl.GenesisServiceImpl;
+import org.geoproject.ingeo.services.MainViewService;
+import org.geoproject.ingeo.utils.CurrentState;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,11 +16,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -28,9 +27,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
-
-import static com.geoproject.igeo.enums.StageTitleEnum.DILUTION_FACTORS;
+import java.util.List;
+import java.util.ResourceBundle;
 
 @Log4j2
 @Component

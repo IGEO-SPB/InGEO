@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.mainViews;
+package org.geoproject.ingeo.services;
 
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;

@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.repositories;
+package org.geoproject.ingeo.repositories.labor;
 
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.labor.SoilCorrosionResult;

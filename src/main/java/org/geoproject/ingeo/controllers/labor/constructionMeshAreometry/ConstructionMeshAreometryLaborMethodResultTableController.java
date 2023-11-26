@@ -1,10 +1,11 @@
-package org.geoproject.ingeo.controllers.resultTables;
+package org.geoproject.ingeo.controllers.labor.constructionMeshAreometry;
 
-import org.geoproject.ingeo.dto.ConstructionMeshAreometryResultDto;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodResultTableController;
+import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshAreometryResultDto;
 import org.geoproject.ingeo.enums.dtoenums.ConstructionMeshAreometryResultDTOFieldsEnum;
-import org.geoproject.ingeo.models.GranCompositionConstructionMeshAreometry;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.models.labor.GranCompositionConstructionMeshAreometry;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.fxml.Initializable;
@@ -16,12 +17,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class ConstructionMeshAreometryResultTableController extends AbstractResultTableController<GranCompositionConstructionMeshAreometry, ConstructionMeshAreometryResultDto>
+public class ConstructionMeshAreometryLaborMethodResultTableController extends AbstractLaborMethodResultTableController<GranCompositionConstructionMeshAreometry, ConstructionMeshAreometryResultDto>
         implements Initializable {
 
-    public ConstructionMeshAreometryResultTableController(ConfigurableApplicationContext applicationContext,
-                                                          SampleService sampleService, CurrentState currentState,
-                                                          TableService<GranCompositionConstructionMeshAreometry, ConstructionMeshAreometryResultDto> service) {
+    public ConstructionMeshAreometryLaborMethodResultTableController(ConfigurableApplicationContext applicationContext,
+                                                                     SampleService sampleService, CurrentState currentState,
+                                                                     TableService<GranCompositionConstructionMeshAreometry, ConstructionMeshAreometryResultDto> service) {
         super(applicationContext, sampleService, currentState, service);
     }
 

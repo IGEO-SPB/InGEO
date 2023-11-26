@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.controllers.laborMethods.corrosion;
+package org.geoproject.ingeo.controllers.labor.corrosion;
 
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;

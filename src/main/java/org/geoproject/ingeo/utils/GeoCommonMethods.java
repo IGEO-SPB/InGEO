@@ -1,12 +1,12 @@
-package com.geoproject.igeo.utils;
+package org.geoproject.ingeo.utils;
 
-import com.geoproject.igeo.models.BoreholeLayer;
+import org.geoproject.ingeo.models.BoreholeLayer;
 import javafx.collections.ObservableList;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import static com.geoproject.igeo.constants.LaborMethodConstants.FIRST_BOREHOLELAYER_NUMBER;
-import static com.geoproject.igeo.constants.LaborMethodConstants.ZERO_LAYERTOP_DEPTH;
+import static org.geoproject.ingeo.constants.LaborMethodConstants.FIRST_BOREHOLELAYER_NUMBER;
+import static org.geoproject.ingeo.constants.LaborMethodConstants.ZERO_LAYERTOP_DEPTH;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class GeoCommonMethods {

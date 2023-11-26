@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.tableViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.GranCompositionDTO;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
@@ -11,7 +11,7 @@ import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.repositories.labor.GranCompositionAreometryRepository;
 import org.geoproject.ingeo.repositories.SamplesRepository;
-import org.geoproject.ingeo.services.tableViews.GranCompositionAreometryService;
+import org.geoproject.ingeo.services.labor.GranCompositionAreometryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

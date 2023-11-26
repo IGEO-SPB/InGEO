@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.OrganicMatterDTO;
 import org.geoproject.ingeo.exceptions.NotFoundException;
@@ -11,7 +11,7 @@ import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.classificators.PeatDecayDegree;
 import org.geoproject.ingeo.repositories.labor.OrganicMatterRepository;
 import org.geoproject.ingeo.services.classificators.PeatDecayDegreeService;
-import org.geoproject.ingeo.services.methodViews.OrganicMatterService;
+import org.geoproject.ingeo.services.labor.OrganicMatterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.geoproject.igeo.models;
+package org.geoproject.ingeo.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

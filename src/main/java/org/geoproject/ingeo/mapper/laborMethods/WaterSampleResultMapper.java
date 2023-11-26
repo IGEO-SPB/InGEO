@@ -1,10 +1,10 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.WaterSampleResultDto;
 import org.geoproject.ingeo.exceptions.ConflictException;
 import org.geoproject.ingeo.models.SurveyPoint;
-import org.geoproject.ingeo.models.WaterSampleResult;
+import org.geoproject.ingeo.models.labor.WaterSampleResult;
 import org.geoproject.ingeo.models.classificators.WaterGroup;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

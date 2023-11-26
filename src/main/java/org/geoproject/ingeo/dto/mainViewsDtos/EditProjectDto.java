@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.dto.mainViewsDto;
+package org.geoproject.ingeo.dto.mainViewsDtos;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.ObjectProperty;

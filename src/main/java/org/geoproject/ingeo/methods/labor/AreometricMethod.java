@@ -1,14 +1,13 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.AreometryDTO;
-import com.geoproject.igeo.dto.GranCompositionDTO;
-import com.geoproject.igeo.enums.laborenums.AreometricParticleSizeEnum;
-import com.geoproject.igeo.utils.CommonOperations;
+import org.geoproject.ingeo.dto.methodDtos.AreometryDTO;
+import org.geoproject.ingeo.dto.methodDtos.GranCompositionDTO;
+import org.geoproject.ingeo.enums.laborenums.AreometricParticleSizeEnum;
+import org.geoproject.ingeo.utils.CommonOperations;
 
 import java.util.Arrays;
 
 public class AreometricMethod {
-//    AreometricDTO dto = new AreometricDTO();
 
     //служебные переменные
     private static float zzs1;

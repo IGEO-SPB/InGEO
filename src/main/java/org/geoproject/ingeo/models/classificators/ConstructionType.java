@@ -1,6 +1,6 @@
-package com.geoproject.igeo.models.classificators;
+package org.geoproject.ingeo.models.classificators;
 
-import com.geoproject.igeo.models.Project;
+import org.geoproject.ingeo.models.Project;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

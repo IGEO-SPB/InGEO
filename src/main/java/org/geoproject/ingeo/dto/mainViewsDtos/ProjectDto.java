@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.dto.mainViewsDto;
+package org.geoproject.ingeo.dto.mainViewsDtos;
 
 import org.geoproject.ingeo.enums.dtoenums.ProjectDTOFieldsEnum;
 import org.geoproject.ingeo.models.Ege;

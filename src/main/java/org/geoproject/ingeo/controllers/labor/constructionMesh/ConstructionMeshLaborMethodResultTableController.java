@@ -1,10 +1,11 @@
-package org.geoproject.ingeo.controllers.resultTables;
+package org.geoproject.ingeo.controllers.labor.constructionMesh;
 
-import org.geoproject.ingeo.dto.ConstructionMeshResultDto;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodResultTableController;
+import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshResultDto;
 import org.geoproject.ingeo.enums.dtoenums.ConstructionMeshResultDTOFieldsEnum;
-import org.geoproject.ingeo.models.GranCompositionConstructionMesh;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.models.labor.GranCompositionConstructionMesh;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.fxml.Initializable;
@@ -16,12 +17,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class ConstructionMeshResultTableController extends AbstractResultTableController<GranCompositionConstructionMesh, ConstructionMeshResultDto>
+public class ConstructionMeshLaborMethodResultTableController extends AbstractLaborMethodResultTableController<GranCompositionConstructionMesh, ConstructionMeshResultDto>
         implements Initializable {
 
-    public ConstructionMeshResultTableController(ConfigurableApplicationContext applicationContext,
-                                                 SampleService sampleService, CurrentState currentState,
-                                                 TableService<GranCompositionConstructionMesh, ConstructionMeshResultDto> service) {
+    public ConstructionMeshLaborMethodResultTableController(ConfigurableApplicationContext applicationContext,
+                                                            SampleService sampleService, CurrentState currentState,
+                                                            TableService<GranCompositionConstructionMesh, ConstructionMeshResultDto> service) {
         super(applicationContext, sampleService, currentState, service);
     }
 

@@ -1,8 +1,8 @@
-package com.geoproject.igeo.mapper.classificators;
+package org.geoproject.ingeo.mapper.classificators;
 
-import com.geoproject.igeo.config.MapStructConfiguration;
-import com.geoproject.igeo.dto.classificators.WeighingBottleDto;
-import com.geoproject.igeo.models.classificators.WeighingBottle;
+import org.geoproject.ingeo.config.MapStructConfiguration;
+import org.geoproject.ingeo.dto.classificators.WeighingBottleDto;
+import org.geoproject.ingeo.models.classificators.WeighingBottle;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

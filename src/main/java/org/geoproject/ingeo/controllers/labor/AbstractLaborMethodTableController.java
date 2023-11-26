@@ -1,9 +1,9 @@
-package org.geoproject.ingeo.controllers.laborMethods;
+package org.geoproject.ingeo.controllers.labor;
 
 import org.geoproject.ingeo.enums.ViewsEnum;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.mainViews.SurveyPointsService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;

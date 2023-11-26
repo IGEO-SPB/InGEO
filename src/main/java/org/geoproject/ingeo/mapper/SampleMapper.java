@@ -1,9 +1,17 @@
-package com.geoproject.igeo.mapper;
+package org.geoproject.ingeo.mapper;
 
-import com.geoproject.igeo.config.MapStructConfiguration;
-import com.geoproject.igeo.dto.*;
-import com.geoproject.igeo.models.Sample;
-import org.mapstruct.*;
+import org.geoproject.ingeo.config.MapStructConfiguration;
+import org.geoproject.ingeo.dto.*;
+import org.geoproject.ingeo.dto.methodDtos.AreometryDTO;
+import org.geoproject.ingeo.dto.methodDtos.DensityDTO;
+import org.geoproject.ingeo.dto.methodDtos.OrganicMatterDTO;
+import org.geoproject.ingeo.dto.methodDtos.RingDensityDTO;
+import org.geoproject.ingeo.dto.methodDtos.WaterContentDTO;
+import org.geoproject.ingeo.models.Sample;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
 @Mapper(config = MapStructConfiguration.class)
 public interface SampleMapper {

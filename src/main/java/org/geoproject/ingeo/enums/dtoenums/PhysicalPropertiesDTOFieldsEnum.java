@@ -1,7 +1,6 @@
-package com.geoproject.igeo.enums.dtoenums;
+package org.geoproject.ingeo.enums.dtoenums;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 

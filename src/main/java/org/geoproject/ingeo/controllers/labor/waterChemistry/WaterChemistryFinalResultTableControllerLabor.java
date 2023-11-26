@@ -1,13 +1,13 @@
-package org.geoproject.ingeo.controllers.laborMethods.waterChemistry;
+package org.geoproject.ingeo.controllers.labor.waterChemistry;
 
-import org.geoproject.ingeo.controllers.laborMethods.AbstractLaborMethodTableController;
-import org.geoproject.ingeo.dto.WaterSampleResultDto;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodTableController;
+import org.geoproject.ingeo.dto.methodDtos.WaterSampleResultDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotImplemented;
-import org.geoproject.ingeo.models.WaterSampleResult;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.mainViews.SurveyPointsService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.models.labor.WaterSampleResult;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.beans.property.SimpleStringProperty;

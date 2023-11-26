@@ -1,4 +1,4 @@
-package com.geoproject.igeo.models.classificators;
+package org.geoproject.ingeo.models.classificators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

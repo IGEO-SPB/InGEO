@@ -1,15 +1,15 @@
-package org.geoproject.ingeo.controllers.laborMethods.waterExtract;
+package org.geoproject.ingeo.controllers.labor.waterExtract;
 
-import org.geoproject.ingeo.controllers.laborMethods.AbstractLaborMethodTableController;
-import org.geoproject.ingeo.dto.WaterExtractFullResultDto;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodTableController;
+import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullResultDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.enums.dtoenums.WaterExtractFullResultDtoFieldsEnum;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotImplemented;
-import org.geoproject.ingeo.models.WaterExtractFullResult;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.mainViews.SurveyPointsService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.models.labor.WaterExtractFullResult;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.beans.property.BooleanProperty;

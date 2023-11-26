@@ -1,57 +1,20 @@
-package com.geoproject.igeo.utils;
+package org.geoproject.ingeo.utils;
 
-import com.geoproject.igeo.controllers.laborMethods.functionalInterfaces.NewRowAddable;
-import com.geoproject.igeo.controllers.resultTables.AbstractResultTableController;
-import com.geoproject.igeo.dto.GranCompositionDTO;
-import com.geoproject.igeo.dto.WaterSampleDto;
-import com.geoproject.igeo.dto.classificators.AbstractClassificator;
-import com.geoproject.igeo.dto.mainViewsDto.ProjectDto;
-import com.geoproject.igeo.enums.StageTitleEnum;
-import com.geoproject.igeo.models.Employee;
-import com.geoproject.igeo.models.GranCompositionAreometry;
-import com.geoproject.igeo.models.classificators.WeighingBottle;
 import javafx.application.Platform;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.converter.FloatStringConverter;
-import org.apache.commons.lang.StringUtils;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
-import static com.geoproject.igeo.constants.JavaFXConstants.EMPLOYEE_FIELD_PATTERN;
-import static com.geoproject.igeo.constants.JavaFXConstants.SINGLE_COLUMN_INDEX;
-import static com.geoproject.igeo.constants.JavaFXConstants.SINGLE_ROW_COUNT;
 
 public class Temp {
 
@@ -929,7 +892,7 @@ public class Temp {
 //        JavaFXCommonMethods.changeScene(event, ViewsPathNamesEnum.ALL_PROJECTS_VIEW.getPath(),
 //                applicationContext, StageTitleEnum.PROJECTS.getTitle());
 //
-//        URL url = new File("C:\\Users\\Professional\\IdeaProjects\\IGEO\\geoproject.igeo\\src\\main\\resources\\com.geoproject.igeo\\all-projects-view.fxml").toURI().toURL();
+//        URL url = new File("C:\\Users\\Professional\\IdeaProjects\\IGEO\\geoproject.igeo\\src\\main\\resources\\org.geoproject.ingeo\\all-projects-view.fxml").toURI().toURL();
 //        FXMLLoader fxmlLoader = new FXMLLoader(url);
 //
 //        fxmlLoader.setControllerFactory(applicationContext::getBean);

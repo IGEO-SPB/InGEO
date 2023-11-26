@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.mainViews.impl;
+package org.geoproject.ingeo.services.cameral.impl;
 
 import org.geoproject.ingeo.dto.mainViewsDtos.BoreholeLayerDTO;
 import org.geoproject.ingeo.exceptions.NotFoundException;
@@ -9,7 +9,7 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.repositories.BoreHoleLayerMainRepository;
-import org.geoproject.ingeo.services.mainViews.BoreHoleLayerMainService;
+import org.geoproject.ingeo.services.cameral.BoreHoleLayerMainService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.data.domain.Sort;

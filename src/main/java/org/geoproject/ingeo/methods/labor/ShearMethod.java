@@ -1,13 +1,13 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.ShearDto;
-import com.geoproject.igeo.exceptions.ZeroDivisionException;
+import org.geoproject.ingeo.dto.methodDtos.ShearDto;
+import org.geoproject.ingeo.exceptions.ZeroDivisionException;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.geoproject.igeo.exceptions.ExceptionTypeEnum.ZERO_DIVISION_ATTEMPT_EXCEPTION;
+import static org.geoproject.ingeo.exceptions.ExceptionTypeEnum.ZERO_DIVISION_ATTEMPT_EXCEPTION;
 
 public class ShearMethod {
 

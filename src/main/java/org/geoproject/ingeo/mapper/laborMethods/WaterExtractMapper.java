@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
@@ -6,10 +6,10 @@ import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullResultDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialResultDto;
 import org.geoproject.ingeo.mapper.qualifier.WaterExtractMapperQualifier;
-import org.geoproject.ingeo.models.WaterExtractFull;
-import org.geoproject.ingeo.models.WaterExtractFullResult;
-import org.geoproject.ingeo.models.WaterExtractPartial;
-import org.geoproject.ingeo.models.WaterExtractPartialResult;
+import org.geoproject.ingeo.models.labor.WaterExtractFull;
+import org.geoproject.ingeo.models.labor.WaterExtractFullResult;
+import org.geoproject.ingeo.models.labor.WaterExtractPartial;
+import org.geoproject.ingeo.models.labor.WaterExtractPartialResult;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

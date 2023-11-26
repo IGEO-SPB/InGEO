@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.objectChoice;
+package org.geoproject.ingeo.services.allProjects;
 
 import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;
 import org.geoproject.ingeo.models.Project;

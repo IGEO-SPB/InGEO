@@ -223,7 +223,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <LineChart fx:id="shearChart" animated="false" prefHeight="146.0" prefWidth="247.0" stylesheets="@../../css/shearchart.css" styleClass="chart-series-line">
+                  <LineChart fx:id="shearChart" animated="false" prefHeight="146.0" prefWidth="247.0" stylesheets="@../../.css/shearchart.css" styleClass="chart-series-line">
                     <xAxis>
                       <NumberAxis side="BOTTOM" />
                     </xAxis>

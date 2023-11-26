@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.common.impl;
+package org.geoproject.ingeo.services.common;
 
 import org.geoproject.ingeo.dto.SurveyPointDTO;
 import org.geoproject.ingeo.models.Project;

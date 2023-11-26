@@ -1,8 +1,8 @@
-package com.geoproject.igeo.mapper;
+package org.geoproject.ingeo.mapper;
 
-import com.geoproject.igeo.config.MapStructConfiguration;
-import com.geoproject.igeo.dto.SurveyPointDTO;
-import com.geoproject.igeo.models.SurveyPoint;
+import org.geoproject.ingeo.config.MapStructConfiguration;
+import org.geoproject.ingeo.dto.SurveyPointDTO;
+import org.geoproject.ingeo.models.SurveyPoint;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

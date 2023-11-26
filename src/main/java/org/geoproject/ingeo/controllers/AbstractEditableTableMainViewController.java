@@ -1,10 +1,11 @@
 package org.geoproject.ingeo.controllers;
 
-import org.geoproject.ingeo.controllers.modalWindows.CreateProjectWindowController;
-import org.geoproject.ingeo.dto.mainViewsDto.ProjectDto;
+import lombok.extern.log4j.Log4j2;
+import org.geoproject.ingeo.controllers.allProjects.CreateProjectWindowController;
+import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;
 import org.geoproject.ingeo.enums.StageTitleEnum;
 import org.geoproject.ingeo.enums.ViewsEnum;
-import org.geoproject.ingeo.services.mainViews.MainViewService;
+import org.geoproject.ingeo.services.MainViewService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;
@@ -30,8 +31,9 @@ import static org.geoproject.ingeo.enums.StageTitleEnum.FIELD_MODULE;
 import static org.geoproject.ingeo.enums.StageTitleEnum.LABOR_MODULE;
 import static org.geoproject.ingeo.enums.StageTitleEnum.PROJECTS;
 
+@Log4j2
 @Component
-public abstract class NewAbstractMainViewController<T, Y> {
+public abstract class AbstractEditableTableMainViewController<T, Y> {
 
     protected final ConfigurableApplicationContext applicationContext;
     protected final MainViewService<T, Y> service;
@@ -43,23 +45,23 @@ public abstract class NewAbstractMainViewController<T, Y> {
     Label projectCipherInFooter;
 
     @FXML
-    TableView<Y> tableView;
+    protected TableView<Y> tableView;
 
-    Scene scene;
-    Stage stage;
+    protected Scene scene;
+    protected Stage stage;
 
-    List<Y> dtos;
+    protected List<Y> dtos;
 
     @FXML
-    ObservableList<Y> observableList; //objectListForView
+    protected ObservableList<Y> observableList; //objectListForView
 
-    List<T> objects;
+    protected List<T> objects;
 
-    Map<TableColumn<Y, ?>, String> columnsMap;
+    protected Map<TableColumn<Y, ?>, String> columnsMap;
 
-    public NewAbstractMainViewController(ConfigurableApplicationContext applicationContext,
-                                         CurrentState currentState,
-                                         MainViewService<T, Y> service) {
+    public AbstractEditableTableMainViewController(ConfigurableApplicationContext applicationContext,
+                                                   CurrentState currentState,
+                                                   MainViewService<T, Y> service) {
         this.currentState = currentState;
         this.applicationContext = applicationContext;
         this.service = service;
@@ -92,7 +94,6 @@ public abstract class NewAbstractMainViewController<T, Y> {
 
     public void setTableViewSettings() {
         tableView.setEditable(true);
-//        tableView.getSelectionModel().setCellSelectionEnabled(true);
         tableView.getSelectionModel().setCellSelectionEnabled(true);
     }
 
@@ -115,10 +116,7 @@ public abstract class NewAbstractMainViewController<T, Y> {
 
     @FXML
     public void onCreateProjectButtonClicked(ActionEvent event) throws IOException {
-//        JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsPathNamesEnum.CREATE_NEW_PROJECT_VIEW.getPath(),
-//                applicationContext, stage, StageTitleEnum.NEW_PROJECT.getTitle());
-
-        System.out.println("onCreateProjectButtonClicked inited");
+        log.info("onCreateProjectButtonClicked inited");
 
         Stage dialog = new Stage();
         dialog.setTitle(StageTitleEnum.NEW_PROJECT.getTitle());
@@ -138,13 +136,13 @@ public abstract class NewAbstractMainViewController<T, Y> {
 
     @FXML
     public void onSaveChangesButtonClicked(ActionEvent event) {
-        System.out.println("saveAllObjectsButton clicked...");
+        log.info("saveAllObjectsButton clicked...");
         service.updateFromDtos(objects, dtos);
     }
 
     @FXML
     public void onDeleteRowButtonClicked(ActionEvent event) {
-        System.out.println("Abstract method 'onDeleteRowButtonClicked()' inited...");
+        log.info("Abstract method 'onDeleteRowButtonClicked()' inited...");
 
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
         Y dto = tableView.getItems().get(selectedIndex);

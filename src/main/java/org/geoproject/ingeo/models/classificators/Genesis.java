@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.models;
+package org.geoproject.ingeo.models.classificators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.geoproject.ingeo.models.Ege;
 import org.hibernate.annotations.Cascade;
 
 import java.util.List;

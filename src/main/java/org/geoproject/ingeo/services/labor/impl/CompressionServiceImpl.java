@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.CompressionDto;
 import org.geoproject.ingeo.exceptions.NotFoundException;
@@ -8,8 +8,8 @@ import org.geoproject.ingeo.models.classificators.Ring;
 import org.geoproject.ingeo.repositories.labor.CompressionPathsRepository;
 import org.geoproject.ingeo.repositories.labor.CompressionRepository;
 import org.geoproject.ingeo.repositories.classificators.RingRepository;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.methodViews.CompressionService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.CompressionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.stereotype.Component;

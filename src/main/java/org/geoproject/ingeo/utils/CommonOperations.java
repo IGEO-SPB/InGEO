@@ -1,4 +1,4 @@
-package com.geoproject.igeo.utils;
+package org.geoproject.ingeo.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

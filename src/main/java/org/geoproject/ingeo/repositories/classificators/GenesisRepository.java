@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.repositories;
+package org.geoproject.ingeo.repositories.classificators;
 
 import org.geoproject.ingeo.models.classificators.Genesis;
 import org.springframework.data.jpa.repository.JpaRepository;

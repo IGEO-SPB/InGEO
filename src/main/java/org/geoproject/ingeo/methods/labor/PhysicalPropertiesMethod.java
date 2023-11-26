@@ -1,7 +1,7 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.PhysicalPropertiesDTO;
-import com.geoproject.igeo.utils.CommonOperations;
+import org.geoproject.ingeo.dto.methodDtos.PhysicalPropertiesDTO;
+import org.geoproject.ingeo.utils.CommonOperations;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
 

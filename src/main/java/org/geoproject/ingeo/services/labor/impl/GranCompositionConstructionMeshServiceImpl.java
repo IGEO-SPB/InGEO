@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.tableViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshResultDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
@@ -11,7 +11,7 @@ import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.repositories.labor.GranCompositionConstructionMeshRepository;
 import org.geoproject.ingeo.repositories.SamplesRepository;
-import org.geoproject.ingeo.services.tableViews.GranCompositionConstructionMeshService;
+import org.geoproject.ingeo.services.labor.GranCompositionConstructionMeshService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

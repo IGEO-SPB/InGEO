@@ -1,6 +1,6 @@
-package com.geoproject.igeo.services.classificators;
+package org.geoproject.ingeo.services.classificators;
 
-import com.geoproject.igeo.models.classificators.PeatDecayDegree;
+import org.geoproject.ingeo.models.classificators.PeatDecayDegree;
 
 public interface PeatDecayDegreeService {
     PeatDecayDegree findByP250(int p250);

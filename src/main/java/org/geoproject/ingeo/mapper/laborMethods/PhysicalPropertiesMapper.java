@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.mapper;
+package org.geoproject.ingeo.mapper.laborMethods;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.methodDtos.BoychenkoConeDTO;
@@ -7,7 +7,7 @@ import org.geoproject.ingeo.dto.methodDtos.OrganicMatterDTO;
 import org.geoproject.ingeo.dto.methodDtos.PhysicalPropertiesDTO;
 import org.geoproject.ingeo.dto.methodDtos.RingDensityDTO;
 import org.geoproject.ingeo.dto.methodDtos.WaterContentDTO;
-import org.geoproject.ingeo.models.PhysicalProperties;
+import org.geoproject.ingeo.models.labor.PhysicalProperties;
 import org.geoproject.ingeo.models.Sample;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

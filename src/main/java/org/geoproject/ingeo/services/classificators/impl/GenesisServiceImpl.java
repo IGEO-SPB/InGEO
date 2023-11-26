@@ -1,8 +1,8 @@
-package com.geoproject.igeo.services.classificators.impl;
+package org.geoproject.ingeo.services.classificators.impl;
 
-import com.geoproject.igeo.models.Genesis;
-import com.geoproject.igeo.repositories.GenesisRepository;
-import com.geoproject.igeo.services.classificators.GenesisService;
+import org.geoproject.ingeo.models.classificators.Genesis;
+import org.geoproject.ingeo.repositories.classificators.GenesisRepository;
+import org.geoproject.ingeo.services.classificators.GenesisService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Service;

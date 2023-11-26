@@ -1,14 +1,12 @@
-package com.geoproject.igeo.controllers.shared;
+package org.geoproject.ingeo.controllers.shared;
 
-import com.geoproject.igeo.enums.StageTitleEnum;
-import com.geoproject.igeo.enums.ViewsEnum;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.enums.StageTitleEnum;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 

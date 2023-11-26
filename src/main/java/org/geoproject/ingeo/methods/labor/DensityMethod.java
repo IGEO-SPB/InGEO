@@ -1,7 +1,7 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.DensityDTO;
-import com.geoproject.igeo.utils.CommonOperations;
+import org.geoproject.ingeo.dto.methodDtos.DensityDTO;
+import org.geoproject.ingeo.utils.CommonOperations;
 import lombok.RequiredArgsConstructor;
 
 

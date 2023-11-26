@@ -1,16 +1,16 @@
-package org.geoproject.ingeo.controllers.laborMethods.shear;
+package org.geoproject.ingeo.controllers.labor.shear;
 
-import org.geoproject.ingeo.controllers.laborMethods.AbstractLaborMethodTableController;
-import org.geoproject.ingeo.dto.ShearDto;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodTableController;
+import org.geoproject.ingeo.dto.methodDtos.ShearDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.enums.dtoenums.ShearDtoFieldsEnum;
 import org.geoproject.ingeo.methods.labor.ShearMethod;
 import org.geoproject.ingeo.models.Sample;
-import org.geoproject.ingeo.models.Shear;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.mainViews.SurveyPointsService;
-import org.geoproject.ingeo.services.tableViews.PhysicalPropertiesService;
-import org.geoproject.ingeo.services.tableViews.TableService;
+import org.geoproject.ingeo.models.labor.Shear;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.common.SurveyPointsService;
+import org.geoproject.ingeo.services.labor.PhysicalPropertiesService;
+import org.geoproject.ingeo.services.TableService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.beans.property.BooleanProperty;

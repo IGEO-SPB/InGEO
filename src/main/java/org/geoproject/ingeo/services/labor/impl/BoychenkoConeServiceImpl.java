@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.BoychenkoConeDTO;
 import org.geoproject.ingeo.exceptions.NotImplemented;
@@ -8,7 +8,7 @@ import org.geoproject.ingeo.models.labor.BoychenkoCone;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.repositories.labor.BoychenkoConeRepository;
-import org.geoproject.ingeo.services.methodViews.BoychenkoConeService;
+import org.geoproject.ingeo.services.labor.BoychenkoConeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

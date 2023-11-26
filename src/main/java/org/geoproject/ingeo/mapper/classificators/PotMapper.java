@@ -1,8 +1,8 @@
-package com.geoproject.igeo.mapper.classificators;
+package org.geoproject.ingeo.mapper.classificators;
 
-import com.geoproject.igeo.config.MapStructConfiguration;
-import com.geoproject.igeo.dto.classificators.PotDto;
-import com.geoproject.igeo.models.classificators.Pot;
+import org.geoproject.ingeo.config.MapStructConfiguration;
+import org.geoproject.ingeo.dto.classificators.PotDto;
+import org.geoproject.ingeo.models.classificators.Pot;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

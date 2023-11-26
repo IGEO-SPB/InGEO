@@ -1,13 +1,13 @@
 package org.geoproject.ingeo;
 
-import org.springframework.boot.SpringApplication;
+import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class InGeoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(InGeoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        Application.launch(GeoJavaFXApp.class, args);
 
+    }
 }

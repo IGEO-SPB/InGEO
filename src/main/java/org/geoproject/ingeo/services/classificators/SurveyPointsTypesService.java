@@ -1,6 +1,6 @@
-package com.geoproject.igeo.services.classificators;
+package org.geoproject.ingeo.services.classificators;
 
-import com.geoproject.igeo.models.SurveyPointsType;
+import org.geoproject.ingeo.models.classificators.SurveyPointsType;
 
 import java.util.List;
 

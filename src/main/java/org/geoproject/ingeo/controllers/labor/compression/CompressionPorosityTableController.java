@@ -1,8 +1,8 @@
-package org.geoproject.ingeo.controllers.laborMethods.compression;
+package org.geoproject.ingeo.controllers.labor.compression;
 
-import org.geoproject.ingeo.dto.CompressionDto;
+import org.geoproject.ingeo.dto.methodDtos.CompressionDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
-import org.geoproject.ingeo.services.methodViews.CompressionService;
+import org.geoproject.ingeo.services.labor.CompressionService;
 import org.geoproject.ingeo.spreadsheetlib.SpreadsheetHeader;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;

@@ -1,4 +1,4 @@
-package com.geoproject.igeo.dto;
+package org.geoproject.ingeo.dto;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.StringProperty;

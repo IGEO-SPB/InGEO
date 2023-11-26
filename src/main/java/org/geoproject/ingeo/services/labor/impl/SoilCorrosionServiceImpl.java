@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.PrintInfoDto;
 import org.geoproject.ingeo.dto.methodDtos.SoilCorrosionInputDto;
@@ -10,7 +10,7 @@ import org.geoproject.ingeo.models.labor.SoilCorrosionInput;
 import org.geoproject.ingeo.models.labor.SoilCorrosionResult;
 import org.geoproject.ingeo.repositories.labor.SoilCorrosionInputRepository;
 import org.geoproject.ingeo.repositories.labor.SoilCorrosionResultRepository;
-import org.geoproject.ingeo.services.methodViews.SoilCorrosionService;
+import org.geoproject.ingeo.services.labor.SoilCorrosionService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.stereotype.Service;

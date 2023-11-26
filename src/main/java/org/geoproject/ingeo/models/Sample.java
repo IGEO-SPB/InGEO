@@ -1,7 +1,5 @@
-package com.geoproject.igeo.models;
+package org.geoproject.ingeo.models;
 
-import com.geoproject.igeo.dto.WaterExtractPartialDto;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,6 +14,17 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.geoproject.ingeo.models.labor.Areometry;
+import org.geoproject.ingeo.models.labor.BoychenkoCone;
+import org.geoproject.ingeo.models.labor.ConstructionMesh;
+import org.geoproject.ingeo.models.labor.Density;
+import org.geoproject.ingeo.models.labor.GranCompositionAreometry;
+import org.geoproject.ingeo.models.labor.GranCompositionConstructionMesh;
+import org.geoproject.ingeo.models.labor.OrganicMatter;
+import org.geoproject.ingeo.models.labor.PhysicalProperties;
+import org.geoproject.ingeo.models.labor.RingDensity;
+import org.geoproject.ingeo.models.labor.Shear;
+import org.geoproject.ingeo.models.labor.WaterContent;
 
 import java.time.LocalDate;
 import java.util.List;

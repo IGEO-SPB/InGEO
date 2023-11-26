@@ -1,10 +1,12 @@
-package org.geoproject.ingeo.controllers;
+package org.geoproject.ingeo.controllers.field;
 
+import org.geoproject.ingeo.controllers.AbstractMainViewController;
 import org.geoproject.ingeo.dto.SurveyPointDTO;
 import org.geoproject.ingeo.models.*;
+import org.geoproject.ingeo.models.classificators.SurveyPointsType;
 import org.geoproject.ingeo.services.classificators.SurveyPointsTypesService;
-import org.geoproject.ingeo.services.mainViews.MainViewService;
-import org.geoproject.ingeo.services.mainViews.impl.ProjectsServiceImpl;
+import org.geoproject.ingeo.services.MainViewService;
+import org.geoproject.ingeo.services.allProjects.impl.ProjectsServiceImpl;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.beans.property.SimpleObjectProperty;

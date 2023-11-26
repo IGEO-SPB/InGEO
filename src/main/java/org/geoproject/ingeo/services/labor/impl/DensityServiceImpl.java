@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.DensityDTO;
 import org.geoproject.ingeo.exceptions.NotImplemented;
@@ -8,7 +8,7 @@ import org.geoproject.ingeo.models.labor.Density;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.repositories.labor.DensityRepository;
-import org.geoproject.ingeo.services.methodViews.DensityService;
+import org.geoproject.ingeo.services.labor.DensityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

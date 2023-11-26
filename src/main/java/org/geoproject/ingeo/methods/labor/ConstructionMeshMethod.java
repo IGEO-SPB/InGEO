@@ -1,8 +1,8 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.ConstructionMeshDTO;
-import com.geoproject.igeo.dto.ConstructionMeshResultDto;
-import com.geoproject.igeo.utils.CommonOperations;
+import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshDTO;
+import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshResultDto;
+import org.geoproject.ingeo.utils.CommonOperations;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang.StringUtils;
@@ -10,7 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.geoproject.igeo.constants.LaborMethodConstants.ZERO_FLOAT_VALUE;
+import static org.geoproject.ingeo.constants.LaborMethodConstants.ZERO_FLOAT_VALUE;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConstructionMeshMethod {

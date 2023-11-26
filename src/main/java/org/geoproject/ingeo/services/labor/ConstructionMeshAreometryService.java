@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews;
+package org.geoproject.ingeo.services.labor;
 
 import org.geoproject.ingeo.dto.methodDtos.ConstructionMeshAreometryDto;
 import org.geoproject.ingeo.models.labor.ConstructionMeshAreometry;

@@ -1,7 +1,7 @@
-package org.geoproject.ingeo.labor;
+package org.geoproject.ingeo.methods.labor;
 
-import com.geoproject.igeo.dto.RingDensityDTO;
-import com.geoproject.igeo.utils.CommonOperations;
+import org.geoproject.ingeo.dto.methodDtos.RingDensityDTO;
+import org.geoproject.ingeo.utils.CommonOperations;
 
 public class RingDensityMethod {
     private static float calculateRingDensity(float ringWithWetSoilMass, float ringEmptyMass, float ringVolume) {

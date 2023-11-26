@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.services.methodViews.impl;
+package org.geoproject.ingeo.services.labor.impl;
 
 import org.geoproject.ingeo.dto.methodDtos.RingDensityDTO;
 import org.geoproject.ingeo.exceptions.NotImplemented;
@@ -10,9 +10,9 @@ import org.geoproject.ingeo.models.labor.RingDensity;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.labor.WaterContent;
 import org.geoproject.ingeo.repositories.labor.RingDensityRepository;
-import org.geoproject.ingeo.services.methodViews.DensityService;
-import org.geoproject.ingeo.services.methodViews.RingDensityService;
-import org.geoproject.ingeo.services.methodViews.WaterContentService;
+import org.geoproject.ingeo.services.labor.DensityService;
+import org.geoproject.ingeo.services.labor.RingDensityService;
+import org.geoproject.ingeo.services.labor.WaterContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

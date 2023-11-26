@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.text.Text?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.AllProjectsMainViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.allProjects.AllProjectsEditableTableMainViewController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>

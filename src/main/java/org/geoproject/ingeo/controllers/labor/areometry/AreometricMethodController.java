@@ -1,13 +1,13 @@
-package org.geoproject.ingeo.controllers.laborMethods.areometry;
+package org.geoproject.ingeo.controllers.labor.areometry;
 
-import org.geoproject.ingeo.controllers.laborMethods.AbstractLaborMethodController;
-import org.geoproject.ingeo.dto.AreometryDTO;
-import org.geoproject.ingeo.models.Areometry;
+import org.geoproject.ingeo.controllers.labor.AbstractLaborMethodController;
+import org.geoproject.ingeo.dto.methodDtos.AreometryDTO;
+import org.geoproject.ingeo.models.labor.Areometry;
 import org.geoproject.ingeo.services.classificators.PotService;
 import org.geoproject.ingeo.services.classificators.RingService;
 import org.geoproject.ingeo.services.classificators.WeighingBottleService;
-import org.geoproject.ingeo.services.mainViews.SampleService;
-import org.geoproject.ingeo.services.methodViews.MethodViewService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.MethodViewService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.event.ActionEvent;

@@ -1,10 +1,10 @@
-package com.geoproject.igeo.controllers.modalWindows;
+package org.geoproject.ingeo.controllers.modalWindows;
 
-import com.geoproject.igeo.dto.classificators.WeighingBottleDto;
-import com.geoproject.igeo.enums.dtoenums.classificators.WeighingBottleDtoFieldsEnum;
-import com.geoproject.igeo.models.classificators.WeighingBottle;
-import com.geoproject.igeo.services.classificators.WeighingBottleService;
-import com.geoproject.igeo.utils.JavaFXCommonMethods;
+import org.geoproject.ingeo.dto.classificators.WeighingBottleDto;
+import org.geoproject.ingeo.enums.dtoenums.classificators.WeighingBottleDtoFieldsEnum;
+import org.geoproject.ingeo.models.classificators.WeighingBottle;
+import org.geoproject.ingeo.services.classificators.WeighingBottleService;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
