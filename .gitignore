@@ -25,6 +25,7 @@ modules.xml
 
 *.class
 *.log
+*.properties
 
 
 ### NetBeans ###
