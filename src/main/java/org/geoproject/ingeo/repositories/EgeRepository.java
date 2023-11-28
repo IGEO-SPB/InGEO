@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EgesRepository extends JpaRepository<Ege, Long> {
+public interface EgeRepository extends JpaRepository<Ege, Long> {
 
     List<Ege> findByProject(Project project);
 

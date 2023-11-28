@@ -1,9 +1,12 @@
 package org.geoproject.ingeo.controllers.cameral;
 
+import javafx.scene.control.TextArea;
 import org.apache.commons.lang.StringUtils;
-import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
+import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
+import org.geoproject.ingeo.services.cameral.EgeServise;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassKindGroupService;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassService;
 import org.geoproject.ingeo.services.classificators.kga.SoilKindService;
@@ -36,35 +39,45 @@ public class SoilKindChoiceViewController implements Initializable {
     private final SoilClassService soilClassService;
     private final SoilKindService soilKindService;
     private final SoilClassKindGroupService soilClassKindGroupService;
+    private final EgeServise egeServise;
 
-    private EgeDTO egeDto;
+    private Ege ege;
+    private EgeDto egeDto;
 
     List<SoilClass> soilClasses;
     List<SoilClassKindGroup> soilGroups;
 
+    @FXML
+    TextArea descriptionCredoFormular;
     @FXML
     ChoiceBox<SoilClass> soilClassChoiceBox;
     @FXML
     ChoiceBox<SoilClassKindGroup> soilKindGroupChoiceBox;
 
     public SoilKindChoiceViewController(ConfigurableApplicationContext applicationContext, CurrentState currentState,
-                                        SoilClassService soilClassService, SoilKindService soilKindService, SoilClassKindGroupService soilClassKindGroupService) {
+                                        SoilClassService soilClassService, SoilKindService soilKindService, SoilClassKindGroupService soilClassKindGroupService, EgeServise egeServise) {
         this.applicationContext = applicationContext;
         this.currentState = currentState;
         this.soilClassService = soilClassService;
         this.soilKindService = soilKindService;
         this.soilClassKindGroupService = soilClassKindGroupService;
+        this.egeServise = egeServise;
+    }
+
+    public void passEge(Ege ege) {
+        this.ege = ege;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setDto();
+        setDescriptionCredoFormularTextArea();
         setSoilClassChoiceBox();
         setSoilKindGroupChoiceBox();
     }
 
     public void setDto() {
-        egeDto = new EgeDTO();
+        egeDto = egeServise.getDto(ege);
     }
 
     public void setSoilClassChoiceBox() {
@@ -133,6 +146,10 @@ public class SoilKindChoiceViewController implements Initializable {
         soilKindGroupChoiceBox.setValue(soilGroups.get(ZERO_INDEX));
     }
 
+    public void setDescriptionCredoFormularTextArea() {
+        descriptionCredoFormular.setText(egeDto.getDescriptionCredoFormular());
+    }
+
     @FXML
     public void onSoilClassChoiceBoxClicked(ActionEvent event) {
 
@@ -161,4 +178,6 @@ public class SoilKindChoiceViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
+
 }

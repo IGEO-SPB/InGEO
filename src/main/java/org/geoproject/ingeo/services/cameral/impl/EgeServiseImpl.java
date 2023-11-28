@@ -1,14 +1,15 @@
 package org.geoproject.ingeo.services.cameral.impl;
 
-import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.exceptions.NotImplemented;
+import org.geoproject.ingeo.mapper.EgeMapper;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
-import org.geoproject.ingeo.repositories.EgesRepository;
-import org.geoproject.ingeo.services.cameral.EgesServise;
+import org.geoproject.ingeo.repositories.EgeRepository;
+import org.geoproject.ingeo.services.cameral.EgeServise;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.data.domain.Sort;
@@ -19,18 +20,19 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EgesServiseImpl implements EgesServise {
+public class EgeServiseImpl implements EgeServise {
 
-    private final EgesRepository egesRepository;
+    private final EgeRepository egeRepository;
+    private final EgeMapper egeMapper;
 
     @Override
     public List<Ege> getAll() {
-        return egesRepository.findAll();
+        return egeRepository.findAll();
     }
 
     @Override
     public Ege getById(Long id) {
-        return egesRepository.findById(id)
+        return egeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("ИГЭ не найден"));
     }
 
@@ -41,7 +43,7 @@ public class EgesServiseImpl implements EgesServise {
 
     @Override
     @Transactional
-    public void create(EgeDTO dto) {
+    public void create(EgeDto dto) {
         throw new NotImplementedException("create метод не реализован");
 
     }
@@ -49,24 +51,24 @@ public class EgesServiseImpl implements EgesServise {
     @Override
     @Transactional
     public void create(List<Ege> egeList) {
-        egesRepository.saveAll(egeList);
+        egeRepository.saveAll(egeList);
     }
 
     @Override
     @Transactional
     public void update(Ege ege) {
-        egesRepository.save(ege);
+        egeRepository.save(ege);
     }
 
     @Override
     @Transactional
     public void delete(List<Ege> egeList) {
-        egesRepository.deleteAll(egeList);
+        egeRepository.deleteAll(egeList);
     }
 
     @Override
     public List<Ege> getByProject(Project project) {
-        return egesRepository.findByProject(project);
+        return egeRepository.findByProject(project);
     }
 
     @Override
@@ -76,21 +78,29 @@ public class EgesServiseImpl implements EgesServise {
 
     @Override
     public Ege getByNumberAndProject(String number, Project project) {
-        return egesRepository.findByNumberAndProject(number, project);
+        return egeRepository.findByNumberAndProject(number, project);
     }
 
     @Override
-    public void delete(EgeDTO object) {
+    public void delete(EgeDto object) {
 
     }
 
     @Override
-    public List<EgeDTO> getDtos(List<Ege> objects) {
+    public List<EgeDto> getDtos(List<Ege> objects) {
         throw new NotImplementedException("getDtos метод не реализован");
     }
 
     @Override
-    public void updateFromDtos(List<Ege> objects, List<EgeDTO> dtos) {
+    public void updateFromDtos(List<Ege> objects, List<EgeDto> dtos) {
         throw new NotImplemented("updateFromDtos not implemented");
+    }
+
+    @Override
+    public EgeDto getDto(Ege ege) {
+
+        var egeDto = egeMapper.egeToEgeDto(ege);
+
+        return egeDto;
     }
 }

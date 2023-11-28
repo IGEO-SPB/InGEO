@@ -1,7 +1,7 @@
 package org.geoproject.ingeo.controllers.cameral;
 
 import org.geoproject.ingeo.controllers.AbstractMainViewController;
-import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.classificators.Genesis;
@@ -28,11 +28,14 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Log4j2
 @Component
-public class EgeListViewController extends AbstractMainViewController<Ege, EgeDTO> implements Initializable {
+public class EgeListViewController extends AbstractMainViewController<Ege, EgeDto> implements Initializable {
 
     private final GenesisServiceImpl genesisService;
     Stage stage;
@@ -66,7 +69,7 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDT
 
 
     public EgeListViewController(ConfigurableApplicationContext applicationContext,
-                                 MainViewService<Ege, EgeDTO> service,
+                                 MainViewService<Ege, EgeDto> service,
                                  CurrentState currentState,
                                  GenesisServiceImpl genesisService) {
         super(currentState, applicationContext, service);
@@ -251,8 +254,22 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDT
 //        JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
 //                applicationContext, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
 
+        SoilKindChoiceViewController childController = (SoilKindChoiceViewController) applicationContext.getBean("soilKindChoiceViewController");
+
+        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex < ZERO_INDEX) {
+            selectedIndex = ZERO_INDEX;
+        }
+
+        Ege ege = tableView.getItems().get(selectedIndex);
+
+        childController.passEge(ege);
+
         JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
                 applicationContext, stage, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
+
+
     }
 
     //todo придумать уведомление о необходимости нажать на сохранить для удаления из базы

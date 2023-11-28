@@ -1,6 +1,6 @@
 package org.geoproject.ingeo.services.cameral;
 
-import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-public interface EgesServise extends MainViewService<Ege, EgeDTO> {
+public interface EgeServise extends MainViewService<Ege, EgeDto> {
     @Override
     List<Ege> getAll();
 
@@ -21,7 +21,7 @@ public interface EgesServise extends MainViewService<Ege, EgeDTO> {
     Ege getBySample(Sample sample);
 
     @Override
-    void create(EgeDTO object);
+    void create(EgeDto object);
 
     @Override
     void create(List<Ege> objectList);
@@ -41,11 +41,13 @@ public interface EgesServise extends MainViewService<Ege, EgeDTO> {
     Ege getByNumberAndProject(String number, Project project);
 
     @Override
-    void delete(EgeDTO object);
+    void delete(EgeDto object);
 
     @Override
-    List<EgeDTO> getDtos(List<Ege> objects);
+    List<EgeDto> getDtos(List<Ege> objects);
 
     @Override
-    void updateFromDtos(List<Ege> objects, List<EgeDTO> dtos);
+    void updateFromDtos(List<Ege> objects, List<EgeDto> dtos);
+
+    EgeDto getDto(Ege ege);
 }

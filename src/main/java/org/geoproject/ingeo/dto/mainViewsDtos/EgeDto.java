@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EgeDTO {
+public class EgeDto {
 
     //Номер ИГЭ
     private String number;
