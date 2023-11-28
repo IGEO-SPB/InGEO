@@ -1,5 +1,6 @@
 package org.geoproject.ingeo.services.allProjects.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.exceptions.NotImplemented;
@@ -8,11 +9,9 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.models.classificators.ConstructionType;
-import org.geoproject.ingeo.repositories.EmployeesRepository;
 import org.geoproject.ingeo.repositories.ProjectsRepository;
-import org.geoproject.ingeo.services.classificators.ConstructionTypeService;
 import org.geoproject.ingeo.services.allProjects.ProjectsService;
-import lombok.RequiredArgsConstructor;
+import org.geoproject.ingeo.services.classificators.ConstructionTypeService;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.geoproject.ingeo.constants.ServiceConstants.ENTITY_IS_ARCHIVE;
+import static org.geoproject.ingeo.constants.ServiceConstants.ID_FIELD;
 
 @Service
 @RequiredArgsConstructor
 public class ProjectsServiceImpl implements ProjectsService {
 
     private final ProjectsRepository projectsRepository;
-    private final EmployeesRepository employeesRepository;
 
     private final ProjectMapper projectMapper;
 
@@ -34,7 +33,7 @@ public class ProjectsServiceImpl implements ProjectsService {
 
     @Override
     public List<Project> getAll() {
-        Sort sort = Sort.by("id");
+        Sort sort = Sort.by(ID_FIELD);
 
         return projectsRepository.findAll(sort);
     }
@@ -46,7 +45,7 @@ public class ProjectsServiceImpl implements ProjectsService {
 
     @Override
     public Project getBySample(Sample __) {
-        return null;
+        throw new NotImplemented("getBySample method in ProjectServise not implemented");
     }
 
     @Override
@@ -93,17 +92,16 @@ public class ProjectsServiceImpl implements ProjectsService {
 
     @Override
     public List<Project> getByProject(Project project) {
-        return null;
+        throw new NotImplemented("getByProject method in ProjectServise not implemented");
     }
 
     @Override
     public List<Project> getBySurveyPoint(SurveyPoint surveyPoint, Sort laborNumber) {
-        return null;
+        throw new NotImplemented("getBySurveyPoint method in ProjectServise not implemented");
     }
 
     @Override
     public List<ProjectDto> getDtos(List<Project> entities) {
-        System.out.println("init get dtos");
         return projectMapper.projectToProjectDto(entities);
     }
 
@@ -111,39 +109,6 @@ public class ProjectsServiceImpl implements ProjectsService {
     @Transactional
     public void updateFromDtos(List<Project> objects, List<ProjectDto> dtos) {
         projectMapper.updateProject(objects, dtos);
-
-        var testObject = projectsRepository.findById(1L);
-        System.out.println("testObject");
-        System.out.println(testObject.get().getId());
-        System.out.println(testObject.get().getCreatedBy().getId());
-        System.out.println(testObject.get().getCreatedBy().getName());
-        System.out.println(testObject.get().getExecutor().getId());
-        System.out.println(testObject.get().getExecutor().getName());
-        System.out.println(testObject.get().getApprover().getId());
-        System.out.println(testObject.get().getApprover().getName());
-
-        System.out.println("Before saving:");
-        System.out.println(objects.get(0).getId());
-        System.out.println(objects.get(0).getCreatedBy().getId());
-        System.out.println(objects.get(0).getCreatedBy().getName());
-        System.out.println(objects.get(0).getExecutor().getId());
-        System.out.println(objects.get(0).getExecutor().getName());
-        System.out.println(objects.get(0).getApprover().getId());
-        System.out.println(objects.get(0).getApprover().getName());
-
-//    (e -> {
-//            System.out.println(e.getId());
-//            System.out.println(e.getCreatedBy().getId());
-//            System.out.println(e.getCreatedBy().getName());
-//            System.out.println(e.getExecutor().getId());
-//            System.out.println(e.getExecutor().getName());
-//            System.out.println(e.getApprover().getId());
-//            System.out.println(e.getApprover().getName());
-//        });
-
-//        employeesRepository.save(objects.get(0).getCreatedBy());
-//        employeesRepository.save(objects.get(0).getExecutor());
-//        employeesRepository.save(objects.get(0).getApprover());
 
         projectsRepository.saveAllAndFlush(objects);
     }

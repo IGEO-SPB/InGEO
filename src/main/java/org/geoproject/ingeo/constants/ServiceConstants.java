@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ServiceConstants {
+    public static final String ID_FIELD = "id";
     public static final String LABOR_NUMBER_FIELD = "laborNumber";
     public static final String SHEAR_POINT_NUMBER_FIELD = "shearPointNumber";
 

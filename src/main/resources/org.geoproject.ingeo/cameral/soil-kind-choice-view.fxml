@@ -85,8 +85,8 @@
                               <RowConstraints vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox fx:id="soilClassChoiceBox" onAction="#onSoilClassChoiceBoxClicked" layoutX="177.0" layoutY="12.0" prefWidth="150.0" GridPane.rowIndex="1" />
-                              <ChoiceBox fx:id="soilKindChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="soilClassChoiceBox" layoutX="177.0" layoutY="12.0" onAction="#onSoilClassChoiceBoxClicked" prefWidth="150.0" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="soilKindGroupChoiceBox" onAction="#onSoilKindGroupChoiceBoxClicked" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Класс" />
                               <Label layoutX="10.0" layoutY="16.0" text="Группа" GridPane.columnIndex="1" />
                            </children>
