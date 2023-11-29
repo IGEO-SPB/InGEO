@@ -1,6 +1,7 @@
 target/
 test.db
 log.txt
+memory
 \target\
 /target
 !.mvn/wrapper/maven-wrapper.jar
