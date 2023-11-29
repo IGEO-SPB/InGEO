@@ -1,4 +1,6 @@
 target/
+test.db
+log.txt
 \target\
 /target
 !.mvn/wrapper/maven-wrapper.jar
