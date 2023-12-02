@@ -1,9 +1,8 @@
 package org.geoproject.ingeo;
 
 import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.services.allProjects.ProjectsService;
-import org.geoproject.ingeo.services.common.SampleService;
-import org.geoproject.ingeo.services.common.SurveyPointsService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.application.Platform;
@@ -12,10 +11,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.data.domain.Sort;
 
 @Log4j2
 public class GeoJavaFXApp extends javafx.application.Application {
+
     private ConfigurableApplicationContext applicationContext;
 
     @Override
@@ -23,20 +22,22 @@ public class GeoJavaFXApp extends javafx.application.Application {
         try {
             CurrentState state = applicationContext.getBean(CurrentState.class);
             ProjectsService projectsService = applicationContext.getBean(ProjectsService.class);
-            SurveyPointsService surveyPointsService = applicationContext.getBean(SurveyPointsService.class);
-            SampleService sampleService = applicationContext.getBean(SampleService.class);
 
-            var project = projectsService.getById(1L);
-            log.info("project");
-            log.info(project.getId());
-            var surveyPoint = surveyPointsService.getByProject(project).get(0);
-            log.info("surveyPoint");
-            log.info(surveyPoint.getId());
-            var sample = sampleService.getBySurveyPoint(surveyPoint, Sort.unsorted()).get(0);
+            Initializer initializer = applicationContext.getBean(Initializer.class);
 
-            state.setCurrentProject(project);
-            state.setSurveyPoint(surveyPoint);
-            state.setSample(sample);
+            try {
+                var project = projectsService.getById(1L);
+                state.setCurrentProject(project);
+                log.info("project");
+                log.info(project.getId());
+
+                initializer.setCurrentSurveyPoint(project);
+                initializer.setCurrentSample(state.getSurveyPoint());
+            } catch (NotFoundException e) {
+                log.info(e.getMessage());
+                state.setCurrentProject(null);
+            }
+
         } catch(NoSuchBeanDefinitionException ignored){
 
             log.error("failed to set current state...");

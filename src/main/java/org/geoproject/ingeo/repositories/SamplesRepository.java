@@ -6,6 +6,7 @@ import org.geoproject.ingeo.models.SurveyPoint;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,15 +21,16 @@ public interface SamplesRepository extends JpaRepository<Sample, Long> {
 
     @Query("SELECT s FROM Sample s " +
             "WHERE s.surveyPoint.project = :project")
-    List<Sample> findByProject(Project project);
+    List<Sample> findByProject(@Param("project") Project project);
 
     @Query("SELECT s FROM Sample s " +
             "WHERE s.surveyPoint.pointNumber like :surveyPointNumber " +
             "AND s.laborNumber like :laborNumber")
-    Optional<Sample> findBySurveyPointNumberAndLaborNumber(String surveyPointNumber, String laborNumber);
+    Optional<Sample> findBySurveyPointNumberAndLaborNumber(@Param("surveyPointNumber") String surveyPointNumber, @Param("laborNumber") String laborNumber);
 
     @Query("SELECT s FROM Sample s " +
             "WHERE s.surveyPoint.project = :project " +
             "AND s.laborNumber like :laborNumber")
-    Optional<Sample> findByProjectIdAndLaborNumber(Project project, String laborNumber);
+    Optional<Sample> findByProjectIdAndLaborNumber(@Param("project") Project project,
+                                                   @Param("laborNumber") String laborNumber);
 }
