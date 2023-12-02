@@ -251,10 +251,8 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
     @FXML
     public void onSoilKindChoiceViewButtonClicked(ActionEvent event) throws IOException {
         log.info("onSoilKindChoiceViewButtonClicked clicked...");
-//        JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
-//                applicationContext, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
 
-        SoilKindChoiceViewController childController = (SoilKindChoiceViewController) applicationContext.getBean("soilKindChoiceViewController");
+        var childController = (SoilKindChoiceViewController) applicationContext.getBean("soilKindChoiceViewController");
 
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
 
@@ -262,14 +260,12 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
             selectedIndex = ZERO_INDEX;
         }
 
-        Ege ege = tableView.getItems().get(selectedIndex);
+        var ege = tableView.getItems().get(selectedIndex);
 
         childController.passEge(ege);
 
         JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
                 applicationContext, stage, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
-
-
     }
 
     //todo придумать уведомление о необходимости нажать на сохранить для удаления из базы

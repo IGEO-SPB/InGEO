@@ -1,5 +1,6 @@
 package org.geoproject.ingeo.services.cameral;
 
+import org.geoproject.ingeo.dto.DescriptionKgaDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.Project;
@@ -50,4 +51,6 @@ public interface EgeServise extends MainViewService<Ege, EgeDto> {
     void updateFromDtos(List<Ege> objects, List<EgeDto> dtos);
 
     EgeDto getDto(Ege ege);
+
+    DescriptionKgaDto getDescriptionKgaDto(Ege ege);
 }

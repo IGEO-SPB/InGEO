@@ -31,6 +31,7 @@ public class EgeDto {
     private String descriptionCredoFormular;
 
     //Описание по классификатору КГА. Вводится набором грунтов из классификатора
+//    private String descriptionKga;
     private String descriptionKga;
 
     //Описание для камеральной задачи. Как правило, копируется из descriptionKga. Может быть ручной ввод.
@@ -46,6 +47,7 @@ public class EgeDto {
     //  todo сделать отдельную таблицу с цветами:
     private String color;
 
+    private float waterDepth;
 
     private SoilClass soilClass;
 

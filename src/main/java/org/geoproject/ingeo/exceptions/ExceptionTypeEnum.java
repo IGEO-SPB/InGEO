@@ -19,6 +19,7 @@ public enum ExceptionTypeEnum {
     GRAN_COMPOSITION_AREOMETRY_NOT_FOUND_EXCEPTION("Гран.состав:ареометрия не найдена"),
     SHEAR_NOT_FOUND_EXCEPTION("Точка сдвиговых исследований не найдена"),
     ZERO_DIVISION_ATTEMPT_EXCEPTION("Попытка деления на 0, проверьте введенные данные"),
+    SOIL_SUBKIND_NOT_FOUND_EXCEPTION("Тип группы не найден"),
     ;
 
     private final String message;

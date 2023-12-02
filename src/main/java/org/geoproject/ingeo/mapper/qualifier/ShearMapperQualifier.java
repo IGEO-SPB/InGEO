@@ -18,26 +18,10 @@ public class ShearMapperQualifier {
     private final CurrentState currentState;
 
     @Named("getByProjectIdAndLaborNumber")
-//    public Sample getByProjectIdAndLaborNumber(ShearDto dto) {
     public Sample getByProjectIdAndLaborNumber(String laborNumber) {
-//        System.out.println("dto.getId()");
-//        System.out.println(dto.getId());
-
-        System.out.println("currentState.getCurrentProject().getId()");
-        System.out.println(currentState.getCurrentProject().getId());
-
-        System.out.println("laborNumber");
-        System.out.println(laborNumber);
-
-//        System.out.println("dto.getLaborNumber()");
-//        System.out.println(dto.getLaborNumber());
-//        return samplesRepository.findByProjectIdAndLaborNumber(currentState.getCurrentProject().getId(), dto.getLaborNumber())
 
         Sample sample = samplesRepository.findByProjectIdAndLaborNumber(currentState.getCurrentProject(), laborNumber)
                 .orElseThrow(() -> new NotFoundException(ExceptionTypeEnum.SAMPLE_NOT_FOUND_EXCEPTION.getMessage()));
-
-        System.out.println("sample");
-        System.out.println(sample);
 
         return sample;
     }

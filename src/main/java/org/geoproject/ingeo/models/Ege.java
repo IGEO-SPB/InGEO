@@ -2,6 +2,7 @@ package org.geoproject.ingeo.models;
 
 import org.geoproject.ingeo.models.classificators.Genesis;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.models.classificators.kga.SoilKind;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -126,7 +127,7 @@ public class Ege {
      * ВА: SS1, для Формуляр
      */
     @Column(name = "SS1")
-    private Long ss1;
+    private Long SS1;
 
     @Column(name = "SS2")
     private Long SS2;
@@ -194,6 +195,10 @@ public class Ege {
     @JoinColumn(name = "soil_kind_id")
     private SoilKind soilKind;
 
+    @ManyToOne
+    @JoinColumn(name = "soil_class_kind_group")
+    private SoilClassKindGroup soilClassKindGroup;
+
 
     //  todo сделать отдельную таблицу с цветами:
     @Column(name = "color")
@@ -208,8 +213,9 @@ public class Ege {
     @Column(name = "F_Opis")
     private String F_Opis;
 
-//    @Column(name = "water_depth")
-//    private float waterDepth;
+    //BA: с гл.хх м -насыщ водой
+    @Column(name = "f_G")
+    private Float waterDepth;
 
     @OneToMany(mappedBy = "ege")
     private List<BoreholeLayer> boreholeLayerList;

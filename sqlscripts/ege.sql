@@ -74,10 +74,15 @@ CREATE TABLE ege
     color                        varchar,
 --     След.два поля назначение пока не ясно, связаны с формуляром:
     GB_NMB                       int,
-    F_Opis                       varchar
+    F_Opis                       varchar,
 --     это скрытые поля на форме:
 --     credo_color int,
 --     hatching_credo varchar,
+
+-- вод нас с гл
+        f_G float4,
+
+    soil_class_kind_group int REFERENCES classif_soil_class_kind_group (id) ON DELETE SET NULL
 );
 
 --   No
@@ -95,7 +100,7 @@ CREATE TABLE ege
 --     i_E
 --     i_F
 --     i_G
---     f_G
+-- + f_G - вод нас с гл
 --     i_Grng
 --     i_H1
 --     i_H2
@@ -103,9 +108,9 @@ CREATE TABLE ege
 --     i_H4
 --     i_H5
 --     i_H6
--- +    Opis
--- +    ACAD
--- +    TCNS
+-- + Opis
+-- + ACAD
+-- + TCNS
 --   COLG
 --   PATT
 --   cred
@@ -151,7 +156,7 @@ CREATE TABLE ege
 -- - GI - не требуется, т.к. это, видимо, ID генезиса, который уже реализован в колонке genesis_id
 -- + SC
 -- + SK
--- - SG - не требуется, т.к. это колонка SK_GROUP из таблицы cl_soil_kind
+-- + SG - колонка SK_GROUP из таблицы cl_soil_kind - сделал для нее также отдельную таблицу
 --     SCOSN
 --     SKOSN
 --     SGOSN
@@ -195,6 +200,16 @@ ALTER TABLE ege
 
 ALTER TABLE ege
     ADD COLUMN project_id int REFERENCES project (id);
+
+ALTER TABLE ege
+    ADD COLUMN soil_class_kind_group int REFERENCES classif_soil_class_kind_group (id) ON DELETE SET NULL;
+
+
+
+
+ALTER TABLE ege
+    ADD COLUMN f_G float4;
+COMMENT ON COLUMN ege.f_G IS 'BA: с гл.хх м -насыщ водой';
 
 ALTER TABLE ege
     ADD COLUMN soil_class_id int REFERENCES cl_soil_class (id) ON DELETE SET NULL;

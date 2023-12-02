@@ -1,11 +1,15 @@
 package org.geoproject.ingeo.controllers.cameral;
 
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import org.apache.commons.lang.StringUtils;
+import org.geoproject.ingeo.dto.DescriptionKgaDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 import org.geoproject.ingeo.services.cameral.EgeServise;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassKindGroupService;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassService;
@@ -28,6 +32,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static org.geoproject.ingeo.constants.ServiceConstants.COMMA_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.WATER_FULL_PATTERN;
 import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Log4j2
@@ -43,16 +49,23 @@ public class SoilKindChoiceViewController implements Initializable {
 
     private Ege ege;
     private EgeDto egeDto;
+    private DescriptionKgaDto descriptionKgaDto;
 
     List<SoilClass> soilClasses;
     List<SoilClassKindGroup> soilGroups;
 
+
+
     @FXML
-    TextArea descriptionCredoFormular;
+    TextArea descriptionCredoFormularTextArea;
+    @FXML
+    TextArea descriptionKgaTextArea;
     @FXML
     ChoiceBox<SoilClass> soilClassChoiceBox;
     @FXML
     ChoiceBox<SoilClassKindGroup> soilKindGroupChoiceBox;
+    @FXML
+    ListView<SoilSubkind> soilSubkindAdjListView;
 
     public SoilKindChoiceViewController(ConfigurableApplicationContext applicationContext, CurrentState currentState,
                                         SoilClassService soilClassService, SoilKindService soilKindService, SoilClassKindGroupService soilClassKindGroupService, EgeServise egeServise) {
@@ -72,12 +85,53 @@ public class SoilKindChoiceViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setDto();
         setDescriptionCredoFormularTextArea();
+        setDescriptionKgaTextArea();
+        setSoilSubkindAdjListView();
         setSoilClassChoiceBox();
         setSoilKindGroupChoiceBox();
     }
 
     public void setDto() {
         egeDto = egeServise.getDto(ege);
+        descriptionKgaDto = egeServise.getDescriptionKgaDto(ege);
+    }
+
+    public void setDescriptionKgaTextArea() {
+        var soilSubkindMapStringBuilder = new StringBuilder();
+        descriptionKgaDto.getSoilSubkindMap().values()
+                .stream()
+                .map(SoilSubkind::getSsDescr)
+                .forEach(soilSubkindMapStringBuilder::append);
+
+        var soilSubkindAdjMapStringBuilder = new StringBuilder();
+        descriptionKgaDto.getSoilSubkindAdjMap().values()
+                .stream()
+                .map(SoilSubkindAdj::getSsaDescr)
+                .forEach(soilSubkindAdjMapStringBuilder::append);
+
+
+        var text = new StringBuilder()
+                .append(descriptionKgaDto.getSoilKind().getSkDescr())
+                .append(COMMA_PATTERN)
+                .append(soilSubkindMapStringBuilder)
+                .append(COMMA_PATTERN)
+                .append(descriptionKgaDto.getColor())
+                .append(COMMA_PATTERN)
+                .append(soilSubkindAdjMapStringBuilder)
+                .append(COMMA_PATTERN)
+                .append(String.format(WATER_FULL_PATTERN, descriptionKgaDto.getWaterDepth()))
+                .toString();
+
+        descriptionKgaTextArea.setText(text);
+    }
+
+    public void setSoilSubkindAdjListView() {
+        soilSubkindAdjListView.getItems().clear();
+
+        var items =
+                FXCollections.observableArrayList(descriptionKgaDto.getSoilSubkindMap().values());
+
+        soilSubkindAdjListView.setItems(items);
     }
 
     public void setSoilClassChoiceBox() {
@@ -147,7 +201,7 @@ public class SoilKindChoiceViewController implements Initializable {
     }
 
     public void setDescriptionCredoFormularTextArea() {
-        descriptionCredoFormular.setText(egeDto.getDescriptionCredoFormular());
+        descriptionCredoFormularTextArea.setText(egeDto.getDescriptionCredoFormular());
     }
 
     @FXML

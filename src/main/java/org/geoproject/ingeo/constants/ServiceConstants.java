@@ -30,8 +30,17 @@ public final class ServiceConstants {
     public static final Integer ZERO_LIST_SIZE = 0;
 
     public static final String SPACE_PATTERN = " ";
+    public static final String COMMA_PATTERN = ", ";
+
+    public static final String WATER_FULL_PATTERN = "водонасыщенные с глубины %s м.";
+    public static final String SHORT_METER_PATTERN = " м.";
+
+
+
 
     public static final String SCIENTIFIC_NOTATION_PATTERN = "-?\\d+(\\.\\d+)?[Ee]-?\\d+";
+
+    public static final String SOIL_SUBKIND_ENTITY_NAME = "SoilSubkind";
 
 
 }
