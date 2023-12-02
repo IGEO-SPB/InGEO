@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.geoproject.ingeo.models.Ege;
 
 import java.util.List;
 
@@ -41,4 +42,8 @@ public class SoilClassKindGroup {
     @OneToMany
     @JoinColumn(name = "soil_class_kind_group_id")
     private List<SoilKind> soilKindList;
+
+    @OneToMany
+    @JoinColumn(name = "soil_class_kind_group")
+    private List<Ege> egeList;
 }
