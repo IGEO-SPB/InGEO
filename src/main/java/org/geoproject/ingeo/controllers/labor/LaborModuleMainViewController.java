@@ -209,6 +209,12 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
     public void setMethodNamesInChoiceBox() {
         methodNamesChoiceBox.getItems().addAll(methodNamesObservableList);
         methodNamesChoiceBox.setValue("Методы");
+
+        if (Objects.isNull(currentState.getSurveyPoint()) || Objects.isNull(currentState.getSample())) {
+            methodNamesChoiceBox.setDisable(Boolean.TRUE);
+        } else {
+            methodNamesChoiceBox.setDisable(Boolean.FALSE);
+        }
     }
 
     private ViewsEnum getViewFromMethodNamesChoiceBox() {
@@ -286,7 +292,7 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
                 var surveyPoint = surveyPointsService.getByPointNumber(newValue.getPointNumber(), currentState.getCurrentProject());
 
                 currentState.setSurveyPoint(surveyPoint);
-                surveyPointChoiceBox.setValue(currentState.getSurveyPoint());
+//                surveyPointChoiceBox.setValue(currentState.getSurveyPoint());
 
                 updateObservableList();
             }
@@ -353,6 +359,7 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
     @FXML
     public void onSaveAllObjectsButtonClicked() {
         super.onSaveAllObjectsButtonClicked();
+        methodNamesChoiceBox.setDisable(Boolean.FALSE);
         System.out.println("onSaveAllSamplesButtonClicked clicked...");
     }
 

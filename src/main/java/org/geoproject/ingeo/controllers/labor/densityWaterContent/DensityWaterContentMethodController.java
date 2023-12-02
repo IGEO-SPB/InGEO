@@ -335,6 +335,9 @@ public class DensityWaterContentMethodController extends AbstractLaborMethodCont
     public void setDTO() {
         Sample sample = currentState.getSample();
 
+        System.out.println("===========+++");
+        System.out.println(currentState.getSample());
+
         density = densityService.getBySample(sample);
         waterContent = waterContentService.getBySample(sample);
         boychenkoCone = boychenkoConeService.getBySample(sample);
