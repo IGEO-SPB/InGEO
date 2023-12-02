@@ -42,7 +42,7 @@
 
                 <ToolBar prefHeight="40.0" prefWidth="200.0">
                     <items>
-                        <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор проекта" />
+                        <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор объекта" />
                         <Region prefHeight="26.0" prefWidth="6.0" />
                         <Region prefHeight="26.0" prefWidth="6.0" />
                         <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
@@ -119,12 +119,12 @@
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />
-                      <HBox prefHeight="44.0" prefWidth="902.0" spacing="30.0">
+                      <HBox prefHeight="44.0" prefWidth="902.0" spacing="10.0">
                           <children>
-                              <Button mnemonicParsing="false" onAction="#onEgeListButtonClicked" text="Список ИГЭ (лок.список грунт.)" />
-                              <Button mnemonicParsing="false" onAction="#onBoreholeLayerButtonClicked" text="Послойное описание (лит.+конс.)" />
-                        <Button layoutX="228.0" layoutY="10.0" mnemonicParsing="false" text="Гидрогеология" />
-                        <Button layoutX="460.0" layoutY="10.0" mnemonicParsing="false" text="Консистенция" />
+                              <Button mnemonicParsing="false" onAction="#onEgeListButtonClicked" prefWidth="190.0" text="Список ИГЭ (лок.список грунт.)" />
+                              <Button mnemonicParsing="false" onAction="#onBoreholeLayerButtonClicked" prefWidth="190.0" text="Послойное описание (лит.+конс.)" />
+                        <Button layoutX="228.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="190.0" text="Гидрогеология" />
+                        <Button layoutX="460.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="190.0" text="Консистенция" />
                         <Button layoutX="692.0" layoutY="10.0" mnemonicParsing="false" text="Опробование" />
                           </children>
                           <VBox.margin>
@@ -171,9 +171,9 @@
                         <TableColumn fx:id="shortName" prefWidth="72.79994583129883" text="Вид грунта (коротко)" />
                         <TableColumn fx:id="genesis" prefWidth="50.39996337890625" text="Генезис" />
                         <TableColumn fx:id="soilKindEnum" prefWidth="100.0" text="Вид грунта (быстро)" />
-                        <TableColumn fx:id="descriptionCredoFormular" minWidth="0.0" prefWidth="86.39996337890625" text="Локальный список гр. - для чертежа, CREDO и ФОД" />
-                        <TableColumn fx:id="descriptionKga" prefWidth="101.60003662109375" text="Описание грунтов по классификатору КГА" />
-                        <TableColumn fx:id="descriptionForCameralTask" prefWidth="122.4000244140625" text="Описание для камеральной задачи ЛенТИСИЗ">
+                        <TableColumn fx:id="descriptionCredoFormular" minWidth="0.0" prefWidth="86.39996337890625" text="Локальный список гр. - &#10;для чертежа, CREDO и ФОД" />
+                        <TableColumn fx:id="descriptionKga" prefWidth="101.60003662109375" text="Описание грунтов &#10;по классификатору КГА" />
+                        <TableColumn fx:id="descriptionForCameralTask" prefWidth="122.4000244140625" text="Описание для камеральной &#10;задачи ЛенТИСИЗ">
                             <columns>
                                 <TableColumn fx:id="genesisDescription" prefWidth="108.79998779296875" text="Описание генезиса" />
                                 <TableColumn fx:id="descriptionForOrganisation" prefWidth="108.79998779296875" text="Описание грунтов" />

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -46,7 +47,6 @@
                     <items>
                         <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор объекта" />
                         <Region prefHeight="26.0" prefWidth="6.0" />
-                        <Button accessibleRole="MENU_BUTTON" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Редактировать объект" />
                         <Region prefHeight="26.0" prefWidth="6.0" />
                         <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
                             <items>
@@ -106,24 +106,41 @@
             <children>
                 <HBox prefHeight="31.0" prefWidth="600.0" spacing="30.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Скважина (поле)" />
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Стат.зондирование" />
-                        <Button mnemonicParsing="false" text="Штамп" />
-                        <Button mnemonicParsing="false" text="Прессиометр" />
-                        <Button mnemonicParsing="false" text="..." />
+                        <Button disable="true" mnemonicParsing="false" text="Скважина (поле)" />
+                        <Button disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Стат.зондирование" />
+                        <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" text="Штамп" />
+                        <Button disable="true" mnemonicParsing="false" text="Прессиометр" />
+                        <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="..." />
                     </children>
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox prefHeight="100.0" prefWidth="200.0">
+            <Separator prefWidth="200.0" />
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                     <children>
-                        <Button fx:id="saveAllSurveyPoints" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" text="Сохранить" />
-                        <Button fx:id="addNewRow" mnemonicParsing="false" onAction="#onAddNewRowButtonClicked" text="Добавить строку" />
-                        <Button fx:id="deleteSelectedRow" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" text="Удалить строку" />
-                  <ChoiceBox fx:id="chooseProjectChoiceBox" onMouseClicked="#onChooseProjectChoiceBoxSelect" prefWidth="150.0" />
-                  <Button fx:id="showSurveyPointsFromAllProjectsButton" mnemonicParsing="false" onAction="#onShowSurveyPointsFromAllProjectsButtonClicked" text="Вывести скважины по всем проектам" />
+                  <VBox prefHeight="56.0" prefWidth="122.0" spacing="5.0">
+                     <children>
+                              <Button fx:id="addNewRow" mnemonicParsing="false" onAction="#onAddNewRowButtonClicked" text="Добавить строку" />
+                              <Button fx:id="deleteSelectedRow" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="26.0" prefWidth="109.0" text="Удалить строку" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                              <Button fx:id="saveAllSurveyPoints" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" prefHeight="26.0" prefWidth="98.0" text="Сохранить" />
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <VBox prefHeight="57.0" prefWidth="245.0" spacing="5.0">
+                     <children>
+                        <Button fx:id="showSurveyPointsFromAllProjectsButton" mnemonicParsing="false" onAction="#onShowSurveyPointsFromAllProjectsButtonClicked" text="Вывести скважины по всем проектам" />
+                        <ChoiceBox fx:id="chooseProjectChoiceBox" onMouseClicked="#onChooseProjectChoiceBoxSelect" prefHeight="26.0" prefWidth="224.0" />
+                     </children>
+                  </VBox>
                     </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
                 </HBox>
                 <TableView fx:id="tableView" prefHeight="408.0" prefWidth="563.0">
                     <columns>

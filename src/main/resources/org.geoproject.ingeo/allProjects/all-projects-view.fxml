@@ -42,8 +42,7 @@
             </MenuBar>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
                <items>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Проекты" />
-                  <Region prefHeight="26.0" prefWidth="6.0" />
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Выбор объекта" />
                   <Region prefHeight="26.0" prefWidth="6.0" />
                   <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
                      <items>
