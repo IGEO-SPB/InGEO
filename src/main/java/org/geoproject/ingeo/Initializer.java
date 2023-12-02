@@ -30,12 +30,11 @@ public class Initializer {
             log.info("Идентификатор текущей точки исследования: " + surveyPoint.getId());
 
             currentState.setSurveyPoint(surveyPoint);
+        } else {
+            currentState.setSurveyPoint(null);
+
+            log.info("В базе данных нет сохраненных точек исследования");
         }
-
-        currentState.setSurveyPoint(null);
-
-        log.info("В базе данных нет сохраненных точек исследования");
-
     }
 
     public void setCurrentSample(SurveyPoint surveyPoint) {
@@ -47,10 +46,10 @@ public class Initializer {
             log.info("Идентификатор текущего образца: " + sample.getId());
 
             currentState.setSample(sample);
+        } else {
+            currentState.setSample(null);
+
+            log.info("В базе данных нет сохраненных образцов");
         }
-
-        currentState.setSample(null);
-
-        log.info("В базе данных нет сохраненных образцов");
     }
 }

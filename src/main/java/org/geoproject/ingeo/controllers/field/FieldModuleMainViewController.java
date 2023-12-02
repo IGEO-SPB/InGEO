@@ -34,6 +34,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static org.geoproject.ingeo.constants.ServiceConstants.NO_PROJECTS_SERVICE_MESSAGE;
+import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Component
 @Log4j2
@@ -209,14 +210,14 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
     @FXML
     public void onSaveAllObjectsButtonClicked() {
         super.onSaveAllObjectsButtonClicked();
+
+        currentState.setSurveyPoint(objectListForView.get(ZERO_INDEX));
+
         log.info("onSaveAllBoreholeLayersButtonClicked clicked...");
     }
 
     @Override
     public List<SurveyPoint> setObjectListForObjectListForView() {
-
-        System.out.println("CHEEEECK");
-        System.out.println(currentState.getCurrentProject());
 
         if (Objects.isNull(currentState.getCurrentProject())) {
             openAlertModalWindow("Не заполнено ни одного проекта. " +
