@@ -8,8 +8,16 @@ import org.geoproject.ingeo.mapper.qualifier.EgeMapperQualifier;
 import org.geoproject.ingeo.mapper.qualifier.ShearMapperQualifier;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.SurveyPoint;
+import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.models.classificators.kga.SoilKind;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+
+import java.util.Map;
+import java.util.Objects;
 
 @Mapper(config = MapStructConfiguration.class,
         uses = {EgeMapperQualifier.class}
@@ -54,7 +62,85 @@ public interface EgeMapper {
 //    @Mapping(target = "ssa11", source = "ege.ssa11", qualifiedByName = {"EgeMapperQualifier", "getSoilSubkindAdjById"})
 //    @Mapping(target = "ssa12", source = "ege.ssa12", qualifiedByName = {"EgeMapperQualifier", "getSoilSubkindAdjById"})
 
+    @Mapping(target = "egeId", source = "ege.id")
     @Mapping(target = "soilSubkindMap", ignore = true)
     @Mapping(target = "soilSubkindAdjMap", ignore = true)
     DescriptionKgaDto egeToDescriptionKgaDto(Ege ege);
+
+    default void updateEge(@MappingTarget Ege ege, DescriptionKgaDto descriptionKgaDto) {
+//        ege.set
+
+        ege.setSoilClass(descriptionKgaDto.getSoilClass());
+        ege.setSoilClassKindGroup(descriptionKgaDto.getSoilClassKindGroup());
+        ege.setSoilKind(descriptionKgaDto.getSoilKind());
+
+//        ege.setSS1(descriptionKgaDto.getSoilSubkindMap().get("SS1").getId());
+
+        Class<? extends Ege> clazz = ege.getClass();
+
+        descriptionKgaDto.getSoilSubkindMap().forEach((key, value) -> {
+            if (Objects.nonNull(value)) {
+                try {
+                    var field = clazz.getDeclaredField(key);
+                    field.setAccessible(true);
+                    field.set(ege, value.getId());
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+
+//    private SoilSubkind SS1;
+//    private SoilSubkind SS2;
+//    private SoilSubkind SS3;
+//    private SoilSubkind SS4;
+//    private SoilSubkind SS5;
+//    private SoilSubkind SS6;
+//    private SoilSubkind SS7;
+//    private SoilSubkind SS8;
+//    private SoilSubkind SS9;
+//    private SoilSubkind SS10;
+//    private SoilSubkind SS11;
+//    private SoilSubkind SS12;
+//    private SoilSubkind SS13;
+//    private SoilSubkind SS14;
+//    private SoilSubkind SS15;
+//    private SoilSubkind SS16;
+//    private SoilSubkind SS17;
+//    private SoilSubkind SS18;
+//    private SoilSubkind SS19;
+//    private SoilSubkind SS20;
+
+
+        ege.setColor(descriptionKgaDto.getColor());
+
+        descriptionKgaDto.getSoilSubkindAdjMap().forEach((key, value) -> {
+            if (Objects.nonNull(value)) {
+                try {
+                    var field = clazz.getDeclaredField(key);
+                    field.setAccessible(true);
+                    field.set(ege, value.getId());
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+//    private SoilSubkindAdj ssa1;
+//    private SoilSubkindAdj ssa2;
+//    private SoilSubkindAdj ssa3;
+//    private SoilSubkindAdj ssa4;
+//    private SoilSubkindAdj ssa5;
+//    private SoilSubkindAdj ssa6;
+//    private SoilSubkindAdj ssa7;
+//    private SoilSubkindAdj ssa8;
+//    private SoilSubkindAdj ssa9;
+//    private SoilSubkindAdj ssa10;
+//    private SoilSubkindAdj ssa11;
+//    private SoilSubkindAdj ssa12;
+
+        ege.setWaterDepth(descriptionKgaDto.getWaterDepth());
+    }
+
 }

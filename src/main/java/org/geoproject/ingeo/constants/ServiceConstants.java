@@ -17,6 +17,8 @@ public final class ServiceConstants {
     public static final Integer ZERO_INDEX = 0;
     public static final Integer SINGLE_INDEX_POINT = 1;
 
+    public static final Integer SINGLE_CODE_NUMBER = 1;
+
     public static final Boolean ENTITY_IS_NOT_ACTIVE = false;
 
     public static final Boolean ENTITY_IS_NOT_ARCHIVE = false;
@@ -45,6 +47,8 @@ public final class ServiceConstants {
 
     public static final String NO_PROJECTS_SERVICE_MESSAGE = "Проектов не существует";
     public static final String NO_SURVEY_POINTS_SERVICE_MESSAGE = "Точек исследования не существует";
+
+
 
 
 }

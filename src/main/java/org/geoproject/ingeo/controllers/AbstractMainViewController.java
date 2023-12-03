@@ -1,5 +1,6 @@
 package org.geoproject.ingeo.controllers;
 
+import lombok.extern.log4j.Log4j2;
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.services.MainViewService;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Log4j2
 public abstract class AbstractMainViewController<T, Y> {
     protected final ConfigurableApplicationContext applicationContext;
     protected final MainViewService<T, Y> service;
@@ -96,7 +98,7 @@ public abstract class AbstractMainViewController<T, Y> {
 
     public abstract void showAllObjectsInCurrentProject();
     public void onSaveAllObjectsButtonClicked() {
-        System.out.println("Abstract method 'onSaveAllObjectsButtonClicked()' inited...");
+        log.info("Abstract method 'onSaveAllObjectsButtonClicked()' inited...");
         service.create(updatedObjectList);
         service.create(newObjectList);
         service.delete(deletedObjectList);

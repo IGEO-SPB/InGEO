@@ -1,5 +1,6 @@
 package org.geoproject.ingeo.controllers.cameral;
 
+import javafx.scene.control.Button;
 import org.geoproject.ingeo.controllers.AbstractMainViewController;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
@@ -29,8 +30,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static org.geoproject.ingeo.constants.ServiceConstants.SINGLE_CODE_NUMBER;
 import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Log4j2
@@ -67,6 +70,9 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
     @FXML
     private TableColumn<Ege, String> color;
 
+    @FXML
+    private Button soilKindChoiceViewButton;
+
 
     public EgeListViewController(ConfigurableApplicationContext applicationContext,
                                  MainViewService<Ege, EgeDto> service,
@@ -82,6 +88,10 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
         init();
         tableView.setEditable(true);
         showAllObjectsInCurrentProject();
+
+        if (tableView.getItems().isEmpty()) {
+            soilKindChoiceViewButton.setDisable(Boolean.TRUE);
+        }
     }
 
     public void showAllObjectsInCurrentProject() {
@@ -229,7 +239,10 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
     @FXML
     public void onSaveAllObjectsButtonClicked() {
         super.onSaveAllObjectsButtonClicked();
-        System.out.println("onSaveAllEgesButtonClicked clicked...");
+
+        if (!tableView.getItems().isEmpty() && soilKindChoiceViewButton.isDisabled()) {
+            soilKindChoiceViewButton.setDisable(Boolean.FALSE);
+        }
     }
 
     @Override
@@ -240,10 +253,15 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
     @Override
     @FXML
     public void onAddNewRowButtonClicked() {
-        Ege ege = new Ege();
-        List<Integer> numberList = objectListForView.stream().map(e -> e.getCodeNumber()).toList();
-        int maxCodeNumber = numberList.stream().reduce(Integer::max).get();
-        ege.setCodeNumber(maxCodeNumber + 1);
+        var ege = new Ege();
+        var numberList = objectListForView.stream().map(Ege::getCodeNumber).toList();
+        var optionalMaxCodeNumber = numberList.stream().reduce(Integer::max);
+        optionalMaxCodeNumber.ifPresent(maxCodeNumber -> ege.setCodeNumber(maxCodeNumber + SINGLE_CODE_NUMBER));
+
+        if (optionalMaxCodeNumber.isEmpty()) {
+            ege.setCodeNumber(SINGLE_CODE_NUMBER);
+        }
+
         ege.setGenesis(new Genesis());
         addNewObjectAtListForView(ege);
     }
@@ -260,12 +278,14 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
             selectedIndex = ZERO_INDEX;
         }
 
-        var ege = tableView.getItems().get(selectedIndex);
+        if (!tableView.getItems().isEmpty()) {
+            var ege = tableView.getItems().get(selectedIndex);
 
-        childController.passEge(ege);
+            childController.passEge(ege);
 
-        JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
-                applicationContext, stage, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
+            JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
+                    applicationContext, stage, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
+        }
     }
 
     //todo придумать уведомление о необходимости нажать на сохранить для удаления из базы

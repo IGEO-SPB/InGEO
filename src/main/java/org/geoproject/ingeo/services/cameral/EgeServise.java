@@ -53,4 +53,6 @@ public interface EgeServise extends MainViewService<Ege, EgeDto> {
     EgeDto getDto(Ege ege);
 
     DescriptionKgaDto getDescriptionKgaDto(Ege ege);
+
+    void updateEge(Ege ege, DescriptionKgaDto descriptionKgaDto);
 }

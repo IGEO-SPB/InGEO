@@ -36,12 +36,12 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public Sample getById(Long id) {
-        return null;
+        throw new NotImplementedException("getById метод не реализован");
     }
 
     @Override
     public Sample getBySample(Sample sample) {
-        return null;
+        throw new NotImplementedException("getBySample метод не реализован");
     }
 
     @Override
@@ -89,7 +89,7 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public Sample getBySurveyPointAndLaborNumber(String laborNumber) {
-        return null;
+        throw new NotImplementedException("getBySurveyPointAndLaborNumber метод не реализован");
     }
 
     @Override

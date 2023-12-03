@@ -211,8 +211,8 @@ public class CreateProjectWindowController extends AbstractTextFiledModalControl
     @Override
     @FXML
     public void onSaveButtonClicked(ActionEvent event) {
-        observableList.add(dto);
         saveEntity();
+        observableList.add(dto);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();

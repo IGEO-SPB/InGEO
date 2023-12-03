@@ -128,7 +128,7 @@ public class EgeServiseImpl implements EgeServise {
         Class<? extends Ege> clazz = ege.getClass();
 
         fillSoilSubkindMap(soilSubkindMap, clazz, ege);
-        fillSoilSubkindAdjMap(soilSubkindAdjMap, clazz);
+        fillSoilSubkindAdjMap(soilSubkindAdjMap, clazz, ege);
 
         return descriptionKgaDto;
     }
@@ -139,8 +139,6 @@ public class EgeServiseImpl implements EgeServise {
             try {
                 var field = clazz.getDeclaredField(key);
                 field.setAccessible(true);
-
-                System.out.println("REFLECTION: " + field.getName());
 
                 Long fieldValue = (Long) field.get(ege);
 //                long fieldValue = field.getLong(clazz);
@@ -156,14 +154,14 @@ public class EgeServiseImpl implements EgeServise {
         });
     }
 
-    private void fillSoilSubkindAdjMap(Map<String, SoilSubkindAdj> soilSubkindAdjMap, Class<?> clazz) {
+    private void fillSoilSubkindAdjMap(Map<String, SoilSubkindAdj> soilSubkindAdjMap, Class<?> clazz,  Ege ege) {
         soilSubkindAdjMap.forEach((key, value) -> {
 
             try {
                 var field = clazz.getDeclaredField(key);
                 field.setAccessible(true);
 
-                var fieldValue = (Long) field.get(clazz);
+                var fieldValue = (Long) field.get(ege);
                 var newValue = getSoilSubkindAdj(fieldValue);
 
                 soilSubkindAdjMap.put(key, newValue);
@@ -190,5 +188,20 @@ public class EgeServiseImpl implements EgeServise {
         }
 
         return soilSubkindAdjRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void updateEge(Ege ege, DescriptionKgaDto descriptionKgaDto) {
+
+        System.out.println("+++++++");
+        System.out.println(descriptionKgaDto.getSoilClass().getId());
+        System.out.println(descriptionKgaDto.getSoilClassKindGroup().getId());
+
+//        var ege = getById(descriptionKgaDto.getEgeId());
+
+        egeMapper.updateEge(ege, descriptionKgaDto);
+
+        egeRepository.save(ege);
     }
 }

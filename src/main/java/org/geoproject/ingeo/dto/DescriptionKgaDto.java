@@ -3,8 +3,10 @@ package org.geoproject.ingeo.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.models.classificators.kga.SoilGroupType;
 import org.geoproject.ingeo.models.classificators.kga.SoilKind;
+import org.geoproject.ingeo.models.classificators.kga.SoilKindGroupType;
 import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
 import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 
@@ -13,10 +15,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Getter
+@Setter
 public class DescriptionKgaDto {
 
+    private Long egeId;
+
     private SoilClass soilClass;
+
+    private SoilClassKindGroup soilClassKindGroup;
+
     private SoilKind soilKind;
+
+//    private SoilKindGroupType soilKindGroupType;
 
 //    private SoilSubkind SS1;
 //    private SoilSubkind SS2;
