@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -102,43 +103,44 @@
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-                <HBox prefHeight="100.0" prefWidth="200.0">
+                <HBox prefHeight="100.0" prefWidth="200.0" />
+                <HBox prefHeight="55.0" prefWidth="904.0" spacing="15.0">
                     <children>
-                        <Label text="Выбрать выработку:" />
-                        <ChoiceBox prefWidth="150.0" />
-                  <Label text="Выбрать метод" />
-                  <ChoiceBox fx:id="methodNamesChoiceBox" onAction="#methodNamesChoiceBoxChoose" prefWidth="150.0" />
-                    </children>
-                </HBox>
-                <HBox prefHeight="55.0" prefWidth="904.0">
-                    <children>
-                        <Button fx:id="saveAllSamples" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" text="Сохранить" />
-                        <Button fx:id="addNewRow" mnemonicParsing="false" onAction="#onAddNewRowButtonClicked" text="Добавить строку" />
-                        <Button fx:id="deleteSelectedRow" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" text="Удалить строку" />
-                  <VBox prefHeight="200.0" spacing="5.0">
+                  <VBox prefHeight="56.0" prefWidth="122.0" spacing="5.0">
                      <children>
-                        <Label text="Выбрать скважину" />
+                              <Button fx:id="addNewRow" mnemonicParsing="false" onAction="#onAddNewRowButtonClicked" prefHeight="26.0" prefWidth="114.0" text="Добавить строку" />
+                              <Button fx:id="deleteSelectedRow" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="26.0" prefWidth="114.0" text="Удалить строку" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="56.0" prefWidth="115.0">
+                     <children>
+                              <Button fx:id="saveAllSamples" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" prefHeight="26.0" prefWidth="107.0" text="Сохранить" />
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <VBox alignment="CENTER" prefHeight="56.0" prefWidth="141.0" spacing="5.0">
+                     <children>
+                        <Label text="Выбрать метод" />
+                        <ChoiceBox fx:id="methodNamesChoiceBox" onAction="#methodNamesChoiceBoxChoose" prefWidth="150.0" />
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <VBox alignment="CENTER" prefHeight="56.0" prefWidth="201.0" spacing="5.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="123.0" text="Выбрать скважину" />
                         <HBox prefHeight="100.0" spacing="5.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#onPreviousSurveyPointButtonClick" text="&lt;-" />
-                              <ChoiceBox fx:id="surveyPointChoiceBox" onAction="#onSurveyPointChoiceBoxClicked" />
+                              <ChoiceBox fx:id="surveyPointChoiceBox" onAction="#onSurveyPointChoiceBoxClicked" prefHeight="26.0" prefWidth="130.0" />
                               <Button mnemonicParsing="false" onAction="#onNextSurveyPointButtonClick" text="-&gt;" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                        <VBox prefHeight="55.0" prefWidth="123.0" />
-                  <VBox alignment="CENTER" prefHeight="56.0" prefWidth="212.0" spacing="5.0">
-                     <children>
-                        <VBox prefHeight="51.0" prefWidth="196.0" spacing="5.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#onSaveButtonClicked" prefHeight="26.0" prefWidth="171.0" text="Сохранить" />
-                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteButtonClicked" prefHeight="26.0" prefWidth="171.0" text="Удалить" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </VBox>
                     </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
                 </HBox>
                 <TableView fx:id="tableView" prefHeight="710.0" prefWidth="756.0">
                     <columns>

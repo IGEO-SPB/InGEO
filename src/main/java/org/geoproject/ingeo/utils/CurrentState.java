@@ -7,19 +7,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+@Getter
+@Setter
 @Component
 public class CurrentState {
 
-    @Getter
-    @Setter
     private Project currentProject;
 
-    @Getter
-    @Setter
     private SurveyPoint surveyPoint;
 
-    @Getter
-    @Setter
     private Sample sample;
 
     @Override

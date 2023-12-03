@@ -1,5 +1,7 @@
 package org.geoproject.ingeo.controllers.labor;
 
+import javafx.util.StringConverter;
+import lombok.extern.log4j.Log4j2;
 import org.geoproject.ingeo.controllers.AbstractMainViewController;
 import org.geoproject.ingeo.dto.SampleDto;
 import org.geoproject.ingeo.enums.LaborMethodsEnum;
@@ -32,13 +34,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import static org.geoproject.ingeo.constants.ServiceConstants.NO_SURVEY_POINTS_SERVICE_MESSAGE;
 import static org.geoproject.ingeo.constants.ServiceConstants.SINGLE_INDEX_POINT;
 import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Component
+@Log4j2
 public class LaborModuleMainViewController extends AbstractMainViewController<Sample, SampleDto> implements Initializable {
     private final SurveyPointsService surveyPointsService;
     private final ProjectsServiceImpl projectsService;
@@ -65,7 +70,7 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
     ChoiceBox<String> methodNamesChoiceBox;
 
     @FXML
-    protected ChoiceBox<String> surveyPointChoiceBox;
+    protected ChoiceBox<SurveyPoint> surveyPointChoiceBox;
     protected List<String> surveyPointsNumbers;
     List<SurveyPoint> surveyPoints;
 
@@ -97,13 +102,6 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
         showAllObjectsInCurrentProject();
         setMethodNamesInChoiceBox();
         setSurveyPointChoiceBox();
-
-        System.out.println("=======Check CurrentState in Labor Module=======");
-        System.out.println(currentState);
-        System.out.println(currentState.getSurveyPoint().getId());
-        System.out.println(currentState.getSurveyPoint().getPointNumber());
-        System.out.println("hashCode: " + currentState.hashCode());
-        System.out.println("=================================================");
     }
 
     @Override
@@ -211,6 +209,12 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
     public void setMethodNamesInChoiceBox() {
         methodNamesChoiceBox.getItems().addAll(methodNamesObservableList);
         methodNamesChoiceBox.setValue("Методы");
+
+        if (Objects.isNull(currentState.getSurveyPoint()) || Objects.isNull(currentState.getSample())) {
+            methodNamesChoiceBox.setDisable(Boolean.TRUE);
+        } else {
+            methodNamesChoiceBox.setDisable(Boolean.FALSE);
+        }
     }
 
     private ViewsEnum getViewFromMethodNamesChoiceBox() {
@@ -246,14 +250,35 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
 
     @FXML
     public void setSurveyPointChoiceBox() {
-        surveyPoints = surveyPointsService.getAllByProject(currentState.getCurrentProject());
-        surveyPointsNumbers = surveyPoints.stream()
-                .map(SurveyPoint::getPointNumber)
-                .toList();
 
-        ObservableList<String> surveyPointsObservableList = FXCollections.observableArrayList(surveyPointsNumbers);
-        surveyPointChoiceBox.getItems().addAll(surveyPointsObservableList);
-        surveyPointChoiceBox.setValue(currentState.getSurveyPoint().getPointNumber());
+        surveyPoints = surveyPointsService.getAllByProject(currentState.getCurrentProject());
+
+        if (surveyPoints.isEmpty()) {
+            if (objectListForView.isEmpty()) {
+                openAlertModalWindow("Не заполнено ни одной точки исследования. " +
+                        " Для создания точек исследования перейдите в полевой модуль");
+            }
+
+            var tempSurveyPoint = new SurveyPoint();
+            tempSurveyPoint.setPointNumber(NO_SURVEY_POINTS_SERVICE_MESSAGE);
+            surveyPointChoiceBox.setValue(tempSurveyPoint);
+        } else {
+            var surveyPointsObservableList = FXCollections.observableArrayList(surveyPoints);
+            surveyPointChoiceBox.getItems().addAll(surveyPointsObservableList);
+            surveyPointChoiceBox.setValue(currentState.getSurveyPoint());
+        }
+
+        surveyPointChoiceBox.setConverter(new StringConverter<SurveyPoint>() {
+            @Override
+            public String toString(SurveyPoint object) {
+                return Objects.nonNull(object) ? object.getPointNumber() : NO_SURVEY_POINTS_SERVICE_MESSAGE;
+            }
+
+            @Override
+            public SurveyPoint fromString(String string) {
+                return null;
+            }
+        });
     }
 
     //endregion
@@ -263,50 +288,53 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
     @FXML
     public void onSurveyPointChoiceBoxClicked(ActionEvent event) {
         surveyPointChoiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            SurveyPoint surveyPoint = surveyPointsService.getByPointNumber(newValue, currentState.getCurrentProject());
+            if (Objects.nonNull(newValue)) {
+                var surveyPoint = surveyPointsService.getByPointNumber(newValue.getPointNumber(), currentState.getCurrentProject());
 
-            currentState.setSurveyPoint(surveyPoint);
-            surveyPointChoiceBox.setValue(currentState.getSurveyPoint().getPointNumber());
+                currentState.setSurveyPoint(surveyPoint);
+//                surveyPointChoiceBox.setValue(currentState.getSurveyPoint());
 
-            updateObservableList();
-        });
-
-
-        surveyPointChoiceBox.setOnAction(e -> {
-            System.out.println("Current Survey Point: " + currentState.getSurveyPoint().getPointNumber());
+                updateObservableList();
+            }
         });
     }
 
     @FXML
     public void onPreviousSurveyPointButtonClick(ActionEvent event) {
         System.out.println("onPreviousSurveyPointButtonClick");
-        int indexOfCurrentSurveyPoint = surveyPointsNumbers.indexOf(currentState.getSurveyPoint().getPointNumber());
 
-        int prevIndex = indexOfCurrentSurveyPoint > ZERO_INDEX ? indexOfCurrentSurveyPoint - SINGLE_INDEX_POINT : surveyPoints.size() - SINGLE_INDEX_POINT;
+        if (Objects.nonNull(currentState.getSurveyPoint())) {
 
-        updateCurrentState(prevIndex);
+            int indexOfCurrentSurveyPoint = surveyPointsNumbers.indexOf(currentState.getSurveyPoint().getPointNumber());
 
-        updateObservableList();
+            int prevIndex = indexOfCurrentSurveyPoint > ZERO_INDEX ? indexOfCurrentSurveyPoint - SINGLE_INDEX_POINT : surveyPoints.size() - SINGLE_INDEX_POINT;
+
+            updateCurrentState(prevIndex);
+
+            updateObservableList();
+        }
     }
 
     @FXML
     public void onNextSurveyPointButtonClick(ActionEvent event) {
         System.out.println("onNextSurveyPointButtonClick");
 
-        int indexOfCurrentSurveyPoint = surveyPointsNumbers.indexOf(currentState.getSurveyPoint().getPointNumber());
+        if (Objects.nonNull(currentState.getSurveyPoint())) {
+            int indexOfCurrentSurveyPoint = surveyPointsNumbers.indexOf(currentState.getSurveyPoint().getPointNumber());
 
-        int nextIndex = indexOfCurrentSurveyPoint < surveyPoints.size() - SINGLE_INDEX_POINT ? indexOfCurrentSurveyPoint + SINGLE_INDEX_POINT : ZERO_INDEX;
+            int nextIndex = indexOfCurrentSurveyPoint < surveyPoints.size() - SINGLE_INDEX_POINT ? indexOfCurrentSurveyPoint + SINGLE_INDEX_POINT : ZERO_INDEX;
 
-        updateCurrentState(nextIndex);
+            updateCurrentState(nextIndex);
 
-        updateObservableList();
+            updateObservableList();
+        }
     }
 
     private void updateCurrentState(int prevIndex) {
         SurveyPoint nextSurveyPoint = surveyPoints.get(prevIndex);
 
         currentState.setSurveyPoint(nextSurveyPoint);
-        surveyPointChoiceBox.setValue(currentState.getSurveyPoint().getPointNumber());
+        surveyPointChoiceBox.setValue(currentState.getSurveyPoint());
     }
 
     public void updateObservableList() {
@@ -327,30 +355,11 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
 //        this.observableList.addAll(dtos);
 //    }
 
-    @FXML
-    public void onSaveButtonClicked(ActionEvent event) {
-        System.out.println("saveAllObjectsButton clicked...");
-//        service.updateFromDtos(dtos);
-    }
-
-    @FXML
-    public void onDeleteButtonClicked(ActionEvent event) {
-//        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
-//
-//        Y dto = tableView.getItems().get(selectedIndex);
-//
-//        service.delete(dto);
-//
-//        observableList.remove(dto);
-//
-//        tableView.layout();
-//        tableView.getSelectionModel().select(selectedIndex);
-    }
-
     @Override
     @FXML
     public void onSaveAllObjectsButtonClicked() {
         super.onSaveAllObjectsButtonClicked();
+        methodNamesChoiceBox.setDisable(Boolean.FALSE);
         System.out.println("onSaveAllSamplesButtonClicked clicked...");
     }
 
@@ -405,6 +414,10 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
     public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
         super.onCameralModuleButtonClicked(event);
         System.out.println("Change scene to cameral module from labor module...");
+    }
+
+    private void openAlertModalWindow(String s) {
+        log.info("Alert!!!");
     }
 
     //endregion
