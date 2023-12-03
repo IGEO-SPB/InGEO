@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.geoproject.ingeo.enums.StageTitleEnum.CAMERAL_MODULE;
 import static org.geoproject.ingeo.enums.StageTitleEnum.FIELD_MODULE;
@@ -84,6 +85,12 @@ public abstract class AbstractLaborMethodTableController<T, Y> {
     }
 
     private void setFirstSample() {
+        var currentSurveyPoint = currentState.getSurveyPoint();
+
+        if (Objects.isNull(currentSurveyPoint)) {
+            openAlertModalWindow("В выбранном проекте отсутствуют точки исследования");
+        }
+
         sampleService.setFirstSampleForView();
     }
 
@@ -188,6 +195,10 @@ public abstract class AbstractLaborMethodTableController<T, Y> {
     public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
         JavaFXCommonMethods.changeScene(event, ViewsEnum.CAMERAL_MODULE_MAIN_VIEW.getPath(),
                 applicationContext, CAMERAL_MODULE.getTitle());
+    }
+
+    private void openAlertModalWindow(String serviceMessage) {
+        log.info(serviceMessage);
     }
     //endregion
 }

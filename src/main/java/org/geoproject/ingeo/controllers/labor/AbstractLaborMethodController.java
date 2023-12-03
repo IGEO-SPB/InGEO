@@ -1,15 +1,5 @@
 package org.geoproject.ingeo.controllers.labor;
 
-import org.geoproject.ingeo.enums.StageTitleEnum;
-import org.geoproject.ingeo.enums.ViewsEnum;
-import org.geoproject.ingeo.models.Sample;
-import org.geoproject.ingeo.services.classificators.PotService;
-import org.geoproject.ingeo.services.classificators.RingService;
-import org.geoproject.ingeo.services.classificators.WeighingBottleService;
-import org.geoproject.ingeo.services.common.SampleService;
-import org.geoproject.ingeo.services.labor.MethodViewService;
-import org.geoproject.ingeo.utils.CurrentState;
-import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +11,16 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.extern.apachecommons.CommonsLog;
+import org.geoproject.ingeo.enums.StageTitleEnum;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.models.Sample;
+import org.geoproject.ingeo.services.classificators.PotService;
+import org.geoproject.ingeo.services.classificators.RingService;
+import org.geoproject.ingeo.services.classificators.WeighingBottleService;
+import org.geoproject.ingeo.services.common.SampleService;
+import org.geoproject.ingeo.services.labor.MethodViewService;
+import org.geoproject.ingeo.utils.CurrentState;
+import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.domain.Sort;
 
@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.geoproject.ingeo.constants.ServiceConstants.IS_NOT_SAND;
 import static org.geoproject.ingeo.constants.ServiceConstants.IS_SAND;
@@ -96,10 +97,24 @@ public abstract class AbstractLaborMethodController<T, Y> {
     }
 
     protected void setFirstSample() {
-        List<Sample> bySurveyPoint = sampleService.getBySurveyPoint(currentState.getSurveyPoint(), Sort.by(LABOR_NUMBER_FIELD));
-        Sample sample = bySurveyPoint.get(ZERO_INDEX);
+        var currentSurveyPoint = currentState.getSurveyPoint();
 
-        currentState.setSample(sample);
+        if (Objects.isNull(currentSurveyPoint)) {
+            openAlertModalWindow("В выбранном проекте отсутствуют точки исследования");
+        } else {
+            var currentSurveyPointSamples = sampleService.getBySurveyPoint(currentState.getSurveyPoint(),
+                    Sort.by(LABOR_NUMBER_FIELD));
+            if (currentSurveyPointSamples.isEmpty()) {
+                currentState.setSample(null);
+
+                openAlertModalWindow("В текущей точке исследования" +
+                        "отсутствуют образцы");
+
+            } else {
+                Sample sample = currentSurveyPointSamples.get(ZERO_INDEX);
+                currentState.setSample(sample);
+            }
+        }
     }
 
     public void setDTO() {
@@ -138,7 +153,9 @@ public abstract class AbstractLaborMethodController<T, Y> {
     public void setSandCheckBox() {
         Sample currentSample = currentState.getSample();
 
-        if (currentSample.getIsSand()) {
+        if (Objects.isNull(currentSample.getIsSand())) {
+            sandCheckBox.setSelected(IS_NOT_SAND);
+        } else if (currentSample.getIsSand()) {
             sandCheckBox.setSelected(IS_SAND);
         } else {
             sandCheckBox.setSelected(IS_NOT_SAND);
@@ -251,6 +268,10 @@ public abstract class AbstractLaborMethodController<T, Y> {
     public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
         JavaFXCommonMethods.changeScene(event, ViewsEnum.CAMERAL_MODULE_MAIN_VIEW.getPath(),
                 applicationContext, StageTitleEnum.CAMERAL_MODULE.getTitle());
+    }
+
+    private void openAlertModalWindow(String serviceMessage) {
+        log.info(serviceMessage);
     }
     //endregion
 }

@@ -1,9 +1,12 @@
 package org.geoproject.ingeo.controllers.field;
 
+import javafx.util.StringConverter;
+import lombok.extern.log4j.Log4j2;
 import org.geoproject.ingeo.controllers.AbstractMainViewController;
 import org.geoproject.ingeo.dto.SurveyPointDTO;
 import org.geoproject.ingeo.models.*;
 import org.geoproject.ingeo.models.classificators.SurveyPointsType;
+import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.services.classificators.SurveyPointsTypesService;
 import org.geoproject.ingeo.services.MainViewService;
 import org.geoproject.ingeo.services.allProjects.impl.ProjectsServiceImpl;
@@ -26,10 +29,15 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import static org.geoproject.ingeo.constants.ServiceConstants.NO_PROJECTS_SERVICE_MESSAGE;
+import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
+
 @Component
+@Log4j2
 public class FieldModuleMainViewController extends AbstractMainViewController<SurveyPoint, SurveyPointDTO> implements Initializable {
     private final SurveyPointsTypesService surveyPointsTypesService;
     private final ProjectsServiceImpl projectsService;
@@ -37,7 +45,7 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
     @FXML
     ChoiceBox<Project> chooseProjectChoiceBox;
 
-//    @FXML
+    //    @FXML
 //    private TableView<SurveyPoint> tableView;
     @FXML
     private TableColumn<SurveyPoint, String> projectName;
@@ -72,7 +80,8 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Survey Points Table init...");
+        log.info("Инициализирована таблица с точками исследований");
+
         init();
         tableView.setEditable(true);
         setChooseProjectChoiceBox();
@@ -81,8 +90,6 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
 
     @Override
     public void showAllObjectsInCurrentProject() {
-        System.out.println("CURRENT PROJECT:");
-        System.out.println(currentState.getCurrentProject());
 
 //        projectName.setCellValueFactory(new PropertyValueFactory<SurveyPoint, Project>("project"));
         projectName.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getProject().getProjectName()));
@@ -99,7 +106,7 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
                 SurveyPoint surveyPoint = event.getRowValue();
                 SurveyPointsType surveyPointsType = surveyPointsTypesService.findBySurveyTypeShortName(event.getNewValue());
                 surveyPoint.setSurveyPointsType(surveyPointsType);
-                System.out.println("Перед запуском обновления:");
+
                 updateObjectInListForView(surveyPoint);
             }
         });
@@ -203,12 +210,27 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
     @FXML
     public void onSaveAllObjectsButtonClicked() {
         super.onSaveAllObjectsButtonClicked();
-        System.out.println("onSaveAllBoreholeLayersButtonClicked clicked...");
+
+        currentState.setSurveyPoint(objectListForView.get(ZERO_INDEX));
+
+        log.info("onSaveAllBoreholeLayersButtonClicked clicked...");
     }
 
     @Override
     public List<SurveyPoint> setObjectListForObjectListForView() {
+
+        if (Objects.isNull(currentState.getCurrentProject())) {
+            openAlertModalWindow("Не заполнено ни одного проекта. " +
+                    "Создание точки исследования невозможно без проекта." +
+                    " Перейдите на страницу с проектами для добавления первого");
+            return null;
+        }
+
         return service.getByProject(currentState.getCurrentProject());
+    }
+
+    private void openAlertModalWindow(String s) {
+        log.info("Alert!!!");
     }
 
     @Override
@@ -228,7 +250,7 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
     public void onDeleteRowButtonClicked() {
         //todo реализовать выделение строки по умолчанию - следующая после удаленной
         super.onDeleteRowButtonClicked();
-        System.out.println("onDeleteRowButtonClicked clicked...");
+        log.info("onDeleteRowButtonClicked clicked...");
     }
 
     @FXML
@@ -239,22 +261,42 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
 
     @FXML
     public void onChooseProjectChoiceBoxSelect() {
-        chooseProjectChoiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) ->
-                System.out.println("From listener: " + oldValue + " " + newValue));
-
         chooseProjectChoiceBox.setOnAction(e -> tempSetListForTableView(chooseProjectChoiceBox));
     }
 
     //утилитные методы
 
     private void setChooseProjectChoiceBox() {
-        List<Project> projectList = projectsService.getAll();
-//        List<String> projectNameList = projectList.stream().map(e -> e.getProjectName()).toList();
-//        System.out.println(projectNameList);
-        ObservableList<Project> projectNameObservableList = FXCollections.observableArrayList(projectList);
-        System.out.println(projectNameObservableList);
-        chooseProjectChoiceBox.getItems().addAll(projectNameObservableList);
-        chooseProjectChoiceBox.setValue(currentState.getCurrentProject());
+        chooseProjectChoiceBox.setConverter(new StringConverter<Project>() {
+            @Override
+            public String toString(Project object) {
+                return Objects.nonNull(object) ? object.getProjectName() : NO_PROJECTS_SERVICE_MESSAGE;
+            }
+
+            @Override
+            public Project fromString(String string) {
+                return null;
+            }
+        });
+
+        var projectList = projectsService.getAll();
+
+        if (projectList.isEmpty()) {
+            openAlertModalWindow("Не заполнено ни одного проекта. " +
+                    "Создание точки исследования невозможно без проекта." +
+                    " Перейдите на страницу с проектами для добавления первого");
+
+            var tempProject = new Project();
+            tempProject.setProjectName(NO_PROJECTS_SERVICE_MESSAGE);
+
+            chooseProjectChoiceBox.setValue(tempProject);
+        } else {
+            var projectNameObservableList = FXCollections.observableArrayList(projectList);
+
+            chooseProjectChoiceBox.getItems().addAll(projectNameObservableList);
+
+            chooseProjectChoiceBox.setValue(currentState.getCurrentProject());
+        }
     }
 
     private void tempSetListForTableView(ChoiceBox<Project> chooseProjectChoiceBox) {

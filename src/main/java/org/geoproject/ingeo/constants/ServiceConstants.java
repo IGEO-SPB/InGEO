@@ -33,4 +33,8 @@ public final class ServiceConstants {
     public static final String SCIENTIFIC_NOTATION_PATTERN = "-?\\d+(\\.\\d+)?[Ee]-?\\d+";
 
 
+    public static final String NO_PROJECTS_SERVICE_MESSAGE = "Проектов не существует";
+    public static final String NO_SURVEY_POINTS_SERVICE_MESSAGE = "Точек исследования не существует";
+
+
 }

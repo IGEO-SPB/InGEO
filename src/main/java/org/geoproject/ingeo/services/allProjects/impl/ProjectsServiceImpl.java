@@ -36,7 +36,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     public List<Project> getAll() {
         Sort sort = Sort.by("id");
 
-        return projectsRepository.findAll(sort);
+        return projectsRepository.findAllByIsArchiveFalse(sort);
     }
 
     public Project getById(Long id) {
