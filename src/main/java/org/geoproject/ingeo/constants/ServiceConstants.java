@@ -33,8 +33,12 @@ public final class ServiceConstants {
 
     public static final String SPACE_PATTERN = " ";
     public static final String COMMA_PATTERN = ", ";
+    public static final String SOIL_SUBKIND_FIElD_PATTERN = "SS";
+    public static final String SOIL_SUBKIND_ADJ_FIElD_PATTERN = "SSA";
+    public static final String FX_ID_PREFIX_PATTERN = "#";
 
     public static final String WATER_FULL_PATTERN = "водонасыщенные с глубины %s м.";
+    public static final String NOT_DEFINED_SOIL_SUBKIND_ADJ_PATTERN = "Не определено";
     public static final String SHORT_METER_PATTERN = " м.";
 
 

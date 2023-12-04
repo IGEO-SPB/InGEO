@@ -87,8 +87,15 @@ public interface EgeMapper {
                 } catch (NoSuchFieldException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
+            } else {
+                try {
+                var field = clazz.getDeclaredField(key);
+                field.setAccessible(true);
+                field.set(ege, null);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                throw new RuntimeException(e);
             }
-        });
+        }});
 
 
 //    private SoilSubkind SS1;
@@ -124,8 +131,15 @@ public interface EgeMapper {
                 } catch (NoSuchFieldException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
-            }
-        });
+            }  else {
+                try {
+                    var field = clazz.getDeclaredField(key);
+                    field.setAccessible(true);
+                    field.set(ege, null);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+        }});
 
 //    private SoilSubkindAdj ssa1;
 //    private SoilSubkindAdj ssa2;

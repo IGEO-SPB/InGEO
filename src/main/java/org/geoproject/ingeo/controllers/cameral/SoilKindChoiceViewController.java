@@ -5,8 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -21,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
+import org.geoproject.ingeo.controllers.functionalInterfaces.Refreshable;
 import org.geoproject.ingeo.dto.DescriptionKgaDto;
 import org.geoproject.ingeo.dto.classificators.kga.SoilKindDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
@@ -29,11 +32,13 @@ import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.models.classificators.kga.SoilKindGroupType;
 import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 import org.geoproject.ingeo.services.cameral.EgeServise;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassKindGroupService;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassService;
 import org.geoproject.ingeo.services.classificators.kga.SoilKindGroupTypeService;
 import org.geoproject.ingeo.services.classificators.kga.SoilKindService;
+import org.geoproject.ingeo.services.classificators.kga.SoilSubkindAdjService;
 import org.geoproject.ingeo.services.classificators.kga.SoilSubkindService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
@@ -49,6 +54,11 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static org.geoproject.ingeo.constants.ServiceConstants.COMMA_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.FX_ID_PREFIX_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.NOT_DEFINED_SOIL_SUBKIND_ADJ_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.SINGLE_INDEX_POINT;
+import static org.geoproject.ingeo.constants.ServiceConstants.SOIL_SUBKIND_ADJ_FIElD_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.SOIL_SUBKIND_FIElD_PATTERN;
 import static org.geoproject.ingeo.constants.ServiceConstants.WATER_FULL_PATTERN;
 import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
@@ -63,18 +73,22 @@ public class SoilKindChoiceViewController implements Initializable {
     private final SoilClassKindGroupService soilClassKindGroupService;
     private final SoilKindGroupTypeService soilKindGroupTypeService;
     private final SoilSubkindService soilSubkindService;
+    private final SoilSubkindAdjService soilSubkindAdjService;
     private final EgeServise egeServise;
 
     private Ege ege;
     private EgeDto egeDto;
     private DescriptionKgaDto descriptionKgaDto;
 
+    Refreshable refreshTable;
+
     List<SoilClass> soilClasses;
     List<SoilClassKindGroup> soilGroups;
     List<SoilKindGroupType> soilKindGroupTypeList;
     List<SoilSubkind> soilSubkindList;
+    List<SoilSubkindAdj> soilSubkindAdjList;
 
-
+    Scene scene;
     @FXML
     TextArea descriptionCredoFormularTextArea;
     @FXML
@@ -89,6 +103,32 @@ public class SoilKindChoiceViewController implements Initializable {
     ChoiceBox<SoilSubkind> soilSubkindChoiceBox;
     @FXML
     ListView<SoilSubkind> soilSubkindListView;
+
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA1;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA2;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA3;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA4;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA5;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA6;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA7;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA8;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA9;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA10;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA11;
+    @FXML
+    ChoiceBox<SoilSubkindAdj> SSA12;
+
     @FXML
     TableView<SoilKindDto> soilKindTableView;
     @FXML
@@ -96,8 +136,9 @@ public class SoilKindChoiceViewController implements Initializable {
 
     public Map<TableColumn<SoilKindDto, ?>, String> columnsMap;
 
+
     public SoilKindChoiceViewController(ConfigurableApplicationContext applicationContext, CurrentState currentState,
-                                        SoilClassService soilClassService, SoilKindService soilKindService, SoilClassKindGroupService soilClassKindGroupService, SoilKindGroupTypeService soilKindGroupTypeService, SoilSubkindService soilSubkindService, EgeServise egeServise) {
+                                        SoilClassService soilClassService, SoilKindService soilKindService, SoilClassKindGroupService soilClassKindGroupService, SoilKindGroupTypeService soilKindGroupTypeService, SoilSubkindService soilSubkindService, SoilSubkindAdjService soilSubkindAdjService, EgeServise egeServise) {
         this.applicationContext = applicationContext;
         this.currentState = currentState;
         this.soilClassService = soilClassService;
@@ -105,11 +146,16 @@ public class SoilKindChoiceViewController implements Initializable {
         this.soilClassKindGroupService = soilClassKindGroupService;
         this.soilKindGroupTypeService = soilKindGroupTypeService;
         this.soilSubkindService = soilSubkindService;
+        this.soilSubkindAdjService = soilSubkindAdjService;
         this.egeServise = egeServise;
     }
 
     public void passEge(Ege ege) {
         this.ege = ege;
+    }
+
+    public void passTableRefreshLambda(Refreshable refreshTable) {
+        this.refreshTable = refreshTable;
     }
 
     @Override
@@ -126,6 +172,7 @@ public class SoilKindChoiceViewController implements Initializable {
         setSoilKindTableView();
         setSoilKindGroupTypeChoiceBox();
         setSoilSubkindChoiceBox();
+        setSoilSubkindAdjChoiceBox();
     }
 
     public void setDto() {
@@ -138,28 +185,55 @@ public class SoilKindChoiceViewController implements Initializable {
         descriptionKgaDto.getSoilSubkindMap().values()
                 .stream()
                 .map(soilSubkind -> Objects.isNull(soilSubkind) ? StringUtils.EMPTY : soilSubkind.getSsDescr())
-                .forEach(soilSubkindMapStringBuilder::append);
+//                .forEach(soilSubkindMapStringBuilder::append);
+                .forEach(description -> {
+                    if (!Objects.equals(description, StringUtils.EMPTY)) {
+                        soilSubkindMapStringBuilder.append(description);
+                        soilSubkindMapStringBuilder.append(COMMA_PATTERN);
+                    }
+                });
 
         var soilSubkindAdjMapStringBuilder = new StringBuilder();
         descriptionKgaDto.getSoilSubkindAdjMap().values()
                 .stream()
                 .map(soilSubkindAdj -> Objects.isNull(soilSubkindAdj) ? StringUtils.EMPTY : soilSubkindAdj.getSsaDescr())
-                .forEach(soilSubkindAdjMapStringBuilder::append);
+//                .forEach(soilSubkindAdjMapStringBuilder::append);
+                .forEach(description -> {
+                    if (!Objects.equals(description, StringUtils.EMPTY)) {
+                        soilSubkindAdjMapStringBuilder.append(description);
+                        soilSubkindAdjMapStringBuilder.append(COMMA_PATTERN);
+                    }
+                });
 
 
         var text = new StringBuilder()
-                .append(Objects.isNull(descriptionKgaDto.getSoilKind()) ? StringUtils.EMPTY : descriptionKgaDto.getSoilKind().getSkDescr())
-                .append(Objects.isNull(descriptionKgaDto.getSoilKind()) ? StringUtils.EMPTY : COMMA_PATTERN)
+                .append(getSoilKindDescription())
+                .append(Objects.isNull(descriptionKgaDto.getSoilKind()) ||
+                        (Objects.isNull(descriptionKgaDto.getSoilKind().getSkDescr()) || descriptionKgaDto.getSoilKind().getSkDescr().isEmpty()) ?
+                        StringUtils.EMPTY : COMMA_PATTERN)
                 .append(soilSubkindMapStringBuilder)
-                .append(soilSubkindMapStringBuilder.isEmpty() ? StringUtils.EMPTY : COMMA_PATTERN)
+//                .append(soilSubkindMapStringBuilder.isEmpty() ? StringUtils.EMPTY : COMMA_PATTERN)
                 .append(Objects.isNull(descriptionKgaDto.getColor()) ? StringUtils.EMPTY : descriptionKgaDto.getColor())
                 .append(Objects.isNull(descriptionKgaDto.getColor()) ? StringUtils.EMPTY : COMMA_PATTERN)
                 .append(soilSubkindAdjMapStringBuilder)
-                .append(soilSubkindAdjMapStringBuilder.isEmpty() ? StringUtils.EMPTY : COMMA_PATTERN)
+//                .append(soilSubkindAdjMapStringBuilder.isEmpty() ? StringUtils.EMPTY : COMMA_PATTERN)
                 .append(Objects.isNull(descriptionKgaDto.getWaterDepth()) ? StringUtils.EMPTY : String.format(WATER_FULL_PATTERN, descriptionKgaDto.getWaterDepth()))
                 .toString();
 
         descriptionKgaTextArea.setText(text);
+    }
+
+    private String getSoilKindDescription() {
+
+        if (Objects.isNull(descriptionKgaDto.getSoilKind())) {
+            return StringUtils.EMPTY;
+        }
+
+        if (Objects.isNull(descriptionKgaDto.getSoilKind().getSkDescr())) {
+            return StringUtils.EMPTY;
+        }
+
+        return descriptionKgaDto.getSoilKind().getSkDescr();
     }
 
     public void setSoilSubkindListView() {
@@ -186,10 +260,10 @@ public class SoilKindChoiceViewController implements Initializable {
                 FXCollections.observableArrayList(descriptionKgaDto.getSoilSubkindMap().values());
 
         soilSubkindListView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            System.out.println("ListView item");
-            System.out.println(newValue);
-            System.out.println(newValue.getId());
-            System.out.println(newValue.getSsDescr());
+//            System.out.println("ListView item");
+//            System.out.println(newValue);
+//            System.out.println(newValue.getId());
+//            System.out.println(newValue.getSsDescr());
         });
 
         soilSubkindListView.setItems(items);
@@ -260,7 +334,10 @@ public class SoilKindChoiceViewController implements Initializable {
         soilKindGroupTypeChoiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             if (Objects.nonNull(newValue)) {
                 fillSoilSubkindChoiceBox(newValue);
-                soilSubkindChoiceBox.setValue(soilSubkindList.get(ZERO_INDEX));
+
+                if (!soilSubkindList.isEmpty()) {
+                    soilSubkindChoiceBox.setValue(soilSubkindList.get(ZERO_INDEX));
+                }
             }
         });
     }
@@ -282,6 +359,73 @@ public class SoilKindChoiceViewController implements Initializable {
     }
 
     @FXML
+    private void setSoilSubkindAdjChoiceBox() {
+        soilSubkindAdjList = soilSubkindAdjService.getAll();
+
+        List<ChoiceBox<SoilSubkindAdj>> choiceBoxList = new ArrayList<>(List.of(SSA1,
+                SSA2,
+                SSA3,
+                SSA4,
+                SSA5,
+                SSA6,
+                SSA7,
+                SSA8,
+                SSA9,
+                SSA10,
+                SSA11,
+                SSA12));
+
+//        for (int i = 1; i < 13; i++) {
+        for (ChoiceBox<SoilSubkindAdj> soilSubkindAdjChoiceBox: choiceBoxList) {
+
+//            var soilSubkindAdjChoiceBox = (ChoiceBox<SoilSubkindAdj>) soilKindTableView.getScene().lookup(FX_ID_PREFIX_PATTERN + SOIL_SUBKIND_ADJ_FIElD_PATTERN + i);
+//            var soilSubkindAdjChoiceBox = (ChoiceBox<SoilSubkindAdj>) scene.lookup(FX_ID_PREFIX_PATTERN + SOIL_SUBKIND_ADJ_FIElD_PATTERN + i);
+//            var soilSubkindAdjChoiceBox = (ChoiceBox<SoilSubkindAdj>) ((Node) event.getSource()).getScene().lookup(FX_ID_PREFIX_PATTERN + SOIL_SUBKIND_ADJ_FIElD_PATTERN + i);
+
+            soilSubkindAdjChoiceBox.setConverter(new StringConverter<>() {
+                @Override
+                public String toString(SoilSubkindAdj object) {
+                    return Objects.nonNull(object) ? object.getSsaDescr() : StringUtils.EMPTY;
+                }
+
+                @Override
+                public SoilSubkindAdj fromString(String string) {
+                    return null;
+                }
+            });
+
+            soilSubkindAdjChoiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+                var items = descriptionKgaDto.getSoilSubkindAdjMap();
+
+                var value = soilSubkindAdjChoiceBox.getValue();
+
+                if (Objects.equals(value.getSsaDescr(), NOT_DEFINED_SOIL_SUBKIND_ADJ_PATTERN)) {
+                    items.put(soilSubkindAdjChoiceBox.getId(), null);
+                } else {
+                    items.put(soilSubkindAdjChoiceBox.getId(), value);
+                }
+
+                setDescriptionKgaTextArea();
+            });
+
+            fillSoilSubkindAdjChoiceBox(soilSubkindAdjChoiceBox);
+        }
+
+    }
+
+    private void fillSoilSubkindAdjChoiceBox(ChoiceBox<SoilSubkindAdj> soilSubkindAdjChoiceBox) {
+        soilSubkindAdjChoiceBox.getItems().clear();
+        var items = FXCollections.observableArrayList(soilSubkindAdjList);
+        soilSubkindAdjChoiceBox.getItems().addAll(items);
+
+        if (Objects.isNull(descriptionKgaDto.getSoilSubkindAdjMap().get(soilSubkindAdjChoiceBox.getId()))) {
+            soilSubkindAdjChoiceBox.setValue(soilSubkindAdjList.get(ZERO_INDEX));
+        } else {
+            soilSubkindAdjChoiceBox.setValue(descriptionKgaDto.getSoilSubkindAdjMap().get(soilSubkindAdjChoiceBox.getId()));
+        }
+    }
+
+    @FXML
     void onSoilSubkindChooseButtonClicked() {
         log.info("Нажата кнопка выбора типа группы");
 
@@ -290,6 +434,9 @@ public class SoilKindChoiceViewController implements Initializable {
         var value = soilSubkindChoiceBox.getValue();
 
         var isChanged = Boolean.FALSE;
+
+        System.out.println("check map");
+        System.out.println(items);
 
         for (String key : items.keySet()) {
             if (Objects.isNull(items.get(key))) {
@@ -301,6 +448,7 @@ public class SoilKindChoiceViewController implements Initializable {
 
         if (isChanged) {
             setSoilSubkindListView();
+            setDescriptionKgaTextArea();
         } else {
             initAlert("Все слоты для типов группы заполнены. Удалите любое значение");
         }
@@ -361,7 +509,9 @@ public class SoilKindChoiceViewController implements Initializable {
         var items = FXCollections.observableArrayList(soilSubkindList);
         soilSubkindChoiceBox.getItems().addAll(items);
 
-        soilSubkindChoiceBox.setValue(soilSubkindList.get(ZERO_INDEX));
+        if (!soilSubkindList.isEmpty()) {
+            soilSubkindChoiceBox.setValue(soilSubkindList.get(ZERO_INDEX));
+        }
     }
 
     public void setDescriptionCredoFormularTextArea() {
@@ -377,7 +527,6 @@ public class SoilKindChoiceViewController implements Initializable {
         ObservableList<SoilKindDto> observableList = FXCollections.observableArrayList();
         observableList.addAll(dtos);
 
-//        columnsMap.keySet().forEach(column -> column.setCellFactory(TextFieldTableCell.forTableColumn()));
         columnsMap.keySet().forEach(column -> JavaFXCommonMethods.setCellFactory(column, soilKindTableView,
                 null, null, null));
 
@@ -385,32 +534,10 @@ public class SoilKindChoiceViewController implements Initializable {
 
         soilKindTableView.setItems(observableList);
 
-//        soilKindChooseButton
-
-//        soilKindChooseButton.setCellValueFactory(new PropertyValueFactory<Ege, Genesis>("genesis"));
-//        soilKindChooseButton.setCellFactory(ButtonTableCell.forTableColumn(genesisObservableList));
-//        genesis.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, Genesis>>() {
-//            @Override
-//            public void handle(TableColumn.CellEditEvent<Ege, Genesis> event) {
-//                Ege ege = event.getRowValue();
-//                Genesis genesis = genesisService.findByGiId(event.getNewValue().getGiId());
-//                ege.setGenesis(genesis);
-//                updateObjectInListForView(ege);
-//            }
-//        });
-
-//        TableColumn<SoilKindDto, SoilKindDto> editColumn = column("Edit", ReadOnlyObjectWrapper<Person>::new, 60);
-//        TableColumn<SoilKindDto, SoilKindDto> editColumn = column("Edit", ReadOnlyObjectWrapper<Person>::new, 60);
-//
-//        TableColumn<SoilKindDto, SoilKindDto> col = new TableColumn<>(title);
-
-
         soilKindChooseButton.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<SoilKindDto>(cellData.getValue()));
 
-//        table.getColumns().add(editColumn);
-
         soilKindChooseButton.setCellFactory(col -> {
-            var editButton = new Button("Выбрать");
+            var button = new Button("Выбрать");
             var cell = new TableCell<SoilKindDto, SoilKindDto>() {
                 @Override
                 public void updateItem(SoilKindDto soilKindDto, boolean empty) {
@@ -418,12 +545,12 @@ public class SoilKindChoiceViewController implements Initializable {
                     if (empty) {
                         setGraphic(null);
                     } else {
-                        setGraphic(editButton);
+                        setGraphic(button);
                     }
                 }
             };
 
-            editButton.setOnAction(e -> {
+            button.setOnAction(e -> {
                 int index = cell.getTableRow().getIndex();
 
                 var soilKindDto = soilKindTableView.getItems().get(index);
@@ -431,7 +558,11 @@ public class SoilKindChoiceViewController implements Initializable {
                 var soilKind = soilKindService.getById(soilKindDto.getId());
 
                 descriptionKgaDto.setSoilKind(soilKind);
+                descriptionKgaDto.getSoilSubkindMap().forEach((key, value) -> descriptionKgaDto.getSoilSubkindMap().replace(key, null));
+                descriptionKgaDto.getSoilSubkindAdjMap().forEach((key, value) -> descriptionKgaDto.getSoilSubkindAdjMap().replace(key, null));
                 setDescriptionKgaTextArea();
+                setSoilKindGroupTypeChoiceBox();
+                setSoilSubkindListView();
             });
 
             return cell;
@@ -466,6 +597,7 @@ public class SoilKindChoiceViewController implements Initializable {
     }
 
     private void saveEntity() {
+        descriptionKgaDto.setDescriptionKga(descriptionKgaTextArea.getText());
         egeServise.updateEge(ege, descriptionKgaDto);
     }
 
@@ -475,12 +607,30 @@ public class SoilKindChoiceViewController implements Initializable {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
+
+        refreshTable.refresh();
     }
 
     @FXML
     public void onCloseWithoutSavingButtonClicked(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    public void onSoilSubkindDeleteButtonClicked(ActionEvent event) {
+//        var selectedItem = soilSubkindListView.getSelectionModel().getSelectedItem();
+        var selectedIndex = soilSubkindListView.getSelectionModel().getSelectedIndex();
+
+        if (Objects.isNull(selectedIndex) || selectedIndex < ZERO_INDEX) {
+            initAlert("Не выбрана строка в списке типов групп");
+        } else {
+            descriptionKgaDto.getSoilSubkindMap().replace(SOIL_SUBKIND_FIElD_PATTERN + (selectedIndex + SINGLE_INDEX_POINT), null);
+            setDescriptionKgaTextArea();
+            setSoilSubkindListView();
+        }
+
+
     }
 
 }

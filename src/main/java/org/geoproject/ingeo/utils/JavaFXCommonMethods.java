@@ -1,7 +1,7 @@
 package org.geoproject.ingeo.utils;
 
-import org.geoproject.ingeo.controllers.labor.functionalInterfaces.EntitiesUpdateable;
-import org.geoproject.ingeo.controllers.labor.functionalInterfaces.NewRowAddable;
+import org.geoproject.ingeo.controllers.functionalInterfaces.EntitiesUpdateable;
+import org.geoproject.ingeo.controllers.functionalInterfaces.NewRowAddable;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterSampleResultDto;

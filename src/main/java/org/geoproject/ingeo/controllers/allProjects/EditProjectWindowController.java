@@ -1,6 +1,6 @@
 package org.geoproject.ingeo.controllers.allProjects;
 
-import org.geoproject.ingeo.controllers.labor.functionalInterfaces.SceneUpdateable;
+import org.geoproject.ingeo.controllers.functionalInterfaces.SceneUpdateable;
 import org.geoproject.ingeo.controllers.modalWindows.AbstractTextFiledModalController;
 import org.geoproject.ingeo.dto.mainViewsDtos.EditProjectDto;
 import org.geoproject.ingeo.models.Employee;

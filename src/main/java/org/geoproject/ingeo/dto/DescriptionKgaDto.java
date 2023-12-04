@@ -70,6 +70,8 @@ public class DescriptionKgaDto {
 
     private Float waterDepth;
 
+    private String descriptionKga;
+
     public DescriptionKgaDto() {
         setSoilSubkindMap();
         setSoilSubkindAdjMap();
@@ -87,7 +89,7 @@ public class DescriptionKgaDto {
         this.soilSubkindAdjMap = new LinkedHashMap<>();
 
         for (int i = 1; i < 13; i++) {
-            soilSubkindAdjMap.put("ssa" + i, null);
+            soilSubkindAdjMap.put("SSA" + i, null);
         }
     }
 }

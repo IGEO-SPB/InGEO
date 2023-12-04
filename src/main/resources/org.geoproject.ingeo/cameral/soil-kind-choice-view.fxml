@@ -46,7 +46,7 @@
                      <children>
                               <Button mnemonicParsing="false" onAction="#onSaveButtonClicked" prefHeight="47.0" prefWidth="94.0" text="Сохранить " />
                         <Button mnemonicParsing="false" onAction="#onCloseButtonClicked" prefHeight="46.0" prefWidth="97.0" text="Закрыть" />
-                        <Button layoutX="10.0" layoutY="47.0" mnemonicParsing="false" onAction="#onCloseWithoutSavingButtonClicked" prefHeight="46.0" prefWidth="97.0" text="Закрыть" />
+                        <Button layoutX="10.0" layoutY="47.0" mnemonicParsing="false" onAction="#onCloseWithoutSavingButtonClicked" prefHeight="46.0" prefWidth="97.0" text="Закрыть &#10;без сохранения" />
                      </children>
                   </VBox>
                   <TextArea fx:id="descriptionKgaTextArea" prefHeight="72.0" prefWidth="378.0" />
@@ -164,7 +164,7 @@
                         </VBox>
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
                         <ListView fx:id="soilSubkindListView" prefHeight="200.0" prefWidth="200.0" />
-                        <Button mnemonicParsing="false" prefHeight="76.0" prefWidth="101.0" text="Удалить &#10;выбранную &#10;разновидность" />
+                        <Button mnemonicParsing="false" onAction="#onSoilSubkindDeleteButtonClicked" prefHeight="76.0" prefWidth="101.0" text="Удалить &#10;выбранную &#10;разновидность" />
                      </children>
                   </HBox>
                </children>

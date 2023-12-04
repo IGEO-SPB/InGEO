@@ -1,7 +1,10 @@
 package org.geoproject.ingeo.controllers.cameral;
 
+import io.micrometer.observation.Observation;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import org.geoproject.ingeo.controllers.AbstractMainViewController;
+import org.geoproject.ingeo.controllers.functionalInterfaces.Refreshable;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
 import org.geoproject.ingeo.models.Ege;
@@ -32,6 +35,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static org.geoproject.ingeo.constants.ServiceConstants.SINGLE_CODE_NUMBER;
 import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
@@ -282,6 +287,10 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
             var ege = tableView.getItems().get(selectedIndex);
 
             childController.passEge(ege);
+
+            Refreshable refreshTable = () -> tableView.refresh();
+
+            childController.passTableRefreshLambda(refreshTable);
 
             JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
                     applicationContext, stage, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());

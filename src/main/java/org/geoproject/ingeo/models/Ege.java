@@ -84,40 +84,40 @@ public class Ege {
 
 
     @Column(name = "SSA1")
-    private Long ssa1;
+    private Long SSA1;
 
     @Column(name = "SSA2")
-    private Long ssa2;
+    private Long SSA2;
 
     @Column(name = "SSA3")
-    private Long ssa3;
+    private Long SSA3;
 
     @Column(name = "SSA4")
-    private Long ssa4;
+    private Long SSA4;
 
     @Column(name = "SSA5")
-    private Long ssa5;
+    private Long SSA5;
 
     @Column(name = "SSA6")
-    private Long ssa6;
+    private Long SSA6;
 
     @Column(name = "SSA7")
-    private Long ssa7;
+    private Long SSA7;
 
     @Column(name = "SSA8")
-    private Long ssa8;
+    private Long SSA8;
 
     @Column(name = "SSA9")
-    private Long ssa9;
+    private Long SSA9;
 
     @Column(name = "SSA10")
-    private Long ssa10;
+    private Long SSA10;
 
     @Column(name = "SSA11")
-    private Long ssa11;
+    private Long SSA11;
 
     @Column(name = "SSA12")
-    private Long ssa12;
+    private Long SSA12;
 
 
 //    @Column(name = "SS1")

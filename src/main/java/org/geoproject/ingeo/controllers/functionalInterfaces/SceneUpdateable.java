@@ -1,4 +1,4 @@
-package org.geoproject.ingeo.controllers.labor.functionalInterfaces;
+package org.geoproject.ingeo.controllers.functionalInterfaces;
 
 @FunctionalInterface
 public interface SceneUpdateable {
