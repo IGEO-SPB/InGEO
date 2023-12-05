@@ -1,6 +1,7 @@
 package org.geoproject.ingeo.dto.mainViewsDtos;
 
 import org.geoproject.ingeo.enums.dtoenums.EgeDTOFieldsEnum;
+import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilKind;
 import lombok.Getter;
@@ -44,8 +45,7 @@ public class EgeDto {
     //Консистенция, выбирается из классификатора
     private String consistency;
 
-    //  todo сделать отдельную таблицу с цветами:
-    private String color;
+    private Color color;
 
     private float waterDepth;
 
@@ -102,7 +102,7 @@ public class EgeDto {
                 break;
 
             case COLOR:
-                color = (String) value;
+                color = (Color) value;
                 break;
 
             default:

@@ -70,8 +70,7 @@ CREATE TABLE ege
     soil_class_id                int     REFERENCES cl_soil_class (id) ON DELETE SET NULL,
     soil_kind_id                 int     REFERENCES cl_soil_kind (id) ON DELETE SET NULL,
 
---     todo.txt сделать отдельную таблицу с цветами (таблица ВА CL_COLOR):
-    color                        varchar,
+    color                        int     REFERENCES cl_color (id) ON DELETE SET NULL,
 --     След.два поля назначение пока не ясно, связаны с формуляром:
     GB_NMB                       int,
     F_Opis                       varchar,
@@ -191,6 +190,17 @@ ALTER TABLE ege
     ALTER COLUMN SSA11 TYPE int USING ssa11::integer;
 ALTER TABLE ege
     ALTER COLUMN SSA12 TYPE int USING ssa12::integer;
+
+
+
+
+
+ALTER TABLE ege
+    ADD COLUMN color int REFERENCES cl_color (id) ON DELETE SET NULL;
+
+ALTER TABLE ege
+    DROP COLUMN color;
+
 
 ALTER TABLE ege
     ALTER COLUMN number SET NOT NULL;

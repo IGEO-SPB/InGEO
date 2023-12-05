@@ -224,16 +224,16 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDt
         //todo временно ввод вручную. Переделать на выпадающий список. Сделать классификатор, сущность с репозиторием и сервисом.
         //private TableColumn<Ege, String> color;
 
-        color.setCellValueFactory(new PropertyValueFactory<Ege, String>("color"));
-        color.setCellFactory(TextFieldTableCell.forTableColumn());
-        color.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setColor(event.getNewValue());
-                updateObjectInListForView(ege);
-            }
-        });
+//        color.setCellValueFactory(new PropertyValueFactory<Ege, String>("color"));
+//        color.setCellFactory(TextFieldTableCell.forTableColumn());
+//        color.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
+//            @Override
+//            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
+//                Ege ege = event.getRowValue();
+////                ege.setColor(event.getNewValue());
+//                updateObjectInListForView(ege);
+//            }
+//        });
 
         tableView.getItems().setAll(objectListForView);
     }

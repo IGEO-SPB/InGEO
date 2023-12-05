@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -18,6 +17,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -28,12 +28,14 @@ import org.geoproject.ingeo.dto.DescriptionKgaDto;
 import org.geoproject.ingeo.dto.classificators.kga.SoilKindDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.models.Ege;
+import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.models.classificators.kga.SoilKindGroupType;
 import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
 import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 import org.geoproject.ingeo.services.cameral.EgeServise;
+import org.geoproject.ingeo.services.classificators.kga.ColorService;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassKindGroupService;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassService;
 import org.geoproject.ingeo.services.classificators.kga.SoilKindGroupTypeService;
@@ -43,6 +45,7 @@ import org.geoproject.ingeo.services.classificators.kga.SoilSubkindService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -53,11 +56,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static org.geoproject.ingeo.constants.ServiceConstants.CLT_NAME_FIELD;
 import static org.geoproject.ingeo.constants.ServiceConstants.COMMA_PATTERN;
-import static org.geoproject.ingeo.constants.ServiceConstants.FX_ID_PREFIX_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.ID_FIELD;
 import static org.geoproject.ingeo.constants.ServiceConstants.NOT_DEFINED_SOIL_SUBKIND_ADJ_PATTERN;
 import static org.geoproject.ingeo.constants.ServiceConstants.SINGLE_INDEX_POINT;
-import static org.geoproject.ingeo.constants.ServiceConstants.SOIL_SUBKIND_ADJ_FIElD_PATTERN;
 import static org.geoproject.ingeo.constants.ServiceConstants.SOIL_SUBKIND_FIElD_PATTERN;
 import static org.geoproject.ingeo.constants.ServiceConstants.WATER_FULL_PATTERN;
 import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
@@ -74,6 +77,7 @@ public class SoilKindChoiceViewController implements Initializable {
     private final SoilKindGroupTypeService soilKindGroupTypeService;
     private final SoilSubkindService soilSubkindService;
     private final SoilSubkindAdjService soilSubkindAdjService;
+    private final ColorService colorService;
     private final EgeServise egeServise;
 
     private Ege ege;
@@ -87,6 +91,7 @@ public class SoilKindChoiceViewController implements Initializable {
     List<SoilKindGroupType> soilKindGroupTypeList;
     List<SoilSubkind> soilSubkindList;
     List<SoilSubkindAdj> soilSubkindAdjList;
+    List<Color> colorList;
 
     Scene scene;
     @FXML
@@ -102,7 +107,11 @@ public class SoilKindChoiceViewController implements Initializable {
     @FXML
     ChoiceBox<SoilSubkind> soilSubkindChoiceBox;
     @FXML
+    ChoiceBox<Color> colorChoiceBox;
+    @FXML
     ListView<SoilSubkind> soilSubkindListView;
+    @FXML
+    TextField waterDepth;
 
     @FXML
     ChoiceBox<SoilSubkindAdj> SSA1;
@@ -138,7 +147,7 @@ public class SoilKindChoiceViewController implements Initializable {
 
 
     public SoilKindChoiceViewController(ConfigurableApplicationContext applicationContext, CurrentState currentState,
-                                        SoilClassService soilClassService, SoilKindService soilKindService, SoilClassKindGroupService soilClassKindGroupService, SoilKindGroupTypeService soilKindGroupTypeService, SoilSubkindService soilSubkindService, SoilSubkindAdjService soilSubkindAdjService, EgeServise egeServise) {
+                                        SoilClassService soilClassService, SoilKindService soilKindService, SoilClassKindGroupService soilClassKindGroupService, SoilKindGroupTypeService soilKindGroupTypeService, SoilSubkindService soilSubkindService, SoilSubkindAdjService soilSubkindAdjService, ColorService colorService, EgeServise egeServise) {
         this.applicationContext = applicationContext;
         this.currentState = currentState;
         this.soilClassService = soilClassService;
@@ -147,6 +156,7 @@ public class SoilKindChoiceViewController implements Initializable {
         this.soilKindGroupTypeService = soilKindGroupTypeService;
         this.soilSubkindService = soilSubkindService;
         this.soilSubkindAdjService = soilSubkindAdjService;
+        this.colorService = colorService;
         this.egeServise = egeServise;
     }
 
@@ -160,7 +170,7 @@ public class SoilKindChoiceViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("SoilKindChoiceViewController init!!!");
+        log.info("SoilKindChoiceViewController init!!!");
 
         setDto();
         setDescriptionCredoFormularTextArea();
@@ -173,6 +183,8 @@ public class SoilKindChoiceViewController implements Initializable {
         setSoilKindGroupTypeChoiceBox();
         setSoilSubkindChoiceBox();
         setSoilSubkindAdjChoiceBox();
+        setColorChoiceBox();
+        setWaterDepth();
     }
 
     public void setDto() {
@@ -213,7 +225,7 @@ public class SoilKindChoiceViewController implements Initializable {
                         StringUtils.EMPTY : COMMA_PATTERN)
                 .append(soilSubkindMapStringBuilder)
 //                .append(soilSubkindMapStringBuilder.isEmpty() ? StringUtils.EMPTY : COMMA_PATTERN)
-                .append(Objects.isNull(descriptionKgaDto.getColor()) ? StringUtils.EMPTY : descriptionKgaDto.getColor())
+                .append(getColor())
                 .append(Objects.isNull(descriptionKgaDto.getColor()) ? StringUtils.EMPTY : COMMA_PATTERN)
                 .append(soilSubkindAdjMapStringBuilder)
 //                .append(soilSubkindAdjMapStringBuilder.isEmpty() ? StringUtils.EMPTY : COMMA_PATTERN)
@@ -221,6 +233,20 @@ public class SoilKindChoiceViewController implements Initializable {
                 .toString();
 
         descriptionKgaTextArea.setText(text);
+    }
+
+    private String getColor() {
+
+        if (Objects.isNull(descriptionKgaDto.getColor())) {
+            return StringUtils.EMPTY;
+        }
+
+        if (Objects.isNull(descriptionKgaDto.getColor().getCltName()) ||
+        Objects.equals(descriptionKgaDto.getColor().getCltName(), StringUtils.EMPTY)) {
+            return StringUtils.EMPTY;
+        }
+
+        return descriptionKgaDto.getColor().getCltName();
     }
 
     private String getSoilKindDescription() {
@@ -247,24 +273,12 @@ public class SoilKindChoiceViewController implements Initializable {
                     setText(StringUtils.EMPTY);
                 } else {
                     setText(adj.getSsDescr());
-                    soilSubkindListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                        if (soilSubkindListView.isFocused()) {
-                            System.out.println(newValue.toString());
-                        }
-                    });
                 }
             }
         });
 
         var items =
                 FXCollections.observableArrayList(descriptionKgaDto.getSoilSubkindMap().values());
-
-        soilSubkindListView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-//            System.out.println("ListView item");
-//            System.out.println(newValue);
-//            System.out.println(newValue.getId());
-//            System.out.println(newValue.getSsDescr());
-        });
 
         soilSubkindListView.setItems(items);
     }
@@ -358,30 +372,63 @@ public class SoilKindChoiceViewController implements Initializable {
         fillSoilSubkindChoiceBox(soilKindGroupTypeList.get(ZERO_INDEX));
     }
 
+    private void setColorChoiceBox() {
+        colorChoiceBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Color object) {
+                return Objects.nonNull(object) ? object.getCltName() : StringUtils.EMPTY;
+            }
+
+            @Override
+            public Color fromString(String string) {
+                return null;
+            }
+        });
+
+        fillColorChoiceBox();
+
+        colorChoiceBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            if (Objects.nonNull(newValue)) {
+                if (Objects.isNull(newValue.getCltName())) {
+                    descriptionKgaDto.setColor(null);
+                } else {
+                    descriptionKgaDto.setColor(newValue);
+                }
+
+                setDescriptionKgaTextArea();
+            }
+        });
+    }
+
+    private void setWaterDepth() {
+        var depth = descriptionKgaDto.getWaterDepth();
+
+        waterDepth.setText(Objects.isNull(depth) ? StringUtils.EMPTY : String.valueOf(depth));
+    }
+
+    private void fillColorChoiceBox() {
+        colorList = colorService.getAll(CLT_NAME_FIELD);
+
+        colorChoiceBox.getItems().clear();
+
+        var items = FXCollections.observableArrayList(colorList);
+        colorChoiceBox.getItems().addAll(items);
+
+        if (Objects.isNull(descriptionKgaDto.getColor())) {
+            colorChoiceBox.setValue(colorList.get(ZERO_INDEX));
+        } else {
+            colorChoiceBox.setValue(descriptionKgaDto.getColor());
+        }
+    }
+
     @FXML
     private void setSoilSubkindAdjChoiceBox() {
         soilSubkindAdjList = soilSubkindAdjService.getAll();
 
-        List<ChoiceBox<SoilSubkindAdj>> choiceBoxList = new ArrayList<>(List.of(SSA1,
-                SSA2,
-                SSA3,
-                SSA4,
-                SSA5,
-                SSA6,
-                SSA7,
-                SSA8,
-                SSA9,
-                SSA10,
-                SSA11,
-                SSA12));
+        List<ChoiceBox<SoilSubkindAdj>> choiceBoxList = new ArrayList<>(List.of(SSA1, SSA2, SSA3,
+                SSA4, SSA5, SSA6, SSA7, SSA8, SSA9, SSA10, SSA11, SSA12));
 
-//        for (int i = 1; i < 13; i++) {
-        for (ChoiceBox<SoilSubkindAdj> soilSubkindAdjChoiceBox: choiceBoxList) {
-
-//            var soilSubkindAdjChoiceBox = (ChoiceBox<SoilSubkindAdj>) soilKindTableView.getScene().lookup(FX_ID_PREFIX_PATTERN + SOIL_SUBKIND_ADJ_FIElD_PATTERN + i);
-//            var soilSubkindAdjChoiceBox = (ChoiceBox<SoilSubkindAdj>) scene.lookup(FX_ID_PREFIX_PATTERN + SOIL_SUBKIND_ADJ_FIElD_PATTERN + i);
-//            var soilSubkindAdjChoiceBox = (ChoiceBox<SoilSubkindAdj>) ((Node) event.getSource()).getScene().lookup(FX_ID_PREFIX_PATTERN + SOIL_SUBKIND_ADJ_FIElD_PATTERN + i);
-
+        for (ChoiceBox<SoilSubkindAdj> soilSubkindAdjChoiceBox : choiceBoxList) {
             soilSubkindAdjChoiceBox.setConverter(new StringConverter<>() {
                 @Override
                 public String toString(SoilSubkindAdj object) {
@@ -435,9 +482,6 @@ public class SoilKindChoiceViewController implements Initializable {
 
         var isChanged = Boolean.FALSE;
 
-        System.out.println("check map");
-        System.out.println(items);
-
         for (String key : items.keySet()) {
             if (Objects.isNull(items.get(key))) {
                 items.put(key, value);
@@ -452,7 +496,6 @@ public class SoilKindChoiceViewController implements Initializable {
         } else {
             initAlert("Все слоты для типов группы заполнены. Удалите любое значение");
         }
-
     }
 
     public void fillSoilClassChoiceBox() {
@@ -493,13 +536,7 @@ public class SoilKindChoiceViewController implements Initializable {
         var items = FXCollections.observableArrayList(soilKindGroupTypeList);
         soilKindGroupTypeChoiceBox.getItems().addAll(items);
 
-//        if (Objects.nonNull(descriptionKgaDto.getSoilClass())) {
-//            soilClassChoiceBox.setValue(descriptionKgaDto.getSoilClass());
-//        } else {
         soilKindGroupTypeChoiceBox.setValue(soilKindGroupTypeList.get(ZERO_INDEX));
-//            descriptionKgaDto.setSoilClass(soilClasses.get(ZERO_INDEX));
-//        }
-
     }
 
     private void fillSoilSubkindChoiceBox(SoilKindGroupType newValue) {
@@ -619,7 +656,6 @@ public class SoilKindChoiceViewController implements Initializable {
 
     @FXML
     public void onSoilSubkindDeleteButtonClicked(ActionEvent event) {
-//        var selectedItem = soilSubkindListView.getSelectionModel().getSelectedItem();
         var selectedIndex = soilSubkindListView.getSelectionModel().getSelectedIndex();
 
         if (Objects.isNull(selectedIndex) || selectedIndex < ZERO_INDEX) {
@@ -629,8 +665,18 @@ public class SoilKindChoiceViewController implements Initializable {
             setDescriptionKgaTextArea();
             setSoilSubkindListView();
         }
+    }
 
+    @FXML
+    public void onAddWaterDepthButtonClicked(ActionEvent event) {
+        descriptionKgaDto.setWaterDepth(Float.valueOf(waterDepth.getText()));
+        setDescriptionKgaTextArea();
+    }
 
+    @FXML
+    public void onDeleteWaterDepthButtonClicked(ActionEvent event) {
+        descriptionKgaDto.setWaterDepth(null);
+        setDescriptionKgaTextArea();
     }
 
 }

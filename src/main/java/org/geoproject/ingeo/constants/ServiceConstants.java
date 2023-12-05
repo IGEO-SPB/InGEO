@@ -8,6 +8,7 @@ public final class ServiceConstants {
     public static final String ID_FIELD = "id";
     public static final String LABOR_NUMBER_FIELD = "laborNumber";
     public static final String SHEAR_POINT_NUMBER_FIELD = "shearPointNumber";
+    public static final String CLT_NAME_FIELD = "cltName";
 
     public static final Boolean NOT_EDITABLE_FROM_EGE_LIST = false;
 

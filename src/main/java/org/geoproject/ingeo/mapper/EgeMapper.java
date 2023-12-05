@@ -155,6 +155,7 @@ public interface EgeMapper {
 //    private SoilSubkindAdj ssa12;
 
         ege.setWaterDepth(descriptionKgaDto.getWaterDepth());
+        ege.setDescriptionKga(descriptionKgaDto.getDescriptionKga());
     }
 
 }

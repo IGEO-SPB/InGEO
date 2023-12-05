@@ -2,6 +2,7 @@ package org.geoproject.ingeo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.models.classificators.kga.SoilGroupType;
@@ -51,7 +52,7 @@ public class DescriptionKgaDto {
 
     private Map<String, SoilSubkind> soilSubkindMap;
 
-    private String color;
+    private Color color;
 
 //    private SoilSubkindAdj ssa1;
 //    private SoilSubkindAdj ssa2;

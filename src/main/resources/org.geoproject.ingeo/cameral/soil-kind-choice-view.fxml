@@ -41,7 +41,7 @@
                 <Separator prefWidth="200.0" />
                 <HBox alignment="TOP_CENTER" prefHeight="122.0" prefWidth="766.0" spacing="20.0">
                     <children>
-                  <TextArea fx:id="descriptionCredoFormularTextArea" prefHeight="72.0" prefWidth="378.0" />
+                  <TextArea fx:id="descriptionCredoFormularTextArea" prefHeight="72.0" prefWidth="378.0" wrapText="true" />
                   <VBox prefHeight="72.0" prefWidth="134.0">
                      <children>
                               <Button mnemonicParsing="false" onAction="#onSaveButtonClicked" prefHeight="47.0" prefWidth="94.0" text="Сохранить " />
@@ -49,7 +49,7 @@
                         <Button layoutX="10.0" layoutY="47.0" mnemonicParsing="false" onAction="#onCloseWithoutSavingButtonClicked" prefHeight="46.0" prefWidth="97.0" text="Закрыть &#10;без сохранения" />
                      </children>
                   </VBox>
-                  <TextArea fx:id="descriptionKgaTextArea" prefHeight="72.0" prefWidth="378.0" />
+                  <TextArea fx:id="descriptionKgaTextArea" prefHeight="72.0" prefWidth="378.0" wrapText="true" />
                     </children>
                <padding>
                   <Insets bottom="5.0" top="5.0" />
@@ -83,7 +83,7 @@
                                     <RowConstraints vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <ChoiceBox fx:id="soilClassChoiceBox" layoutX="177.0" layoutY="12.0" onAction="#onSoilClassChoiceBoxClicked" prefWidth="150.0" GridPane.rowIndex="1" />
+                                    <ChoiceBox fx:id="soilClassChoiceBox" layoutX="177.0" layoutY="12.0" prefWidth="150.0" GridPane.rowIndex="1" />
                                     <ChoiceBox fx:id="soilKindGroupChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Класс" />
                                     <Label layoutX="10.0" layoutY="16.0" text="Группа" GridPane.columnIndex="1" />
@@ -176,9 +176,9 @@
             <Separator prefWidth="200.0" />
             <VBox alignment="CENTER" prefHeight="187.0" prefWidth="702.0" spacing="20.0">
                <children>
-                  <HBox prefHeight="141.0" prefWidth="746.0">
+                  <HBox alignment="CENTER" prefHeight="141.0" prefWidth="746.0" spacing="15.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="187.0" prefWidth="658.0">
+                        <VBox alignment="CENTER" prefHeight="142.0" prefWidth="495.0">
                            <children>
                               <Label text="Уточнение">
                                  <font>
@@ -214,9 +214,8 @@
                               </GridPane>
                            </children>
                         </VBox>
-                        <GridPane hgap="5.0" prefHeight="77.0" prefWidth="187.0">
+                        <GridPane hgap="5.0" prefHeight="142.0" prefWidth="130.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -225,9 +224,27 @@
                           </rowConstraints>
                            <children>
                               <Label text="Цвет" />
-                              <Label layoutX="10.0" layoutY="16.0" text="Вод.нас. &#10;с глубины м." GridPane.columnIndex="1" />
-                              <ChoiceBox prefWidth="150.0" GridPane.rowIndex="1" />
-                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ChoiceBox fx:id="colorChoiceBox" prefWidth="150.0" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                        <GridPane hgap="5.0" layoutX="619.0" layoutY="10.0" prefHeight="142.0" prefWidth="132.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label layoutX="10.0" layoutY="16.0" text="Вод.нас. &#10;с глубины м." />
+                              <TextField fx:id="waterDepth" GridPane.rowIndex="1" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#onAddWaterDepthButtonClicked" text="Добавить" />
+                                    <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteWaterDepthButtonClicked" text="Удалить" />
+                                 </children>
+                              </HBox>
                            </children>
                         </GridPane>
                      </children>

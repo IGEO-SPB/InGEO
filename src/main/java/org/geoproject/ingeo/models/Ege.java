@@ -1,6 +1,7 @@
 package org.geoproject.ingeo.models;
 
 import org.geoproject.ingeo.models.classificators.Genesis;
+import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.models.classificators.kga.SoilKind;
@@ -199,10 +200,9 @@ public class Ege {
     @JoinColumn(name = "soil_class_kind_group")
     private SoilClassKindGroup soilClassKindGroup;
 
-
-    //  todo сделать отдельную таблицу с цветами:
-    @Column(name = "color")
-    private String color;
+    @ManyToOne
+    @JoinColumn(name = "color")
+    private Color color;
 
     //  След.два поля назначение пока не ясно, связаны с формуляром:
     //ВА: GB_NMB, порядок следования слоев -для формуляра
