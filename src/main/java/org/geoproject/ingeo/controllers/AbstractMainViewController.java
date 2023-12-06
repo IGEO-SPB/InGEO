@@ -31,15 +31,8 @@ public abstract class AbstractMainViewController<T, Y> {
     List<T> updatedObjectList;
     List<T> deletedObjectList;
 
-    Scene scene;
-    Stage stage;
-
     @FXML
     protected TableView<T> tableView;
-
-    protected @FXML Label projectNameInFooter;
-    protected @FXML Label projectCipherInFooter;
-
 
     public AbstractMainViewController(CurrentState currentState,ConfigurableApplicationContext applicationContext, MainViewService<T, Y> service) {
         this.applicationContext = applicationContext;
@@ -53,7 +46,6 @@ public abstract class AbstractMainViewController<T, Y> {
 
     public void init() {
         setObjectListForView();
-        JavaFXCommonMethods.setFooterElements(currentState, projectNameInFooter, projectCipherInFooter);
     }
 
     public void setObjectListForView() {
@@ -124,29 +116,5 @@ public abstract class AbstractMainViewController<T, Y> {
         deletedObjectList.add(object);
 
         showAllObjectsInCurrentProject();
-    }
-
-    @FXML
-    public void onAllProjectsButtonClicked(ActionEvent event) throws IOException {
-        JavaFXCommonMethods.changeScene(event, ViewsEnum.ALL_PROJECTS_VIEW.getPath(),
-                applicationContext, ViewsEnum.ALL_PROJECTS_VIEW.getTitle());
-    }
-
-    @FXML
-    public void onFieldModuleButtonClicked(ActionEvent event) throws IOException {
-        JavaFXCommonMethods.changeScene(event, ViewsEnum.FIELD_MODULE_MAIN_VIEW.getPath(),
-                applicationContext, ViewsEnum.FIELD_MODULE_MAIN_VIEW.getTitle());
-    }
-
-    @FXML
-    public void onLaborModuleButtonClicked(ActionEvent event) throws IOException {
-        JavaFXCommonMethods.changeScene(event, ViewsEnum.LABOR_MODULE_MAIN_VIEW.getPath(),
-                applicationContext, ViewsEnum.LABOR_MODULE_MAIN_VIEW.getTitle());
-    }
-
-    @FXML
-    public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
-        JavaFXCommonMethods.changeScene(event, ViewsEnum.CAMERAL_MODULE_MAIN_VIEW.getPath(),
-                applicationContext, ViewsEnum.CAMERAL_MODULE_MAIN_VIEW.getTitle());
     }
 }

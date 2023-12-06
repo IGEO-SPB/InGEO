@@ -1,7 +1,14 @@
 package org.geoproject.ingeo.controllers.shared;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
+import javafx.scene.control.SplitMenuButton;
+import lombok.RequiredArgsConstructor;
 import org.geoproject.ingeo.enums.StageTitleEnum;
 import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.models.Project;
+import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +22,20 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HeaderComponentController implements Initializable {
 
-    private ConfigurableApplicationContext applicationContext;
+    private final ConfigurableApplicationContext applicationContext;
+    private final CurrentState state;
+
+    @FXML
+    public Button allProjectsButton;
+    @FXML
+    public SplitMenuButton fieldModuleButton;
+    @FXML
+    public SplitMenuButton laborModuleButton;
+    @FXML
+    public SplitMenuButton cameralModuleButton;
 
     @FXML
     public void onAllProjectsButtonClicked(ActionEvent event) throws IOException {
@@ -46,6 +63,17 @@ public class HeaderComponentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        var prop = state.getCurrentProjectProperty();
+        prop.addListener((observableValue, project, t1) -> {
+            updateButtonDisabledStatus(t1);
+        });
+        updateButtonDisabledStatus(state.getCurrentProject());
+    }
 
+    private void updateButtonDisabledStatus(Project project) {
+        boolean buttonsState = project == null;
+        fieldModuleButton.setDisable(buttonsState);
+        cameralModuleButton.setDisable(buttonsState);
+        laborModuleButton.setDisable(buttonsState);
     }
 }

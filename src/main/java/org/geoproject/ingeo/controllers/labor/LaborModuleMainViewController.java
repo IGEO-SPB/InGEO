@@ -388,33 +388,6 @@ public class LaborModuleMainViewController extends AbstractMainViewController<Sa
         System.out.println("onDeleteRowButtonClicked clicked...");
     }
 
-    @Override
-    @FXML
-    public void onAllProjectsButtonClicked(ActionEvent event) throws IOException {
-        super.onAllProjectsButtonClicked(event);
-        System.out.println("Change scene to all projects from labor module...");
-    }
-
-    @Override
-    @FXML
-    public void onFieldModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onFieldModuleButtonClicked(event);
-        System.out.println("Change scene to field module from labor module...");
-    }
-
-    @Override
-    @FXML
-    public void onLaborModuleButtonClicked(ActionEvent event) throws IOException {
-        System.out.println("Trying change scene to labor module from labor module... \n" +
-                "Already in labor module");
-    }
-
-    @Override
-    @FXML
-    public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onCameralModuleButtonClicked(event);
-        System.out.println("Change scene to cameral module from labor module...");
-    }
 
     private void openAlertModalWindow(String s) {
         log.info("Alert!!!");

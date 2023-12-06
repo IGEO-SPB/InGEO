@@ -1,0 +1,27 @@
+spring.jpa.properties.javax.persistence.schema-generation.scripts.action=create
+spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=create.sql
+spring.jpa.properties.javax.persistence.schema-generation.scripts.create-source=metadata
+spring.jpa.hibernate.naming.implicit-strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=password
+
+# Since this is a JavaFX application and not a web application
+spring.main.web-application-type=none
+
+# Data Source Configuration
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Hibernate Configuration
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+#spring.jpa.properties.hibernate.show_sql=true
+hibernate.current_session_context_class=thread
+
+logging.file.name=log.txt
+
+# Docker db initialization script
+# docker run --name igeodb -e POSTGRES_PASSWORD=password -d  -p 5432:5432 postgres
+# PGPASSWORD=password psql --host=localhost --port=5432 --username=postgres -f create.sql
+
+

@@ -100,13 +100,14 @@ public final class JavaFXCommonMethods {
 
         fxmlLoader.setControllerFactory(applicationContext::getBean);
 
-        double width = 800;
-        double height = 500;
+        double width = 1368;
+        double height = 768;
         if (stage.getScene() != null) {
             width = stage.getScene().widthProperty().get();
             height = stage.getScene().heightProperty().get();
         }
         Scene scene = new Scene(fxmlLoader.load(), width, height);
+        if (stage.getScene() == null) stage.setMaximized(true);
         stage.setTitle(title);
         stage.setScene(scene);
         stage.centerOnScreen();
@@ -115,10 +116,18 @@ public final class JavaFXCommonMethods {
         changeScene(event, view.getPath(), applicationContext, view.getTitle());
         currentView = view;
     }
+    public static void changeScene(Stage stage, ViewsEnum view, ApplicationContext applicationContext) throws IOException {
+        changeScene(stage, view.getPath(), applicationContext, view.getTitle());
+        currentView = view;
+    }
 
     public static void changeScene(Stage stage, ViewsEnum path, ApplicationContext applicationContext,
                                    StageTitleEnum title) throws IOException {
         changeScene(stage, path.getPath(), applicationContext, title.getTitle());
+    }
+    public static void changeSceneToModalWindow(ActionEvent event, String scenePath, ApplicationContext applicationContext, String title) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        changeSceneToModalWindow(event, scenePath, applicationContext, stage, title);
     }
 
     public static void changeSceneToModalWindow(ActionEvent event, String scenePath, ApplicationContext applicationContext,
@@ -140,16 +149,6 @@ public final class JavaFXCommonMethods {
         dialog.showAndWait();
     }
 
-    /**
-     * Устанавливает элементы футера на представлении
-     */
-    public static void setFooterElements(CurrentState currentState, Label projectNameInFooter, Label projectCipherInFooter) {
-        Project currentProject = currentState.getCurrentProject();
-        String projectNameInFooterText = currentProject == null ? "Проект не выбран" : currentProject.getProjectName();
-        String projectCipherInFooterText = currentProject == null ? "Проект не выбран" : currentProject.getContractNumber();
-        projectNameInFooter.setText(projectNameInFooterText);
-        projectCipherInFooter.setText(projectCipherInFooterText);
-    }
 
     public static StringConverter<Number> getConverter() {
         return new StringConverter<>() {

@@ -3,6 +3,7 @@ package org.geoproject.ingeo.controllers.allProjects;
 import org.geoproject.ingeo.controllers.modalWindows.AbstractTextFiledModalController;
 import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;
 import org.geoproject.ingeo.enums.dtoenums.ProjectDTOFieldsEnum;
+import org.geoproject.ingeo.mapper.ProjectMapper;
 import org.geoproject.ingeo.models.Employee;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.classificators.ConstructionType;
@@ -43,6 +44,7 @@ public class CreateProjectWindowController extends AbstractTextFiledModalControl
 
     private final EmployeesService employeesService;
     private final ConstructionTypeService constructionTypeService;
+    private final ProjectMapper mapper;
 
     @FXML
     private TextField contractNumber;
@@ -85,13 +87,14 @@ public class CreateProjectWindowController extends AbstractTextFiledModalControl
     @FXML
     private ChoiceBox<String> approver;
     @FXML
-    ObservableList<ProjectDto> observableList;
+    ObservableList<Project> observableList;
 
     public CreateProjectWindowController(ConfigurableApplicationContext applicationContext, SampleService sampleService,
-                                         ModalWindowService<Project, ProjectDto> service, CurrentState currentState, EmployeesService employeesService, ConstructionTypeService constructionTypeService) {
+                                         ModalWindowService<Project, ProjectDto> service, CurrentState currentState, EmployeesService employeesService, ConstructionTypeService constructionTypeService, ProjectMapper mapper) {
         super(applicationContext, sampleService, service, currentState);
         this.employeesService = employeesService;
         this.constructionTypeService = constructionTypeService;
+        this.mapper = mapper;
     }
 
     @Override
@@ -103,7 +106,7 @@ public class CreateProjectWindowController extends AbstractTextFiledModalControl
         setDatePickerForDates();
     }
 
-    public void passObservableList(ObservableList<ProjectDto> list) {
+    public void passObservableList(ObservableList<Project> list) {
         observableList = list;
     }
 
@@ -211,8 +214,8 @@ public class CreateProjectWindowController extends AbstractTextFiledModalControl
     @Override
     @FXML
     public void onSaveButtonClicked(ActionEvent event) {
-        observableList.add(dto);
         saveEntity();
+        observableList.add(mapper.projectDtoToProject(dto));
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();

@@ -1,28 +1,40 @@
 package org.geoproject.ingeo.controllers;
 
+import lombok.extern.log4j.Log4j2;
+import org.geoproject.ingeo.Initializer;
 import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.repositories.ProjectsRepository;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
+@Log4j2
 @RequiredArgsConstructor
 public class LoginController {
     private final ConfigurableApplicationContext applicationContext;
-    private final CurrentState currentState;
+    private final CurrentState state;
+    private final ProjectsRepository projectsRepository;
+    private final Initializer initializer;
 
     @FXML
     protected void onLoginButtonClicked(ActionEvent event) throws IOException {
-        System.out.println("CURRENT PROJECT:");
-        System.out.println(currentState.getCurrentProject());
+        var nextView = ViewsEnum.ALL_PROJECTS_VIEW;
+        var project = projectsRepository.findFirstBy(Sort.by("id"));
+        state.setCurrentProject(project);
+        initializer.setCurrentSurveyPoint(project);
+        initializer.EnsureConstructionTypesExist();
+        initializer.EnsureSurveyPointsTypeExist();
+        initializer.setCurrentSample(state.getSurveyPoint());
+        log.info("App starting...");
 
-        var path = ViewsEnum.ALL_PROJECTS_VIEW.getPath();
-        var title = ViewsEnum.ALL_PROJECTS_VIEW.getTitle();
-        JavaFXCommonMethods.changeScene(event, path, applicationContext, title);}
+        JavaFXCommonMethods.changeScene(event, nextView, applicationContext);
+    }
 }

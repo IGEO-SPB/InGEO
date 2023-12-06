@@ -64,14 +64,17 @@ public class EditProjectServiceImpl implements ModalWindowService<Project, EditP
     public EditProjectDto getDto(Project project) {
         EditProjectDto editProjectDto = projectMapper.projectToEditProjectDto(project);
 
-        editProjectDto.setCreatedBy(project.getCreatedBy().getName() + EMPLOYEE_FIELD_PATTERN +
-                project.getCreatedBy().getId());
+        if(project.getCreatedBy() != null)
+            editProjectDto.setCreatedBy(project.getCreatedBy().getName() + EMPLOYEE_FIELD_PATTERN +
+                    project.getCreatedBy().getId());
 
-        editProjectDto.setExecutor(project.getExecutor().getName() + EMPLOYEE_FIELD_PATTERN +
-                project.getExecutor().getId());
+        if(project.getApprover() != null)
+            editProjectDto.setExecutor(project.getExecutor().getName() + EMPLOYEE_FIELD_PATTERN +
+                    project.getExecutor().getId());
 
-        editProjectDto.setApprover(project.getApprover().getName() + EMPLOYEE_FIELD_PATTERN +
-                project.getApprover().getId());
+        if(project.getApprover() != null)
+            editProjectDto.setApprover(project.getApprover().getName() + EMPLOYEE_FIELD_PATTERN +
+                    project.getApprover().getId());
 
         return editProjectDto;
     }

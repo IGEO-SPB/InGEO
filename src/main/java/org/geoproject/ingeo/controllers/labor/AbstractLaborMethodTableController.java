@@ -44,11 +44,6 @@ public abstract class AbstractLaborMethodTableController<T, Y> {
     protected Stage stage;
 
     @FXML
-    protected Label projectNameInFooter;
-    @FXML
-    protected Label projectCipherInFooter;
-
-    @FXML
     protected TableView<Y> tableView;
 
     protected List<Y> dtos;
@@ -80,8 +75,6 @@ public abstract class AbstractLaborMethodTableController<T, Y> {
         setColumnsMap();
 
         setCellsFormat();
-
-        JavaFXCommonMethods.setFooterElements(currentState, projectNameInFooter, projectCipherInFooter);
     }
 
     private void setFirstSample() {
@@ -171,30 +164,6 @@ public abstract class AbstractLaborMethodTableController<T, Y> {
     public void onWaterChemistryFinalResultViewButtonClicked(ActionEvent event) throws IOException {
         JavaFXCommonMethods.changeScene(event, ViewsEnum.WATER_CHEMISTRY_FINAL_RESULT_VIEW.getPath(),
                 applicationContext, WATER_CHEMISTRY_FINAL_RESULT.getTitle());
-    }
-
-    @FXML
-    public void onAllProjectsButtonClicked(ActionEvent event) throws IOException {
-        JavaFXCommonMethods.changeScene(event, ViewsEnum.ALL_PROJECTS_VIEW.getPath(),
-                applicationContext, PROJECTS.getTitle());
-    }
-
-    @FXML
-    public void onFieldModuleButtonClicked(ActionEvent event) throws IOException {
-        JavaFXCommonMethods.changeScene(event, ViewsEnum.FIELD_MODULE_MAIN_VIEW.getPath(),
-                applicationContext, FIELD_MODULE.getTitle());
-    }
-
-    @FXML
-    public void onLaborModuleButtonClicked(ActionEvent event) throws IOException {
-        JavaFXCommonMethods.changeScene(event, ViewsEnum.LABOR_MODULE_MAIN_VIEW.getPath(),
-                applicationContext, LABOR_MODULE.getTitle());
-    }
-
-    @FXML
-    public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
-        JavaFXCommonMethods.changeScene(event, ViewsEnum.CAMERAL_MODULE_MAIN_VIEW.getPath(),
-                applicationContext, CAMERAL_MODULE.getTitle());
     }
 
     private void openAlertModalWindow(String serviceMessage) {

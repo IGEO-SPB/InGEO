@@ -303,7 +303,6 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
         System.out.println(chooseProjectChoiceBox.getValue().getProjectName());
         Project currentProject = projectsService.getById(chooseProjectChoiceBox.getValue().getId());
         currentState.setCurrentProject(currentProject);
-        JavaFXCommonMethods.setFooterElements(currentState, projectNameInFooter, projectCipherInFooter);
         List<SurveyPoint> surveyPointList = service.getByProject(currentProject);
         setObjectListForView(surveyPointList);
         showAllObjectsInCurrentProject();
