@@ -291,33 +291,6 @@ public class BoreholeLayerMainViewController extends AbstractMainViewController<
         boreholeChoiceBox.setOnAction(e -> tempSetListForTableView(boreholeChoiceBox)));
     }
 
-    @Override
-    @FXML
-    public void onAllProjectsButtonClicked(ActionEvent event) throws IOException {
-        super.onAllProjectsButtonClicked(event);
-        System.out.println("Change scene to all projects from borehole layer module...");
-    }
-
-    @Override
-    @FXML
-    public void onFieldModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onFieldModuleButtonClicked(event);
-        System.out.println("Change scene to field module from borehole layer module...");
-    }
-
-    @Override
-    @FXML
-    public void onLaborModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onLaborModuleButtonClicked(event);
-        System.out.println("Change scene to labor module from borehole layer module...");
-    }
-
-    @Override
-    @FXML
-    public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onCameralModuleButtonClicked(event);
-        System.out.println("Change scene to cameral module from borehole layer module...");
-    }
 
     //утилитные методы. todo Имеет смысл вынести в отдельный утилитный класс
 
@@ -335,7 +308,6 @@ public class BoreholeLayerMainViewController extends AbstractMainViewController<
         String surveyPointNumber = boreholeChoiceBox.getValue();
         SurveyPoint currentSurveyPoint = surveyPointsService.findByPointNumberAndProject(surveyPointNumber, currentState.getCurrentProject());
         currentState.setSurveyPoint(currentSurveyPoint);
-        JavaFXCommonMethods.setFooterElements(currentState, projectNameInFooter, projectCipherInFooter);
         List<BoreholeLayer> boreholeLayerList = service.getByProject(currentState.getCurrentProject());
         setObjectListForView(boreholeLayerList);
         showAllObjectsInCurrentProject();

@@ -8,12 +8,14 @@ import org.geoproject.ingeo.dto.methodDtos.OrganicMatterDTO;
 import org.geoproject.ingeo.dto.methodDtos.RingDensityDTO;
 import org.geoproject.ingeo.dto.methodDtos.WaterContentDTO;
 import org.geoproject.ingeo.models.Sample;
+import org.geoproject.ingeo.models.SurveyPoint;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(config = MapStructConfiguration.class)
+@Mapper(config = MapStructConfiguration.class,
+        imports = {Sample.class})
 public interface SampleMapper {
 
     SampleDto sampleToSampleDTO(Sample sample);

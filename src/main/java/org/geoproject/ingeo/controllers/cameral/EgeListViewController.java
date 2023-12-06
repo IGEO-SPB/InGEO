@@ -267,34 +267,6 @@ public class EgeListViewController extends AbstractMainViewController<Ege, EgeDT
 
     //todo перемещение строчек в таблице, сортировка по порядковому номеру либо по названию ИГЭ
 
-    @Override
-    @FXML
-    public void onAllProjectsButtonClicked(ActionEvent event) throws IOException {
-        super.onAllProjectsButtonClicked(event);
-        System.out.println("Change scene to all projects from cameral module...");
-    }
-
-    @Override
-    @FXML
-    public void onFieldModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onFieldModuleButtonClicked(event);
-        System.out.println("Change scene to field module from cameral module...");
-
-    }
-
-    @Override
-    @FXML
-    public void onLaborModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onLaborModuleButtonClicked(event);
-        System.out.println("Change scene to labor module from cameral module...");
-    }
-
-    @Override
-    @FXML
-    public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
-        System.out.println("Trying change scene to cameral module from cameral module... \n" +
-                "Already in cameral module");
-    }
 
 //    @FXML
 //    public void onLocalSoilListButtonClicked() {

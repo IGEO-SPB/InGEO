@@ -33,4 +33,9 @@ public class ConstructionType {
     @OneToMany
     @JoinColumn(name = "construction_type")
     private List<Project> projects;
+
+    @Override
+    public String toString() {
+        return type;
+    }
 }

@@ -33,37 +33,42 @@
         </MenuBar>
 
         <ToolBar prefHeight="40.0" prefWidth="200.0">
-            <items>
-                <Button mnemonicParsing="false" onAction="#onAllProjectsButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Выбор проекта" />
-                <Region prefHeight="26.0" prefWidth="6.0" />
-                <Region prefHeight="26.0" prefWidth="6.0" />
-                <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Полевой модуль">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                </SplitMenuButton>
-                <Region prefHeight="26.0" prefWidth="6.0" />
-                <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onLaborModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Лабораторный модуль">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                </SplitMenuButton>
-                <Region prefHeight="26.0" prefWidth="6.0" />
-                <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onCameralModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                </SplitMenuButton>
-            </items>
             <VBox.margin>
-                <Insets />
+                <Insets/>
             </VBox.margin>
             <padding>
-                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
             </padding>
+            <Button fx:id="allProjectsButton" mnemonicParsing="false" onAction="#onAllProjectsButtonClicked"
+                    prefHeight="26.0" prefWidth="168.0" text="Выбор проекта"/>
+            <Region prefHeight="26.0" prefWidth="6.0"/>
+            <Region prefHeight="26.0" prefWidth="6.0"/>
+            <SplitMenuButton fx:id="fieldModuleButton" alignment="CENTER" contentDisplay="CENTER"
+                             mnemonicParsing="false" onAction="#onFieldModuleButtonClicked" prefHeight="26.0"
+                             prefWidth="168.0" text="Полевой модуль">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Action 1"/>
+                    <MenuItem mnemonicParsing="false" text="Action 2"/>
+                </items>
+            </SplitMenuButton>
+            <Region prefHeight="26.0" prefWidth="6.0"/>
+            <SplitMenuButton fx:id="laborModuleButton" alignment="CENTER" mnemonicParsing="false"
+                             onAction="#onLaborModuleButtonClicked" prefHeight="26.0" prefWidth="168.0"
+                             text="Лабораторный модуль">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Action 1"/>
+                    <MenuItem mnemonicParsing="false" text="Action 2"/>
+                </items>
+            </SplitMenuButton>
+            <Region prefHeight="26.0" prefWidth="6.0"/>
+            <SplitMenuButton fx:id="cameralModuleButton" alignment="CENTER" mnemonicParsing="false"
+                             onAction="#onCameralModuleButtonClicked" prefHeight="26.0" prefWidth="168.0"
+                             text="Камеральный модуль">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Action 1"/>
+                    <MenuItem mnemonicParsing="false" text="Action 2"/>
+                </items>
+            </SplitMenuButton>
         </ToolBar>
     </children>
 </VBox>

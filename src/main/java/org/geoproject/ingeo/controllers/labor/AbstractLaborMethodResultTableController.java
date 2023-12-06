@@ -35,11 +35,6 @@ public abstract class AbstractLaborMethodResultTableController<T, Y> {
 //    Stage stage;
 
     @FXML
-    public Label projectNameInFooter;
-    @FXML
-    public Label projectCipherInFooter;
-
-    @FXML
     public TableView<Y> tableView;
 
     public List<Y> dtos;
@@ -70,8 +65,6 @@ public abstract class AbstractLaborMethodResultTableController<T, Y> {
         setColumnsMap();
 
         setCellsFormat();
-
-        JavaFXCommonMethods.setFooterElements(currentState, projectNameInFooter, projectCipherInFooter);
     }
 
     private void setFirstSample() {

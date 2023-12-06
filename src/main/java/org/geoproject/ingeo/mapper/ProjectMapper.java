@@ -20,9 +20,8 @@ import static org.geoproject.ingeo.constants.JavaFXConstants.EMPLOYEE_FIELD_PATT
 imports = {Employee.class, ConstructionType.class, LocalDate.class})
 public interface ProjectMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "constructionType", ignore = true)
     @Mapping(target = "mapPoint", ignore = true)
+    @Mapping(target = "constructionType", ignore = true)
     @Mapping(target = "surveyPoints", ignore = true)
     @Mapping(target = "isArchive", defaultValue = "false")
     Project projectDtoToProject(ProjectDto dto);
@@ -40,6 +39,7 @@ public interface ProjectMapper {
     }
 
     List<ProjectDto> projectToProjectDto(List<Project> project);
+
 
     @Mapping(target = "constructionType", ignore = true)
     @Mapping(target = "assignmentDate", defaultExpression = "java(LocalDate.now())")

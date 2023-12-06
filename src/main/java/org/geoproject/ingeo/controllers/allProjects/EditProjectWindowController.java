@@ -159,11 +159,13 @@ public class EditProjectWindowController extends AbstractTextFiledModalControlle
 
         List<Employee> employees = employeesService.getAll();
 
-        employeeObservableList.addAll(employees.stream()
-                .map(employee -> employee.getName() + EMPLOYEE_FIELD_PATTERN + employee.getId())
-                .toList());
-
+        if(!employees.isEmpty()) {
+            employeeObservableList.addAll(employees.stream()
+                    .map(employee -> employee.getName() + EMPLOYEE_FIELD_PATTERN + employee.getId())
+                    .toList());
+        }
         choiceBoxMap.forEach((choiceBox, fieldName) -> choiceBox.getItems().addAll(employeeObservableList));
+
     }
 
     private void setConstructionTypeChoiceBox() {
