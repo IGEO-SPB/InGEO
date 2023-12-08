@@ -15,8 +15,11 @@ CREATE TABLE ege
 --     water_depth                  float4,
     description_kga              varchar,
     description_for_organisation varchar,
-    hatching_name_credo_autocad  varchar,
-    consistency                  varchar,
+--     hatching_name_credo_autocad  varchar, - удалено
+    hatching_id int REFERENCES classif_hatching(id) ON DELETE SET NULL,
+--     consistency                  varchar, - удалено
+    consistency_id int REFERENCES classif_consistency(id) ON DELETE SET NULL,
+
 --     ВА: для формуляр (назначение пока не ясно):
     soil_kind_enum               varchar,
 
@@ -108,7 +111,7 @@ CREATE TABLE ege
 --     i_H5
 --     i_H6
 -- + Opis
--- + ACAD
+-- + ACAD - классификатор classif_hatching
 -- + TCNS
 --   COLG
 --   PATT
@@ -165,6 +168,7 @@ CREATE TABLE ege
 --     GB_NMB
 --     F_Opis
 
+ALTER TABLE ege ADD COLUMN consistency_id int REFERENCES classif_consistency(id) ON DELETE SET NULL;
 
 ALTER TABLE ege
     ALTER COLUMN SSA1 TYPE int USING ssa1::integer;
@@ -282,8 +286,8 @@ COMMENT ON COLUMN ege.description_credo_formular IS 'ВА: NAME_POLN, наиме
 COMMENT ON COLUMN ege.genesis_id IS 'ВА: GENG, видимо поле такое же как для GI (ВА: фор-генезис), генезис [18.02.2023]';
 -- COMMENT ON COLUMN ege.water_depth IS 'ВА: f_G, с гл.хх м -насыщ водой [18.02.2023]';
 COMMENT ON COLUMN ege.description_kga IS 'ВА: Opis, наименование грунта по классиф. КГА [18.02.2023]';
-COMMENT ON COLUMN ege.hatching_name_credo_autocad IS 'ВА: ACAD, для СREDO [18.02.2023]';
-COMMENT ON COLUMN ege.consistency IS 'ВА: TCNS (консистенция) [18.02.2023]';
+COMMENT ON COLUMN ege.hatching_id IS 'ВА: ACAD, для СREDO [18.02.2023]';
+COMMENT ON COLUMN ege.consistency_id IS 'ВА: TCNS (консистенция) [18.02.2023]';
 --     это скрытые поля на форме:
 -- COMMENT ON COLUMN soil_description.credo_color IS 'COLG, цвет в CREDO (таблица ВА) [18.02.2023]';
 -- COMMENT ON COLUMN soil_description.hatching_credo IS 'PATT, штриховка в CREDO (таблица ВА) [18.02.2023]';
@@ -291,7 +295,11 @@ COMMENT ON COLUMN ege.consistency IS 'ВА: TCNS (консистенция) [18.
 -- COMMENT ON COLUMN ege.genesis_description IS 'ВА: Description, генезис словами+ обозн. [18.02.2023]';
 COMMENT ON COLUMN ege.description_for_organisation IS 'ВА: GrName, описание для ТИСИЗ [18.02.2023]';
 COMMENT ON COLUMN ege.SS1 IS 'ВА: SS1, для Формуляр (назначение пока не ясно) [18.02.2023]';
-COMMENT ON COLUMN ege.soil_kind_enum IS 'ВА: SSA, enum - почва, пески, глинистые [18.02.2023]';
+
+-- убрал поле - это "вид грунта - быстро". Перенес выпадающий список в окно создания описания КГА
+-- COMMENT ON COLUMN ege.soil_kind_enum IS 'ВА: SSA, enum - почва, пески, глинистые [18.02.2023]';
+ALTER TABLE ege DROP COLUMN soil_kind_enum;
+
 COMMENT ON COLUMN ege.color IS 'ВА: COLOR [18.02.2023]';
 COMMENT ON COLUMN ege.GB_NMB IS 'ВА: GB_NMB, порядок следования слоев -для формуляра (назначение пока не ясно) [18.02.2023]';
 COMMENT ON COLUMN ege.F_Opis IS 'ВА: F_Opis, наименование грунта по классиф. Формуляр (назначение пока не ясно) [18.02.2023]';
@@ -303,11 +311,11 @@ COMMENT ON COLUMN ege.soil_kind_id IS 'ВА: SK, kind [14.11.2023]';
 -- COMMENT ON COLUMN ege.soil_group_type_id IS 'ВА: SG, group [14.11.2023]';
 
 INSERT INTO ege (number, code, code_number, short_name, description_credo_formular, genesis_id, description_kga,
-                 description_for_organisation, hatching_name_credo_autocad, consistency, SS1, soil_kind_enum, color,
+                 description_for_organisation, hatching_id, consistency_id, SS1, soil_kind_enum, color,
                  GB_NMB, F_Opis)
 VALUES ('', '', 0, '', '', 1, '', '', '', '', 0, 0, '', 0, '');
 
 INSERT INTO ege (number, code, code_number, short_name, description_credo_formular, genesis_id, description_kga,
-                 description_for_organisation, hatching_name_credo_autocad, consistency, SS1, soil_kind_enum, color,
+                 description_for_organisation, hatching_id, consistency_id, SS1, soil_kind_enum, color,
                  GB_NMB, F_Opis)
 VALUES ('№ 1', 'G1', 0, 'Test name', '', 1, '', '', '', '', 0, 0, '', 0, '');

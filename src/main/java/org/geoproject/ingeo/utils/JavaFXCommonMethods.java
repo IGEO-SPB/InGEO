@@ -1,5 +1,6 @@
 package org.geoproject.ingeo.utils;
 
+import javafx.scene.control.Alert;
 import org.geoproject.ingeo.controllers.functionalInterfaces.EntitiesUpdateable;
 import org.geoproject.ingeo.controllers.functionalInterfaces.NewRowAddable;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
@@ -13,6 +14,13 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.classificators.Pot;
 import org.geoproject.ingeo.models.classificators.Ring;
 import org.geoproject.ingeo.models.classificators.WeighingBottle;
+import org.geoproject.ingeo.models.classificators.kga.Color;
+import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
+import org.geoproject.ingeo.models.classificators.kga.SoilGroupType;
+import org.geoproject.ingeo.models.classificators.kga.SoilKindGroupType;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 import org.geoproject.ingeo.services.classificators.ClassificatorService;
 import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
@@ -55,12 +63,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.LongFunction;
 
 import static org.geoproject.ingeo.constants.JavaFXConstants.FLOAT_SPLIT_PATTERN;
 import static org.geoproject.ingeo.constants.JavaFXConstants.IS_FLOAT_VALUE_PATTERN;
 import static org.geoproject.ingeo.constants.JavaFXConstants.SINGLE_COLUMN_INDEX;
 import static org.geoproject.ingeo.constants.JavaFXConstants.SINGLE_ROW_COUNT;
 import static org.geoproject.ingeo.constants.JavaFXConstants.TEXTFIELD_NUMERIC_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.ALERT_WINDOW_TITLE;
 import static org.geoproject.ingeo.constants.ServiceConstants.SCIENTIFIC_NOTATION_PATTERN;
 
 @Log4j2
@@ -820,6 +831,50 @@ public final class JavaFXCommonMethods {
 
         allTextFieldMap.keySet().forEach(textField ->
                 JavaFXCommonMethods.addListenerOnTextField(textField, classificatorService, entitiesUpdateable));
+    }
+
+    public static <E> void setConverterForChoiceBox(ChoiceBox<E> choiceBox, LongFunction<SoilGroupType> getSoilGroupType) {
+        choiceBox.setConverter(new StringConverter<E>() {
+            @Override
+            public String toString(E object) {
+
+                if (Objects.isNull(object)) {
+                    return StringUtils.EMPTY;
+                }
+
+                if (object instanceof SoilClass soilClass) {
+                    return soilClass.getScName();
+                } else if (object instanceof SoilClassKindGroup soilClassKindGroup) {
+                    return soilClassKindGroup.getSoilKindGroup();
+                } else if (object instanceof SoilKindGroupType soilKindGroupType) {
+                    var soilGroupTypeId = soilKindGroupType.getSoilGroupType().getId();
+                    var soilKindGroupTypeName = getSoilGroupType.apply(soilGroupTypeId);
+
+                    return soilKindGroupTypeName.getGtName();
+                } else if (object instanceof SoilSubkind soilSubkind) {
+                    return soilSubkind.getSsDescr();
+                } else if (object instanceof SoilSubkindAdj soilSubkindAdj) {
+                    return soilSubkindAdj.getSsaDescr();
+                } else if (object instanceof Color color) {
+                    return color.getCltName();
+                }
+
+                return StringUtils.EMPTY;
+            }
+
+            @Override
+            public E fromString(String string) {
+                return null;
+            }
+        });
+    }
+
+    public static void initAlert(String message) {
+        var alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(ALERT_WINDOW_TITLE);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
 

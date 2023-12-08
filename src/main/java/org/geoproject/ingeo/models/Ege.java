@@ -1,6 +1,8 @@
 package org.geoproject.ingeo.models;
 
+import org.geoproject.ingeo.models.classificators.Consistency;
 import org.geoproject.ingeo.models.classificators.Genesis;
+import org.geoproject.ingeo.models.classificators.Hatching;
 import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
@@ -71,17 +73,32 @@ public class Ege {
     @Column(name = "description_for_organisation")
     private String descriptionForOrganisation;
 
-    //Штриховка, выбирается из классификатора
-    @Column(name = "hatching_name_credo_autocad")
-    private String hatchingNameCredoAutocad;
+    /**
+     * Штриховка, выбирается из классификатора - класс Hatching
+     * Ранее название поля - hatchingNameCredoAutocad
+     * ВА: ACAD, для СREDO
+     */
+    @ManyToOne
+    @JoinColumn(name = "hatching_id")
+    private Hatching hatching;
 
-    //Консистенция, выбирается из классификатора
-    @Column(name = "consistency")
-    private String consistency;
+    /**
+     * Консистенция, выбирается из классификатора
+     * ВА: TCNS (консистенция)
+     */
+    @ManyToOne
+    @JoinColumn(name = "consistency_id")
+    private Consistency consistency;
 
+
+
+
+
+    // убрал поле - это "вид грунта - быстро". Перенес выпадающий список в окно создания описания КГА
     //ВА: SSA, enum - почва, пески, глинистые. От выбора зависят данные в меню "Вид грунта" и "Разновидность"
-    @Column(name = "soil_kind_enum")
-    private String soilKindEnum;
+    //это то же, что класс SoilKind (сетится по кнопке в таблице на экране заполнения описания КГА)
+//    @Column(name = "soil_kind_enum")
+//    private String soilKindEnum;
 
 
     @Column(name = "SSA1")

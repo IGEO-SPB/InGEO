@@ -53,6 +53,9 @@ public final class ServiceConstants {
     public static final String NO_PROJECTS_SERVICE_MESSAGE = "Проектов не существует";
     public static final String NO_SURVEY_POINTS_SERVICE_MESSAGE = "Точек исследования не существует";
 
+    public static final String CHOICE_BUTTON_TEXT = "Выбрать";
+    public static final String ALERT_WINDOW_TITLE = "!!!";
+
 
 
 
