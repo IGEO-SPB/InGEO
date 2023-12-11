@@ -11,15 +11,17 @@ public enum EgeDTOFieldsEnum {
         NUMBER("number"),
         CODE_NUMBER("codeNumber"),
         SHORT_NAME("shortName"),
-        GENESIS_CODE("genesisCode"),
-        GENESIS_DESCRIPTION("genesisDescription"),
-        SOIL_KIND_ENUM("soilKindEnum"),
+        GENESIS("genesis"),
+//        GENESIS_CODE("genesisCode"),
+//        GENESIS_DESCRIPTION("genesisDescription"),
+//        SOIL_KIND_ENUM("soilKindEnum"),
         DESCRIPTION_CREDO_FORMULAR("descriptionCredoFormular"),
         DESCRIPTION_KGA("descriptionKga"),
         DESCRIPTION_FOR_ORGANISATION("descriptionForOrganisation"),
-        HATCHING_NAME_CREDO_AUTOCAD("hatchingNameCredoAutocad"),
-        CONSISTENCY("consistency"),
-        COLOR("color");
+//        HATCHING_NAME_CREDO_AUTOCAD("hatchingNameCredoAutocad"),
+//        CONSISTENCY("consistency"),
+//        COLOR("color")
+        ;
 
         private final String name;
 

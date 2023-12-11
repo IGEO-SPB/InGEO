@@ -39,18 +39,13 @@ public class SampleServiceImpl implements SampleService {
         throw new NotImplementedException("getById метод не реализован");
     }
 
-    @Override
-    public Sample getBySample(Sample sample) {
-        throw new NotImplementedException("getBySample метод не реализован");
-    }
-
-    @Override
-    @Transactional
-    public void create(SampleDto dto) {
-        Sample newSample = sampleMapper.sampleDtoToSample(dto);
-        
-        samplesRepository.save(newSample);
-    }
+//    @Override
+//    @Transactional
+//    public void create(SampleDto dto) {
+//        Sample newSample = sampleMapper.sampleDtoToSample(dto);
+//
+//        samplesRepository.save(newSample);
+//    }
 
     @Override
     @Transactional
@@ -111,6 +106,11 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
+    public void deleteByDto(SampleDto dto) {
+
+    }
+
+    @Override
     public List<SampleDto> getDtos(List<Sample> objects) {
         throw new NotImplementedException("getDtos метод не реализован");
     }
@@ -118,5 +118,15 @@ public class SampleServiceImpl implements SampleService {
     @Override
     public void updateFromDtos(List<Sample> objects, List<SampleDto> dtos) {
         throw new NotImplemented("updateFromDtos not implemented");
+    }
+
+    @Override
+    public void updateFromDtos(List<SampleDto> dtos) {
+
+    }
+
+    @Override
+    public List<SampleDto> getDtosByProject(Project project) {
+        return null;
     }
 }

@@ -1,7 +1,6 @@
 package org.geoproject.ingeo.services;
 
 import org.geoproject.ingeo.models.Project;
-import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.springframework.data.domain.Sort;
 
@@ -12,9 +11,7 @@ public interface MainViewService<T, Y> {
 
     T getById(Long id);
 
-    T getBySample(Sample sample);
-
-    void create(Y dto);
+//    void create(Y dto);
 
     void create(List<T> objectList);
 
@@ -24,6 +21,8 @@ public interface MainViewService<T, Y> {
 
     void delete(Y object);
 
+    void deleteByDto(Y dto);
+
     List<T> getByProject(Project project);
 
     List<T> getBySurveyPoint(SurveyPoint surveyPoint, Sort laborNumber);
@@ -31,4 +30,8 @@ public interface MainViewService<T, Y> {
     List<Y> getDtos(List<T> objects);
 
     void updateFromDtos(List<T> objects, List<Y> dtos);
+
+    void updateFromDtos(List<Y> dtos);
+
+    List<Y> getDtosByProject(Project project);
 }

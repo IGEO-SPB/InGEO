@@ -18,8 +18,8 @@ public interface BoreHoleLayerMainService extends MainViewService<BoreholeLayer,
     @Override
     BoreholeLayer getById(Long id);
 
-    @Override
-    void create(BoreholeLayerDTO object);
+//    @Override
+//    void create(BoreholeLayerDTO object);
 
     @Override
     void create(List<BoreholeLayer> object);
@@ -37,14 +37,26 @@ public interface BoreHoleLayerMainService extends MainViewService<BoreholeLayer,
     List<BoreholeLayer> getBySurveyPoint(SurveyPoint surveyPoint, Sort laborNumber);
 
     @Override
-    BoreholeLayer getBySample(Sample sample);
+    void delete(BoreholeLayerDTO object);
 
     @Override
-    void delete(BoreholeLayerDTO object);
+    default void deleteByDto(BoreholeLayerDTO dto) {
+
+    }
 
     @Override
     List<BoreholeLayerDTO> getDtos(List<BoreholeLayer> objects);
 
     @Override
     void updateFromDtos(List<BoreholeLayer> objects, List<BoreholeLayerDTO> dtos);
+
+    @Override
+    default void updateFromDtos(List<BoreholeLayerDTO> dtos) {
+
+    }
+
+    @Override
+    default List<BoreholeLayerDTO> getDtosByProject(Project project) {
+        return null;
+    }
 }

@@ -159,12 +159,11 @@
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />
-                      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="922.0" spacing="10.0">
+                      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="922.0" spacing="15.0">
                           <children>
-                              <Button fx:id="saveAllEges1" mnemonicParsing="false" onAction="#onAddNewRowButtonClicked" prefHeight="26.0" prefWidth="127.0" text="Добавить строку" />
-                              <Button fx:id="saveAllEges11" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="26.0" prefWidth="136.0" text="Удалить строку" />
+                              <Button fx:id="deleteRowButton" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="26.0" prefWidth="136.0" text="Удалить строку" />
                                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Дублировать строку" />
-                              <Button fx:id="saveAllEges" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" prefHeight="26.0" prefWidth="122.0" text="Сохранить" />
+                              <Button fx:id="saveAllObjectsButton" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" prefHeight="26.0" prefWidth="122.0" text="Сохранить" />
                           </children>
                      <VBox.margin>
                         <Insets left="5.0" right="5.0" />

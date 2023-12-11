@@ -237,13 +237,4 @@ public class Ege {
     @OneToMany(mappedBy = "ege")
     private List<BoreholeLayer> boreholeLayerList;
 
-
-    @Override
-    public String toString() {
-        return "Ege{" +
-                "name='" + number + '\'' +
-                ", genesis code=" + genesis.getCodeUni() +
-                ", genesis name=" + genesis.getName() +
-                '}';
-    }
 }

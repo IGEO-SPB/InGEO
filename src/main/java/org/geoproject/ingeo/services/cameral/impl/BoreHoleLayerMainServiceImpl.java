@@ -36,18 +36,13 @@ public class BoreHoleLayerMainServiceImpl implements BoreHoleLayerMainService {
                 .orElseThrow(() -> new NotFoundException("Слой не найден"));
     }
 
-    @Override
-    public BoreholeLayer getBySample(Sample sample) {
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public void create(BoreholeLayerDTO dto) {
-        BoreholeLayer boreholeLayer = boreholeLayerMapper.boreholeLayerDtoToBoreholeLayer(dto);
-
-        boreHoleLayerMainRepository.save(boreholeLayer);
-    }
+//    @Override
+//    @Transactional
+//    public void create(BoreholeLayerDTO dto) {
+//        BoreholeLayer boreholeLayer = boreholeLayerMapper.boreholeLayerDtoToBoreholeLayer(dto);
+//
+//        boreHoleLayerMainRepository.save(boreholeLayer);
+//    }
 
     @Override
     @Transactional
@@ -83,6 +78,11 @@ public class BoreHoleLayerMainServiceImpl implements BoreHoleLayerMainService {
     }
 
     @Override
+    public void deleteByDto(BoreholeLayerDTO dto) {
+
+    }
+
+    @Override
     public List<BoreholeLayerDTO> getDtos(List<BoreholeLayer> objects) {
         throw new NotImplementedException("getDtos метод не реализован");
     }
@@ -90,5 +90,15 @@ public class BoreHoleLayerMainServiceImpl implements BoreHoleLayerMainService {
     @Override
     public void updateFromDtos(List<BoreholeLayer> objects, List<BoreholeLayerDTO> dtos) {
         throw new NotImplemented("updateFromDtos not implemented");
+    }
+
+    @Override
+    public void updateFromDtos(List<BoreholeLayerDTO> dtos) {
+
+    }
+
+    @Override
+    public List<BoreholeLayerDTO> getDtosByProject(Project project) {
+        return null;
     }
 }

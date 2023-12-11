@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GenesisRepository extends JpaRepository<Genesis, Integer> {
+public interface GenesisRepository extends JpaRepository<Genesis, Long> {
 
     Genesis findByCodeUni(String codeUni);
 

@@ -3,6 +3,7 @@ package org.geoproject.ingeo.utils;
 import javafx.scene.control.Alert;
 import org.geoproject.ingeo.controllers.functionalInterfaces.EntitiesUpdateable;
 import org.geoproject.ingeo.controllers.functionalInterfaces.NewRowAddable;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterSampleResultDto;
@@ -309,7 +310,8 @@ public final class JavaFXCommonMethods {
                     if ((observableList.get(0) instanceof AbstractClassificator ||
                             observableList.get(0) instanceof WaterSampleResultDto ||
                             observableList.get(0) instanceof WaterExtractPartialDto ||
-                            observableList.get(0) instanceof WaterExtractFullDto
+                            observableList.get(0) instanceof WaterExtractFullDto ||
+                            observableList.get(0) instanceof EgeDto
                     ) &&
                             observableList.size() == rowIndex + SINGLE_ROW_COUNT) {
                         if (Objects.nonNull(newRowAddable)) {

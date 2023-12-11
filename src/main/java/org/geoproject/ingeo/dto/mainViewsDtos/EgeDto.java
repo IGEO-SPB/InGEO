@@ -1,6 +1,13 @@
 package org.geoproject.ingeo.dto.mainViewsDtos;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import org.geoproject.ingeo.dto.classificators.ConsistencyDto;
+import org.geoproject.ingeo.dto.classificators.GenesisDto;
+import org.geoproject.ingeo.dto.classificators.HatchingDto;
 import org.geoproject.ingeo.enums.dtoenums.EgeDTOFieldsEnum;
+import org.geoproject.ingeo.models.Ege;
+import org.geoproject.ingeo.models.classificators.Genesis;
 import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilKind;
@@ -11,28 +18,21 @@ import lombok.Setter;
 @Setter
 public class EgeDto {
 
+    private Long id;
+
     //Номер ИГЭ
     private String number;
 
-    private int codeNumber;
-
     //описание почвы, вводится вручную
-    //todo переназвать
     private String shortName;
 
     //Связь с сущностью Genesis по ID, при этом в представлении надо выводить в двух колонках код генезиса и описание
-    private String genesisCode;
+    private GenesisDto genesisDto;
 
-    private String genesisDescription;
-
-    //ВА: SSA, enum - почва, пески, глинистые. От выбора зависят данные в меню "Вид грунта" и "Разновидность"
-    private String soilKindEnum;
-
-    //Описание для credo и формуляра. Вводится вручную. В поле может копировать информация из descriptionKga
+    //Описание для credo и формуляра. Вводится вручную. В поле может копироваться информация из descriptionKga
     private String descriptionCredoFormular;
 
     //Описание по классификатору КГА. Вводится набором грунтов из классификатора
-//    private String descriptionKga;
     private String descriptionKga;
 
     //Описание для камеральной задачи. Как правило, копируется из descriptionKga. Может быть ручной ввод.
@@ -40,19 +40,10 @@ public class EgeDto {
     private String descriptionForOrganisation;
 
     //Штриховка, выбирается из классификатора
-    private String hatchingNameCredoAutocad;
+    private HatchingDto hatchingDto;
 
     //Консистенция, выбирается из классификатора
-    private String consistency;
-
-    private Color color;
-
-    private float waterDepth;
-
-    private SoilClass soilClass;
-
-    private SoilKind soilKind;
-
+    private ConsistencyDto consistencyDto;
 
 
     public void setFieldValue(EgeDTOFieldsEnum field, Object value) {
@@ -61,24 +52,12 @@ public class EgeDto {
                 number = (String) value;
                 break;
 
-            case CODE_NUMBER:
-                codeNumber = (Integer) value;
-                break;
-
             case SHORT_NAME:
                 shortName = (String) value;
                 break;
 
-            case GENESIS_CODE:
-                genesisCode = (String) value;
-                break;
-
-            case GENESIS_DESCRIPTION:
-                genesisDescription = (String) value;
-                break;
-
-            case SOIL_KIND_ENUM:
-                soilKindEnum = (String) value;
+            case GENESIS:
+                genesisDto = (GenesisDto) value;
                 break;
 
             case DESCRIPTION_CREDO_FORMULAR:
@@ -93,17 +72,13 @@ public class EgeDto {
                 descriptionForOrganisation = (String) value;
                 break;
 
-            case HATCHING_NAME_CREDO_AUTOCAD:
-                hatchingNameCredoAutocad = (String) value;
-                break;
-
-            case CONSISTENCY:
-                consistency = (String) value;
-                break;
-
-            case COLOR:
-                color = (Color) value;
-                break;
+//            case HATCHING_NAME_CREDO_AUTOCAD:
+//                hatchingNameCredoAutocad = (String) value;
+//                break;
+//
+//            case CONSISTENCY:
+//                consistency = (String) value;
+//                break;
 
             default:
                 throw new IllegalArgumentException("Invalid field: " + field);

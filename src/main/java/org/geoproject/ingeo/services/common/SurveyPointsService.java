@@ -16,11 +16,8 @@ public interface SurveyPointsService extends MainViewService<SurveyPoint, Survey
     @Override
     SurveyPoint getById(Long id);
 
-    @Override
-    SurveyPoint getBySample(Sample sample);
-
-    @Override
-    void create(SurveyPointDTO object);
+//    @Override
+//    void create(SurveyPointDTO object);
 
     @Override
     void create(List<SurveyPoint> objectList);
@@ -43,10 +40,25 @@ public interface SurveyPointsService extends MainViewService<SurveyPoint, Survey
     void delete(SurveyPointDTO object);
 
     @Override
+    default void deleteByDto(SurveyPointDTO dto) {
+
+    }
+
+    @Override
     List<SurveyPointDTO> getDtos(List<SurveyPoint> objects);
 
     @Override
     void updateFromDtos(List<SurveyPoint> objects, List<SurveyPointDTO> dtos);
+
+    @Override
+    default void updateFromDtos(List<SurveyPointDTO> dtos) {
+
+    }
+
+    @Override
+    default List<SurveyPointDTO> getDtosByProject(Project project) {
+        return null;
+    }
 
     SurveyPoint getByPointNumber(String pointNumber, Project project);
 

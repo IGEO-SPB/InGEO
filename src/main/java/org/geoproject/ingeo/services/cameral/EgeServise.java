@@ -19,12 +19,6 @@ public interface EgeServise extends MainViewService<Ege, EgeDto> {
     Ege getById(Long id);
 
     @Override
-    Ege getBySample(Sample sample);
-
-    @Override
-    void create(EgeDto object);
-
-    @Override
     void create(List<Ege> objectList);
 
     @Override
@@ -45,14 +39,27 @@ public interface EgeServise extends MainViewService<Ege, EgeDto> {
     void delete(EgeDto object);
 
     @Override
+    default void deleteByDto(EgeDto dto) {
+
+    }
+
+    @Override
     List<EgeDto> getDtos(List<Ege> objects);
 
     @Override
     void updateFromDtos(List<Ege> objects, List<EgeDto> dtos);
 
+    @Override
+    default void updateFromDtos(List<EgeDto> dtos) {
+
+    }
+
     EgeDto getDto(Ege ege);
 
-    DescriptionKgaDto getDescriptionKgaDto(Ege ege);
+    DescriptionKgaDto getDescriptionKgaDto(Long egeId);
 
-    void updateEge(Ege ege, DescriptionKgaDto descriptionKgaDto);
+    void updateEge(DescriptionKgaDto descriptionKgaDto);
+
+    @Override
+    List<EgeDto> getDtosByProject(Project project);
 }

@@ -43,21 +43,16 @@ public class ProjectsServiceImpl implements ProjectsService {
                 .orElseThrow(() -> new NotFoundException("Проект не найден"));
     }
 
-    @Override
-    public Project getBySample(Sample __) {
-        throw new NotImplemented("getBySample method in ProjectServise not implemented");
-    }
-
-    @Override
-    @Transactional
-    public void create(ProjectDto dto) {
-        Project newProject = projectMapper.projectDtoToProject(dto);
-
-        ConstructionType constructionType = constructionTypeService.getByType(dto.getConstructionType());
-        newProject.setConstructionType(constructionType);
-
-        projectsRepository.save(newProject);
-    }
+//    @Override
+//    @Transactional
+//    public void create(ProjectDto dto) {
+//        Project newProject = projectMapper.projectDtoToProject(dto);
+//
+//        ConstructionType constructionType = constructionTypeService.getByType(dto.getConstructionType());
+//        newProject.setConstructionType(constructionType);
+//
+//        projectsRepository.save(newProject);
+//    }
 
     @Override
     @Transactional
@@ -91,6 +86,11 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
+    public void deleteByDto(ProjectDto dto) {
+
+    }
+
+    @Override
     public List<Project> getByProject(Project project) {
         throw new NotImplemented("getByProject method in ProjectServise not implemented");
     }
@@ -111,6 +111,16 @@ public class ProjectsServiceImpl implements ProjectsService {
         projectMapper.updateProject(objects, dtos);
 
         projectsRepository.saveAllAndFlush(objects);
+    }
+
+    @Override
+    public void updateFromDtos(List<ProjectDto> dtos) {
+
+    }
+
+    @Override
+    public List<ProjectDto> getDtosByProject(Project project) {
+        return null;
     }
 
     @Override

@@ -1,5 +1,8 @@
 package org.geoproject.ingeo.services.classificators.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.geoproject.ingeo.dto.classificators.GenesisDto;
+import org.geoproject.ingeo.mapper.GenesisMapper;
 import org.geoproject.ingeo.models.classificators.Genesis;
 import org.geoproject.ingeo.repositories.classificators.GenesisRepository;
 import org.geoproject.ingeo.services.classificators.GenesisService;
@@ -11,25 +14,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class GenesisServiceImpl implements GenesisService {
 
     private final GenesisRepository genesisRepository;
+    private final GenesisMapper genesisMapper;
 
-    public GenesisServiceImpl(GenesisRepository genesisRepository) {
-        this.genesisRepository = genesisRepository;
-    }
-
-    public List<Genesis> findAll() {
+    public List<Genesis> getAll() {
         return genesisRepository.findAll();
     }
 
     public ObservableList<Genesis> getAllGenesisTypes() {
         ObservableList<Genesis> egeObservableList = FXCollections.observableArrayList();
-        egeObservableList.addAll(findAll());
+        egeObservableList.addAll(getAll());
         return egeObservableList;
     }
 
-    public Genesis findOne(int id) {
+    public Genesis findOne(Long id) {
         Optional<Genesis> foundGenesis = genesisRepository.findById(id);
         return foundGenesis.orElse(null);
     }
@@ -42,4 +43,10 @@ public class GenesisServiceImpl implements GenesisService {
         return genesisRepository.findByGiId(giId);
     }
 
+    @Override
+    public List<GenesisDto> getEgeDtos() {
+        var genesisList = getAll();
+
+        return genesisMapper.genesisToGenesisDto(genesisList);
+    }
 }

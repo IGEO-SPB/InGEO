@@ -34,25 +34,20 @@ public class SurveyPointsServiceImpl implements SurveyPointsService {
                 .orElseThrow(() -> new NotFoundException(ExceptionTypeEnum.SURVEY_POINT_NOT_FOUND_EXCEPTION.getExceptionMessage("SurveyPoint")));
     }
 
-    @Override
-    public SurveyPoint getBySample(Sample sample) {
-        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("getBySample"));
-    }
-
     public List<SurveyPoint> getAll() {
         return surveyPointsRepository.findAll();
     }
 
-    @Transactional
-    public void create(SurveyPointDTO dto) {
-        SurveyPoint newSurveyPoint = surveyPointMapper.surveyPointDtoToSurveyPoint(dto);
-        newSurveyPoint.setProject(currentState.getCurrentProject());
-
-        newSurveyPoint.setNameNumber(newSurveyPoint.getSurveyPointsType().getSurveyTypeShortName() +
-                SPACE_PATTERN + newSurveyPoint.getPointNumber());
-
-        surveyPointsRepository.save(newSurveyPoint);
-    }
+//    @Transactional
+//    public void create(SurveyPointDTO dto) {
+//        SurveyPoint newSurveyPoint = surveyPointMapper.surveyPointDtoToSurveyPoint(dto);
+//        newSurveyPoint.setProject(currentState.getCurrentProject());
+//
+//        newSurveyPoint.setNameNumber(newSurveyPoint.getSurveyPointsType().getSurveyTypeShortName() +
+//                SPACE_PATTERN + newSurveyPoint.getPointNumber());
+//
+//        surveyPointsRepository.save(newSurveyPoint);
+//    }
 
     @Override
     @Transactional
@@ -98,6 +93,11 @@ public class SurveyPointsServiceImpl implements SurveyPointsService {
     }
 
     @Override
+    public void deleteByDto(SurveyPointDTO dto) {
+
+    }
+
+    @Override
     public List<SurveyPointDTO> getDtos(List<SurveyPoint> objects) {
         throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("getDtos in SurveyPointService"));
     }
@@ -105,6 +105,16 @@ public class SurveyPointsServiceImpl implements SurveyPointsService {
     @Override
     public void updateFromDtos(List<SurveyPoint> objects, List<SurveyPointDTO> dtos) {
         throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("updateFromDtos"));
+    }
+
+    @Override
+    public void updateFromDtos(List<SurveyPointDTO> dtos) {
+
+    }
+
+    @Override
+    public List<SurveyPointDTO> getDtosByProject(Project project) {
+        return null;
     }
 
     @Override

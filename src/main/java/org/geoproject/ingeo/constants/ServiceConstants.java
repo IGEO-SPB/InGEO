@@ -37,6 +37,7 @@ public final class ServiceConstants {
     public static final String SOIL_SUBKIND_FIElD_PATTERN = "SS";
     public static final String SOIL_SUBKIND_ADJ_FIElD_PATTERN = "SSA";
     public static final String FX_ID_PREFIX_PATTERN = "#";
+    public static final String VERTICAL_SPLITTER_PATTERN = " | ";
 
     public static final String WATER_FULL_PATTERN = "водонасыщенные с глубины %s м.";
     public static final String NOT_DEFINED_SOIL_SUBKIND_ADJ_PATTERN = "Не определено";
@@ -55,6 +56,8 @@ public final class ServiceConstants {
 
     public static final String CHOICE_BUTTON_TEXT = "Выбрать";
     public static final String ALERT_WINDOW_TITLE = "!!!";
+
+    public static final Double COMBOBOX_COLUMN_PIXEL_GAP = 6D;
 
 
 

@@ -16,6 +16,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -24,9 +25,12 @@ import java.util.Objects;
 )
 public interface EgeMapper {
 
-    @Mapping(target = "genesisCode", source = "ege.genesis.code")
-    @Mapping(target = "genesisDescription", source = "ege.genesis.name")
+    @Mapping(target = "genesisDto", source = "ege.genesis.id", qualifiedByName = {"EgeMapperQualifier", "getGenesisDtoById"})
+    @Mapping(target = "hatchingDto", source = "ege.hatching.id", qualifiedByName = {"EgeMapperQualifier", "getHatchingDtoById"})
+    @Mapping(target = "consistencyDto", source = "ege.consistency.id", qualifiedByName = {"EgeMapperQualifier", "getConsistencyDtoById"})
     EgeDto egeToEgeDto(Ege ege);
+
+    List<EgeDto> egeToEgeDto(List<Ege> ege);
 
 //    @Mapping(target = "SS1", source = "ege.SS1", qualifiedByName = {"EgeMapperQualifier", "getSoilSubkindById"})
 //    @Mapping(target = "SS2", source = "ege.SS2", qualifiedByName = {"EgeMapperQualifier", "getSoilSubkindById"})
@@ -89,13 +93,14 @@ public interface EgeMapper {
                 }
             } else {
                 try {
-                var field = clazz.getDeclaredField(key);
-                field.setAccessible(true);
-                field.set(ege, null);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                throw new RuntimeException(e);
+                    var field = clazz.getDeclaredField(key);
+                    field.setAccessible(true);
+                    field.set(ege, null);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }});
+        });
 
 
 //    private SoilSubkind SS1;
@@ -131,7 +136,7 @@ public interface EgeMapper {
                 } catch (NoSuchFieldException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
-            }  else {
+            } else {
                 try {
                     var field = clazz.getDeclaredField(key);
                     field.setAccessible(true);
@@ -139,7 +144,8 @@ public interface EgeMapper {
                 } catch (NoSuchFieldException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
-        }});
+            }
+        });
 
 //    private SoilSubkindAdj ssa1;
 //    private SoilSubkindAdj ssa2;
@@ -158,4 +164,112 @@ public interface EgeMapper {
         ege.setDescriptionKga(descriptionKgaDto.getDescriptionKga());
     }
 
+
+    @Mapping(target = "SS1", ignore = true)
+    @Mapping(target = "SS2", ignore = true)
+    @Mapping(target = "SS3", ignore = true)
+    @Mapping(target = "SS4", ignore = true)
+    @Mapping(target = "SS5", ignore = true)
+    @Mapping(target = "SS6", ignore = true)
+    @Mapping(target = "SS7", ignore = true)
+    @Mapping(target = "SS8", ignore = true)
+    @Mapping(target = "SS9", ignore = true)
+    @Mapping(target = "SS10", ignore = true)
+    @Mapping(target = "SS11", ignore = true)
+    @Mapping(target = "SS12", ignore = true)
+    @Mapping(target = "SS13", ignore = true)
+    @Mapping(target = "SS14", ignore = true)
+    @Mapping(target = "SS15", ignore = true)
+    @Mapping(target = "SS16", ignore=true)
+    @Mapping(target = "SS17", ignore=true)
+    @Mapping(target = "SS18", ignore=true)
+    @Mapping(target = "SS19", ignore=true)
+    @Mapping(target = "SS20", ignore=true)
+
+    @Mapping(target = "SSA1", ignore=true)
+    @Mapping(target = "SSA2", ignore=true)
+    @Mapping(target = "SSA3", ignore=true)
+    @Mapping(target = "SSA4", ignore = true)
+    @Mapping(target = "SSA5", ignore = true)
+    @Mapping(target = "SSA6", ignore = true)
+    @Mapping(target = "SSA7", ignore = true)
+    @Mapping(target = "SSA8", ignore = true)
+    @Mapping(target = "SSA9", ignore = true)
+    @Mapping(target = "SSA10", ignore = true)
+    @Mapping(target = "SSA11", ignore = true)
+    @Mapping(target = "SSA12", ignore = true)
+
+    @Mapping(target = "project", ignore = true)
+    @Mapping(target = "code", ignore = true)
+    @Mapping(target = "codeNumber", ignore = true)
+
+    @Mapping(target = "genesis", source = "dto.id", qualifiedByName = {"EgeMapperQualifier", "getGenesisById"})
+    @Mapping(target = "hatching", source = "dto.id", qualifiedByName = {"EgeMapperQualifier", "getHatchingById"})
+    @Mapping(target = "consistency", source = "dto.id", qualifiedByName = {"EgeMapperQualifier", "getConsistencyById"})
+
+    @Mapping(target = "soilClass", ignore = true)
+    @Mapping(target = "soilKind", ignore = true)
+    @Mapping(target = "soilClassKindGroup", ignore = true)
+    @Mapping(target = "color", ignore = true)
+    @Mapping(target = "GB_NMB", ignore = true)
+    @Mapping(target = "f_Opis", ignore = true)
+    @Mapping(target = "waterDepth", ignore = true)
+    @Mapping(target = "boreholeLayerList", ignore = true)
+    Ege egeDtoToEge(EgeDto dto);
+
+    List<Ege> egeDtoToEge(List<EgeDto> dtos);
+
+    @Mapping(target = "SS1", ignore = true)
+    @Mapping(target = "SS2", ignore = true)
+    @Mapping(target = "SS3", ignore = true)
+    @Mapping(target = "SS4", ignore = true)
+    @Mapping(target = "SS5", ignore = true)
+    @Mapping(target = "SS6", ignore = true)
+    @Mapping(target = "SS7", ignore = true)
+    @Mapping(target = "SS8", ignore = true)
+    @Mapping(target = "SS9", ignore = true)
+    @Mapping(target = "SS10", ignore = true)
+    @Mapping(target = "SS11", ignore = true)
+    @Mapping(target = "SS12", ignore = true)
+    @Mapping(target = "SS13", ignore = true)
+    @Mapping(target = "SS14", ignore = true)
+    @Mapping(target = "SS15", ignore = true)
+    @Mapping(target = "SS16", ignore=true)
+    @Mapping(target = "SS17", ignore=true)
+    @Mapping(target = "SS18", ignore=true)
+    @Mapping(target = "SS19", ignore=true)
+    @Mapping(target = "SS20", ignore=true)
+
+    @Mapping(target = "SSA1", ignore=true)
+    @Mapping(target = "SSA2", ignore=true)
+    @Mapping(target = "SSA3", ignore=true)
+    @Mapping(target = "SSA4", ignore = true)
+    @Mapping(target = "SSA5", ignore = true)
+    @Mapping(target = "SSA6", ignore = true)
+    @Mapping(target = "SSA7", ignore = true)
+    @Mapping(target = "SSA8", ignore = true)
+    @Mapping(target = "SSA9", ignore = true)
+    @Mapping(target = "SSA10", ignore = true)
+    @Mapping(target = "SSA11", ignore = true)
+    @Mapping(target = "SSA12", ignore = true)
+
+    @Mapping(target = "project", ignore = true)
+    @Mapping(target = "code", ignore = true)
+    @Mapping(target = "codeNumber", ignore = true)
+
+    @Mapping(target = "genesis", source = "sourceDto.id", qualifiedByName = {"EgeMapperQualifier", "getGenesisById"})
+    @Mapping(target = "hatching", source = "sourceDto.id", qualifiedByName = {"EgeMapperQualifier", "getHatchingById"})
+    @Mapping(target = "consistency", source = "sourceDto.id", qualifiedByName = {"EgeMapperQualifier", "getConsistencyById"})
+
+    @Mapping(target = "soilClass", ignore = true)
+    @Mapping(target = "soilKind", ignore = true)
+    @Mapping(target = "soilClassKindGroup", ignore = true)
+    @Mapping(target = "color", ignore = true)
+    @Mapping(target = "GB_NMB", ignore = true)
+    @Mapping(target = "f_Opis", ignore = true)
+    @Mapping(target = "waterDepth", ignore = true)
+    @Mapping(target = "boreholeLayerList", ignore = true)
+    void updateEgeFromEgeDto(@MappingTarget Ege ege, EgeDto sourceDto);
+
+    void updateEgeFromEgeDto(@MappingTarget List<Ege> egeList, List<EgeDto> sourceDtos);
 }

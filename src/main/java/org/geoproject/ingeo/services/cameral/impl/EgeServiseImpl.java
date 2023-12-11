@@ -1,5 +1,6 @@
 package org.geoproject.ingeo.services.cameral.impl;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.geoproject.ingeo.dto.DescriptionKgaDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
@@ -18,6 +19,7 @@ import org.geoproject.ingeo.repositories.classificators.kga.SoilSubkindRepositor
 import org.geoproject.ingeo.services.cameral.EgeServise;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NotImplementedException;
+import org.geoproject.ingeo.utils.CurrentState;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -37,6 +40,8 @@ public class EgeServiseImpl implements EgeServise {
     private final SoilSubkindRepository soilSubkindRepository;
     private final SoilSubkindAdjRepository soilSubkindAdjRepository;
 
+    private final CurrentState currentState;
+
     @Override
     public List<Ege> getAll() {
         return egeRepository.findAll();
@@ -46,18 +51,6 @@ public class EgeServiseImpl implements EgeServise {
     public Ege getById(Long id) {
         return egeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("ИГЭ не найден"));
-    }
-
-    @Override
-    public Ege getBySample(Sample sample) {
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public void create(EgeDto dto) {
-        throw new NotImplementedException("create метод не реализован");
-
     }
 
     @Override
@@ -94,8 +87,15 @@ public class EgeServiseImpl implements EgeServise {
     }
 
     @Override
-    public void delete(EgeDto object) {
+    public void delete(EgeDto egeDto) {
 
+    }
+
+    @Override
+    public void deleteByDto(EgeDto dto) {
+        if (Objects.nonNull(dto.getId())) {
+            egeRepository.deleteById(dto.getId());
+        }
     }
 
     @Override
@@ -109,6 +109,31 @@ public class EgeServiseImpl implements EgeServise {
     }
 
     @Override
+    public void updateFromDtos(List<EgeDto> dtos) {
+        var dtosToUpdate = dtos.stream()
+                        .filter(egeDto -> Objects.nonNull(egeDto.getId()))
+                                .collect(Collectors.toList());
+
+        if (!dtosToUpdate.isEmpty()) {
+            List<Ege> savedEges = getByProject(currentState.getCurrentProject());
+
+            egeMapper.updateEgeFromEgeDto(savedEges, dtosToUpdate);
+
+            egeRepository.saveAll(savedEges);
+        }
+
+        var dtosToSave = dtos.stream()
+                .filter(egeDto -> Objects.isNull(egeDto.getId()))
+                .collect(Collectors.toList());
+
+        if (!dtosToSave.isEmpty()) {
+            var newEges = egeMapper.egeDtoToEge(dtosToSave);
+            newEges.forEach(ege -> ege.setProject(currentState.getCurrentProject()));
+            egeRepository.saveAll(newEges);
+        }
+    }
+
+    @Override
     public EgeDto getDto(Ege ege) {
 
         var egeDto = egeMapper.egeToEgeDto(ege);
@@ -117,7 +142,8 @@ public class EgeServiseImpl implements EgeServise {
     }
 
     @Override
-    public DescriptionKgaDto getDescriptionKgaDto(Ege ege) {
+    public DescriptionKgaDto getDescriptionKgaDto(Long egeId) {
+        var ege = getById(egeId);
 
         var descriptionKgaDto = egeMapper.egeToDescriptionKgaDto(ege);
 
@@ -192,16 +218,18 @@ public class EgeServiseImpl implements EgeServise {
 
     @Override
     @Transactional
-    public void updateEge(Ege ege, DescriptionKgaDto descriptionKgaDto) {
-
-        System.out.println("+++++++");
-        System.out.println(descriptionKgaDto.getSoilClass().getId());
-        System.out.println(descriptionKgaDto.getSoilClassKindGroup().getId());
-
-//        var ege = getById(descriptionKgaDto.getEgeId());
+    public void updateEge(DescriptionKgaDto descriptionKgaDto) {
+        var ege = getById(descriptionKgaDto.getEgeId());
 
         egeMapper.updateEge(ege, descriptionKgaDto);
 
         egeRepository.save(ege);
+    }
+
+    @Override
+    public List<EgeDto> getDtosByProject(Project project) {
+        var currentProjectEges = getByProject(project);
+
+        return egeMapper.egeToEgeDto(currentProjectEges);
     }
 }

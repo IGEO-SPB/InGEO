@@ -188,8 +188,8 @@ public class SoilKindChoiceViewController implements Initializable {
     }
 
     //region передача объектов из вышестоящего контроллера
-    public void passEge(Ege ege) {
-        this.ege = ege;
+    public void passEge(EgeDto egeDto) {
+        this.egeDto = egeDto;
     }
 
     /**
@@ -203,8 +203,8 @@ public class SoilKindChoiceViewController implements Initializable {
     //endregion
 
     private void setDto() {
-        egeDto = egeServise.getDto(ege);
-        descriptionKgaDto = egeServise.getDescriptionKgaDto(ege);
+//        egeDto = egeServise.getDto(ege);
+        descriptionKgaDto = egeServise.getDescriptionKgaDto(egeDto.getId());
     }
 
     //region заполнение текстовых блоков (TextArea)
@@ -609,7 +609,7 @@ public class SoilKindChoiceViewController implements Initializable {
 
     private void saveEntity() {
         descriptionKgaDto.setDescriptionKga(descriptionKgaTextArea.getText());
-        egeServise.updateEge(ege, descriptionKgaDto);
+        egeServise.updateEge(descriptionKgaDto);
     }
 
     private void setColumnsMap() {
