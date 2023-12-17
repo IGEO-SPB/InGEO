@@ -59,4 +59,7 @@ public interface BoreHoleLayerMainService extends MainViewService<BoreholeLayer,
     default List<BoreholeLayerDTO> getDtosByProject(Project project) {
         return null;
     }
+
+    @Override
+    BoreholeLayerDTO cloneDto(BoreholeLayerDTO egeDto);
 }

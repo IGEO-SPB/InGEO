@@ -2,6 +2,7 @@ package org.geoproject.ingeo.services.common.impl;
 
 import org.geoproject.ingeo.dto.SampleDto;
 import org.geoproject.ingeo.exceptions.ConflictException;
+import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotImplemented;
 import org.geoproject.ingeo.mapper.SampleMapper;
 import org.geoproject.ingeo.models.Project;
@@ -122,11 +123,16 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public void updateFromDtos(List<SampleDto> dtos) {
-
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("updateFromDtos"));
     }
 
     @Override
     public List<SampleDto> getDtosByProject(Project project) {
-        return null;
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("getDtosByProject"));
+    }
+
+    @Override
+    public SampleDto cloneDto(SampleDto egeDto) {
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("cloneDto"));
     }
 }

@@ -1,6 +1,10 @@
 package org.geoproject.ingeo.utils;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TablePosition;
 import org.geoproject.ingeo.controllers.functionalInterfaces.EntitiesUpdateable;
 import org.geoproject.ingeo.controllers.functionalInterfaces.NewRowAddable;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
@@ -222,7 +226,10 @@ public final class JavaFXCommonMethods {
                 super.setGraphic(this.textField);
                 super.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
+                System.out.println("SET RUNNABLE:");
                 Platform.runLater(() -> {
+                    System.out.println("INSIDE RUNNABLE:");
+
                     this.textField.requestFocus();
                     this.textField.selectAll();
                 });
@@ -282,7 +289,6 @@ public final class JavaFXCommonMethods {
                 }
             }
 
-
             private String getString() {
                 return super.getItem() == null ? StringUtils.EMPTY : String.valueOf(super.getItem());
             }
@@ -294,7 +300,14 @@ public final class JavaFXCommonMethods {
 
                 this.textField.setOnKeyPressed(this::handleKeyEvent);
 
-                this.textField.focusedProperty().addListener((observable, oldValue, isFocused) -> this.handleFocusChange(isFocused));
+//                this.textField.focusedProperty().addListener((observable, oldValue, isFocused) -> this.handleFocusChange(isFocused));
+
+                textField.focusedProperty().addListener((arg0, arg1, arg2) -> {
+                    if (!arg2) {
+                        setText(textField.getText());
+                        commitEditOrConvert();
+                    }
+                });
             }
 
             private void handleKeyEvent(KeyEvent keyEvent) {
@@ -324,7 +337,10 @@ public final class JavaFXCommonMethods {
 
                 } else if (keyEvent.getCode() == KeyCode.TAB) {
                     log.info("TAB pressed");
+                    //!!!Желательно не называть колонки "number" кроме классификаторов
+                    //Если название содержит "number" надо добавить его в исключения
                     if (column.getId().toLowerCase().contains("number") &&
+                            !column.getId().equalsIgnoreCase("egenumber") &&
                             !column.getId().equalsIgnoreCase("labornumber") &&
                             !column.getId().equalsIgnoreCase("surveyPointNumber")) {
                         List<String> numbers = observableList.stream()
@@ -370,28 +386,43 @@ public final class JavaFXCommonMethods {
 
             private void commitEditOrConvert() {
 
+                System.out.println("1");
+
                 if (textField.getText().equals(StringUtils.EMPTY)) {
+                    System.out.println("2");
+
                     commitEdit(null);
                 }
 
                 try {
+                    System.out.println("3");
+                    System.out.println(textField.getText());
+//                    setEditing(Boolean.TRUE);
+//                    startEdit();
                     commitEdit((R) textField.getText());
                 } catch (ClassCastException e) {
                     try {
+                        System.out.println("4");
+
                         commitEdit((R) new FloatStringConverter().fromString(textField.getText()));
                     } catch (NumberFormatException exception) {
                         try {
+                            System.out.println("5");
+
                             commitEdit((R) Boolean.valueOf(textField.getText()));
                         } catch (ClassCastException e1) {
 
                             if (textField.getText().matches(".*[-\\.].*[-\\.].*")) {
                                 log.info("This is date!!!");
                                 try {
+                                    System.out.println("6");
+
                                     String[] split = textField.getText().split("-");
                                     commitEdit((R) LocalDate.of(Integer.parseInt(split[0]),
                                             Integer.parseInt(split[1]),
                                             Integer.parseInt(split[2])));
                                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException e2) {
+                                    System.out.println("7");
 
                                     String[] split = textField.getText().split("\\.");
                                     commitEdit((R) LocalDate.of(Integer.parseInt(split[2]),
@@ -400,11 +431,15 @@ public final class JavaFXCommonMethods {
                                 }
                             }
                             else if (textField.getText().matches(".*[,\\.].*")) {
+                                System.out.println("8");
+
                                 var text = textField.getText().replace(',', '.');
 
                                 commitEdit((R) new FloatStringConverter().fromString(text));
                             }
                             else {
+                                System.out.println("9");
+
                                 throw new UnpredictableException("JavaFXCommonMethods - private commitEditOrConvert() - string 388");
                             }
 //                            commitEdit((R) textField.getText());
@@ -413,13 +448,35 @@ public final class JavaFXCommonMethods {
                 }
             }
 
-            private void handleFocusChange(Boolean isFocused) {
-                if (isFocused) {
-                    Platform.runLater(textField::selectAll);
-                } else if (!isFocused && textField != null) {
-                    commitEditOrConvert();
+            @Override
+            public void commitEdit(R item) {
+
+                if (isEditing()) {
+                    super.commitEdit(item);
+                } else {
+                    final TableView table = getTableView();
+                    if (table != null) {
+                        TablePosition position = new TablePosition(getTableView(), getTableRow().getIndex(), getTableColumn());
+                        TableColumn.CellEditEvent editEvent = new TableColumn.CellEditEvent(table, position, TableColumn.editCommitEvent(), item);
+
+                        Event.fireEvent(getTableColumn(), editEvent);
+                    }
+                    updateItem(item, false);
+
+                    if (table != null) {
+                        table.edit(-1, null);
+                    }
+
                 }
             }
+
+//            private void handleFocusChange(Boolean isFocused) {
+//                if (isFocused) {
+//                    Platform.runLater(textField::selectAll);
+//                } else if (!isFocused && textField != null) {
+//                    commitEditOrConvert();
+//                }
+//            }
 
             private TableColumn<Y, ?> getNextColumn(Boolean forward) {
                 List<TableColumn<Y, ?>> columns = getEditableColumns();
@@ -670,8 +727,9 @@ public final class JavaFXCommonMethods {
 
                         TextField numberTextField = (TextField) currentScene.lookup(numberTextFieldId);
 
-
+                        System.out.println("SET RUNNABLE:");
                         Platform.runLater(() -> {
+                        System.out.println("INSIDE RUNNABLE:");
 //                            textField.clear();
 //                        numberTextField.setText(StringUtils.EMPTY);
                             numberTextField.clear();

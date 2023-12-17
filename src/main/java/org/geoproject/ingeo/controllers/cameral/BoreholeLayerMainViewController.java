@@ -128,10 +128,10 @@ public class BoreholeLayerMainViewController extends AbstractMainViewController<
         Hibernate.initialize(currentProject.getEgeList());
         List<Ege> egesInCurrentProject = currentProject.getEgeList();
 
-        List<String> egesNumberList = egesInCurrentProject.stream().map(e -> e.getNumber()).toList();
+        List<String> egesNumberList = egesInCurrentProject.stream().map(e -> e.getEgeNumber()).toList();
 
         egeNumberObservableList.addAll(egesNumberList);
-        egeNumber.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getEge().getNumber()));
+        egeNumber.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getEge().getEgeNumber()));
         egeNumber.setCellFactory(ChoiceBoxTableCell.forTableColumn(egeNumberObservableList));
         egeNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<BoreholeLayer, String>>() {
             @Override

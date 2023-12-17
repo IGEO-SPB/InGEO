@@ -62,4 +62,7 @@ public interface EgeServise extends MainViewService<Ege, EgeDto> {
 
     @Override
     List<EgeDto> getDtosByProject(Project project);
+
+    @Override
+    EgeDto cloneDto(EgeDto egeDto);
 }

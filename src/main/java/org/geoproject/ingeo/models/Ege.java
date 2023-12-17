@@ -41,14 +41,14 @@ public class Ege {
 
     //Номер ИГЭ
     @Column(name = "number")
-    private String number;
+    private String egeNumber;
 
     //Следующие два поля просто цифры по порядку, не понятно, нужно ли это вообще:
     @Column(name = "code")
     private String code;
 
     @Column(name = "code_number")
-    private int codeNumber;
+    private Integer codeNumber;
 
     //описание почвы, вводится вручную
     //todo переназвать
@@ -233,6 +233,24 @@ public class Ege {
     //BA: с гл.хх м -насыщ водой
     @Column(name = "f_G")
     private Float waterDepth;
+
+    //для мягкого удаления
+    @Column
+    private Boolean isArchive;
+
+    /**
+     * COLG, цвет в CREDO (таблица ВА)
+     * Из таблицы classif_hatching (класс Hatching)
+     */
+    @Column(name = "credo_color")
+    private Integer credoColor;
+
+    /**
+     * PATT, штриховка в CREDO (таблица ВА)
+     * Из таблицы classif_hatching (класс Hatching)
+     */
+    @Column(name = "hatching_credo")
+    private String hatchingCredo;
 
     @OneToMany(mappedBy = "ege")
     private List<BoreholeLayer> boreholeLayerList;

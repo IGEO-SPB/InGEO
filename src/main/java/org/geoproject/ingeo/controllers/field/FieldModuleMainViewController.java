@@ -92,7 +92,12 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
     public void showAllObjectsInCurrentProject() {
 
 //        projectName.setCellValueFactory(new PropertyValueFactory<SurveyPoint, Project>("project"));
-        projectName.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getProject().getProjectName()));
+        projectName.setCellValueFactory(data -> {
+            System.out.println("CHECK SP");
+            System.out.println(data.getValue());
+
+            return new SimpleObjectProperty<>(data.getValue().getProject().getProjectName());
+        });
 
         ObservableList<String> surveyPointsTypeObservableList = FXCollections.observableArrayList();
         List<String> surveyPointsTypeShortNameList = surveyPointsTypesService.findAll().stream().map(e -> e.getSurveyTypeShortName()).collect(Collectors.toList());
@@ -240,6 +245,9 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
         SurveyPointsType defaultSurveyPointsType = surveyPointsTypesService.findOne(1);
         surveyPoint.setProject(currentState.getCurrentProject());
         surveyPoint.setSurveyPointsType(defaultSurveyPointsType);
+
+        System.out.println("CHECK PROJECT:");
+        System.out.println(currentState.getCurrentProject());
 
         addNewObjectAtListForView(surveyPoint);
     }

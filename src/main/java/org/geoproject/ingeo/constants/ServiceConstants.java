@@ -43,6 +43,7 @@ public final class ServiceConstants {
     public static final String NOT_DEFINED_SOIL_SUBKIND_ADJ_PATTERN = "Не определено";
     public static final String SHORT_METER_PATTERN = " м.";
 
+    public static final Long ZERO_ID = 0L;
 
 
 
@@ -53,11 +54,13 @@ public final class ServiceConstants {
 
     public static final String NO_PROJECTS_SERVICE_MESSAGE = "Проектов не существует";
     public static final String NO_SURVEY_POINTS_SERVICE_MESSAGE = "Точек исследования не существует";
+    public static final String HAVE_TO_SAVE_CHOSEN_EGE_SERVICE_MESSAGE = "Сохраните выбранный ИГЭ";
 
     public static final String CHOICE_BUTTON_TEXT = "Выбрать";
     public static final String ALERT_WINDOW_TITLE = "!!!";
 
     public static final Double COMBOBOX_COLUMN_PIXEL_GAP = 6D;
+    public static final Double COMBOBOX_LAST_COLUMN_PIXEL_GAP = 22D;
 
 
 

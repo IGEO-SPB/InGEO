@@ -9,5 +9,5 @@ public class HatchingDto {
 
     private Long id;
 
-    private String hatchingNameCredoAutocad;
+    private String shortName;
 }

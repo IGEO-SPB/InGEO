@@ -59,5 +59,8 @@ public interface ProjectsService extends MainViewService<Project, ProjectDto> {
         return null;
     }
 
+    @Override
+    ProjectDto cloneDto(ProjectDto egeDto);
+
     Project getByContractNumber(String contractNumber);
 }

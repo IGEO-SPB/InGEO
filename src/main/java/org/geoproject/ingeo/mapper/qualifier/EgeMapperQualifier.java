@@ -65,7 +65,7 @@ public class EgeMapperQualifier {
 
         var hatchingDto = new HatchingDto();
         hatchingDto.setId(hatching.getId());
-        hatchingDto.setHatchingNameCredoAutocad(hatching.getHatchingNameCredoAutocad());
+        hatchingDto.setShortName(hatching.getShortName());
 
         return hatchingDto;
     }
@@ -84,6 +84,8 @@ public class EgeMapperQualifier {
 
     @Named("getGenesisById")
     public Genesis getGenesisById(Long id) {
+        System.out.println("CHECK IDDDD");
+        System.out.println(id);
         return genesisRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ExceptionTypeEnum.ENTITY_NOT_FOUND_EXCEPTION.getExceptionMessage("Genesis")));
     }

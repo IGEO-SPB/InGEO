@@ -12,5 +12,5 @@ public interface EgeRepository extends JpaRepository<Ege, Long> {
 
     List<Ege> findByProject(Project project);
 
-    Ege findByNumberAndProject(String number, Project project);
+    Ege findByEgeNumberAndProject(String number, Project project);
 }

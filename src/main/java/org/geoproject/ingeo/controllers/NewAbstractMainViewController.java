@@ -127,26 +127,30 @@ public abstract class NewAbstractMainViewController<T, Y> {
 //        setObjectListForView(objectList);
 //        showAllObjectsInCurrentProject();
 
-        dtos = tableView.getItems();
+//        dtos = tableView.getItems();
 
         service.updateFromDtos(dtos);
 
-        sortObservableDtoList(dtos);
+        setObjectListForView();
+
         tableView.refresh();
+
     }
 
 
 
     public void onDeleteRowButtonClicked() {
-        //todo реализовать выделение строки по умолчанию - следующая после удаленной
         log.info("Abstract method 'onDeleteRowButtonClicked()' inited...");
 
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+
         Y object = tableView.getItems().get(selectedIndex);
         dtos.remove(object);
         observableDtoList.clear();
         observableDtoList.addAll(dtos);
         tableView.refresh();
+
+        tableView.getSelectionModel().select(selectedIndex);
 
         service.deleteByDto(object);
     }
@@ -175,24 +179,32 @@ public abstract class NewAbstractMainViewController<T, Y> {
     //region Кнопки
     @FXML
     public void onAllProjectsButtonClicked(ActionEvent event) throws IOException {
+        log.info("Change scene to all projects...");
+
         JavaFXCommonMethods.changeScene(event, ViewsEnum.ALL_PROJECTS_VIEW.getPath(),
                 applicationContext, ViewsEnum.ALL_PROJECTS_VIEW.getTitle());
     }
 
     @FXML
     public void onFieldModuleButtonClicked(ActionEvent event) throws IOException {
+        log.info("Change scene to field module...");
+
         JavaFXCommonMethods.changeScene(event, ViewsEnum.FIELD_MODULE_MAIN_VIEW.getPath(),
                 applicationContext, ViewsEnum.FIELD_MODULE_MAIN_VIEW.getTitle());
     }
 
     @FXML
     public void onLaborModuleButtonClicked(ActionEvent event) throws IOException {
+        log.info("Change scene to labor module...");
+
         JavaFXCommonMethods.changeScene(event, ViewsEnum.LABOR_MODULE_MAIN_VIEW.getPath(),
                 applicationContext, ViewsEnum.LABOR_MODULE_MAIN_VIEW.getTitle());
     }
 
     @FXML
     public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
+        log.info("Change scene to cameral module...");
+
         JavaFXCommonMethods.changeScene(event, ViewsEnum.CAMERAL_MODULE_MAIN_VIEW.getPath(),
                 applicationContext, ViewsEnum.CAMERAL_MODULE_MAIN_VIEW.getTitle());
     }

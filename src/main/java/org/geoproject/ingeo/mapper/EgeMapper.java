@@ -4,6 +4,7 @@ import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.DescriptionKgaDto;
 import org.geoproject.ingeo.dto.SurveyPointDTO;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
+import org.geoproject.ingeo.dto.methodDtos.DensityDTO;
 import org.geoproject.ingeo.mapper.qualifier.EgeMapperQualifier;
 import org.geoproject.ingeo.mapper.qualifier.ShearMapperQualifier;
 import org.geoproject.ingeo.models.Ege;
@@ -12,9 +13,11 @@ import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilKind;
 import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
 import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValueCheckStrategy;
 
 import java.util.List;
 import java.util.Map;
@@ -201,11 +204,10 @@ public interface EgeMapper {
 
     @Mapping(target = "project", ignore = true)
     @Mapping(target = "code", ignore = true)
-    @Mapping(target = "codeNumber", ignore = true)
 
-    @Mapping(target = "genesis", source = "dto.id", qualifiedByName = {"EgeMapperQualifier", "getGenesisById"})
-    @Mapping(target = "hatching", source = "dto.id", qualifiedByName = {"EgeMapperQualifier", "getHatchingById"})
-    @Mapping(target = "consistency", source = "dto.id", qualifiedByName = {"EgeMapperQualifier", "getConsistencyById"})
+    @Mapping(target = "genesis", source = "dto.genesisDto.id", qualifiedByName = {"EgeMapperQualifier", "getGenesisById"})
+    @Mapping(target = "hatching", source = "dto.hatchingDto.id", qualifiedByName = {"EgeMapperQualifier", "getHatchingById"})
+    @Mapping(target = "consistency", source = "dto.consistencyDto.id", qualifiedByName = {"EgeMapperQualifier", "getConsistencyById"})
 
     @Mapping(target = "soilClass", ignore = true)
     @Mapping(target = "soilKind", ignore = true)
@@ -214,6 +216,9 @@ public interface EgeMapper {
     @Mapping(target = "GB_NMB", ignore = true)
     @Mapping(target = "f_Opis", ignore = true)
     @Mapping(target = "waterDepth", ignore = true)
+    @Mapping(target = "credoColor", ignore = true)
+    @Mapping(target = "hatchingCredo", ignore = true)
+    @Mapping(target = "isArchive", constant = "false")
     @Mapping(target = "boreholeLayerList", ignore = true)
     Ege egeDtoToEge(EgeDto dto);
 
@@ -255,11 +260,10 @@ public interface EgeMapper {
 
     @Mapping(target = "project", ignore = true)
     @Mapping(target = "code", ignore = true)
-    @Mapping(target = "codeNumber", ignore = true)
 
-    @Mapping(target = "genesis", source = "sourceDto.id", qualifiedByName = {"EgeMapperQualifier", "getGenesisById"})
-    @Mapping(target = "hatching", source = "sourceDto.id", qualifiedByName = {"EgeMapperQualifier", "getHatchingById"})
-    @Mapping(target = "consistency", source = "sourceDto.id", qualifiedByName = {"EgeMapperQualifier", "getConsistencyById"})
+    @Mapping(target = "genesis", source = "sourceDto.genesisDto.id", qualifiedByName = {"EgeMapperQualifier", "getGenesisById"})
+    @Mapping(target = "hatching", source = "sourceDto.hatchingDto.id", qualifiedByName = {"EgeMapperQualifier", "getHatchingById"})
+    @Mapping(target = "consistency", source = "sourceDto.consistencyDto.id", qualifiedByName = {"EgeMapperQualifier", "getConsistencyById"})
 
     @Mapping(target = "soilClass", ignore = true)
     @Mapping(target = "soilKind", ignore = true)
@@ -268,8 +272,43 @@ public interface EgeMapper {
     @Mapping(target = "GB_NMB", ignore = true)
     @Mapping(target = "f_Opis", ignore = true)
     @Mapping(target = "waterDepth", ignore = true)
+    @Mapping(target = "credoColor", ignore = true)
+    @Mapping(target = "hatchingCredo", ignore = true)
+    @Mapping(target = "isArchive", constant = "false")
     @Mapping(target = "boreholeLayerList", ignore = true)
     void updateEgeFromEgeDto(@MappingTarget Ege ege, EgeDto sourceDto);
 
-    void updateEgeFromEgeDto(@MappingTarget List<Ege> egeList, List<EgeDto> sourceDtos);
+    @AfterMapping
+    default Ege afterMapping(@MappingTarget Ege ege) {
+
+        if (Objects.nonNull(ege)) {
+            if (Objects.isNull(ege.getConsistency()) || Objects.isNull(ege.getConsistency().getId())) {
+                ege.setConsistency(null);
+            }
+
+            if (Objects.isNull(ege.getGenesis()) || Objects.isNull(ege.getGenesis().getId())) {
+                ege.setGenesis(null);
+            }
+
+            if (Objects.isNull(ege.getHatching()) || Objects.isNull(ege.getHatching().getId())) {
+                ege.setHatching(null);
+            }
+        }
+
+        return ege;
+    }
+
+    default void updateEgeFromEgeDto(@MappingTarget List<Ege> egeList, List<EgeDto> sourceDtos) {
+        egeList.forEach(ege -> {
+            var sourceDto = sourceDtos.stream()
+                    .filter(dto -> Objects.equals(ege.getId(), dto.getId()))
+                    .findFirst()
+                    .orElse(null);
+
+            updateEgeFromEgeDto(ege, sourceDto);
+        });
+    }
+
+    @Mapping(target = "id", ignore = true)
+    EgeDto cloneEgeDto(EgeDto sourceDto);
 }

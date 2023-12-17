@@ -1,16 +1,9 @@
 package org.geoproject.ingeo.dto.mainViewsDtos;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
 import org.geoproject.ingeo.dto.classificators.ConsistencyDto;
 import org.geoproject.ingeo.dto.classificators.GenesisDto;
 import org.geoproject.ingeo.dto.classificators.HatchingDto;
 import org.geoproject.ingeo.enums.dtoenums.EgeDTOFieldsEnum;
-import org.geoproject.ingeo.models.Ege;
-import org.geoproject.ingeo.models.classificators.Genesis;
-import org.geoproject.ingeo.models.classificators.kga.Color;
-import org.geoproject.ingeo.models.classificators.kga.SoilClass;
-import org.geoproject.ingeo.models.classificators.kga.SoilKind;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,8 +13,13 @@ public class EgeDto {
 
     private Long id;
 
+    /**
+     * Техническое поле для сортировки
+     */
+    private Integer codeNumber;
+
     //Номер ИГЭ
-    private String number;
+    private String egeNumber;
 
     //описание почвы, вводится вручную
     private String shortName;
@@ -48,8 +46,8 @@ public class EgeDto {
 
     public void setFieldValue(EgeDTOFieldsEnum field, Object value) {
         switch (field) {
-            case NUMBER:
-                number = (String) value;
+            case EGE_NUMBER:
+                egeNumber = (String) value;
                 break;
 
             case SHORT_NAME:
@@ -72,13 +70,13 @@ public class EgeDto {
                 descriptionForOrganisation = (String) value;
                 break;
 
-//            case HATCHING_NAME_CREDO_AUTOCAD:
-//                hatchingNameCredoAutocad = (String) value;
-//                break;
-//
-//            case CONSISTENCY:
-//                consistency = (String) value;
-//                break;
+            case HATCHING:
+                hatchingDto = (HatchingDto) value;
+                break;
+
+            case CONSISTENCY:
+                consistencyDto = (ConsistencyDto) value;
+                break;
 
             default:
                 throw new IllegalArgumentException("Invalid field: " + field);

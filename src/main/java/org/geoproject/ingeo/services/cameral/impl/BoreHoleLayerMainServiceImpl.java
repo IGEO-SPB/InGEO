@@ -1,6 +1,7 @@
 package org.geoproject.ingeo.services.cameral.impl;
 
 import org.geoproject.ingeo.dto.mainViewsDtos.BoreholeLayerDTO;
+import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.exceptions.NotImplemented;
 import org.geoproject.ingeo.mapper.BoreholeLayerMapper;
@@ -99,6 +100,11 @@ public class BoreHoleLayerMainServiceImpl implements BoreHoleLayerMainService {
 
     @Override
     public List<BoreholeLayerDTO> getDtosByProject(Project project) {
-        return null;
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("getDtosByProject"));
+    }
+
+    @Override
+    public BoreholeLayerDTO cloneDto(BoreholeLayerDTO egeDto) {
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("cloneDto"));
     }
 }

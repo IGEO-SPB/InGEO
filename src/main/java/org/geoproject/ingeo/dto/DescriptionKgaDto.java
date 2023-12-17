@@ -21,6 +21,8 @@ public class DescriptionKgaDto {
 
     private Long egeId;
 
+    private String shortName;
+
     private SoilClass soilClass;
 
     private SoilClassKindGroup soilClassKindGroup;

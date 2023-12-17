@@ -64,4 +64,7 @@ public interface SampleService extends MainViewService<Sample, SampleDto> {
     default List<SampleDto> getDtosByProject(Project project) {
         return null;
     }
+
+    @Override
+    SampleDto cloneDto(SampleDto egeDto);
 }

@@ -78,13 +78,15 @@ CREATE TABLE ege
     GB_NMB                       int,
     F_Opis                       varchar,
 --     это скрытые поля на форме:
---     credo_color int,
---     hatching_credo varchar,
+    credo_color int,
+    hatching_credo varchar,
 
 -- вод нас с гл
         f_G float4,
 
-    soil_class_kind_group int REFERENCES classif_soil_class_kind_group (id) ON DELETE SET NULL
+    soil_class_kind_group int REFERENCES classif_soil_class_kind_group (id) ON DELETE SET NULL,
+
+    is_archive boolean
 );
 
 --   No
@@ -112,9 +114,9 @@ CREATE TABLE ege
 --     i_H6
 -- + Opis
 -- + ACAD - классификатор classif_hatching
--- + TCNS
---   COLG
---   PATT
+-- + TCNS - классификатор classif_consistency
+-- + COLG - из таблицы GLOBAL_SGR, у нас - Hatching, credoColor
+-- + PATT - из таблицы GLOBAL_SGR, у нас - Hatching, hatchingCredo
 --   cred
 --   kga
 --   i_tiks
@@ -166,7 +168,7 @@ CREATE TABLE ege
 --     IS_OSN
 -- + COLOR
 --     GB_NMB
---     F_Opis
+--     F_Opis - наименование грунта по классиф. Формуляр
 
 ALTER TABLE ege ADD COLUMN consistency_id int REFERENCES classif_consistency(id) ON DELETE SET NULL;
 
@@ -220,6 +222,10 @@ ALTER TABLE ege
 
 
 
+ALTER TABLE ege
+    ADD COLUMN  credo_color int;
+ALTER TABLE ege
+    ADD COLUMN  hatching_credo varchar;
 
 ALTER TABLE ege
     ADD COLUMN f_G float4;
@@ -299,6 +305,7 @@ COMMENT ON COLUMN ege.SS1 IS 'ВА: SS1, для Формуляр (назначе
 -- убрал поле - это "вид грунта - быстро". Перенес выпадающий список в окно создания описания КГА
 -- COMMENT ON COLUMN ege.soil_kind_enum IS 'ВА: SSA, enum - почва, пески, глинистые [18.02.2023]';
 ALTER TABLE ege DROP COLUMN soil_kind_enum;
+ALTER TABLE ege ADD COLUMN is_archive boolean;
 
 COMMENT ON COLUMN ege.color IS 'ВА: COLOR [18.02.2023]';
 COMMENT ON COLUMN ege.GB_NMB IS 'ВА: GB_NMB, порядок следования слоев -для формуляра (назначение пока не ясно) [18.02.2023]';

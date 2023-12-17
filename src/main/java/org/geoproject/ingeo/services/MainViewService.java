@@ -34,4 +34,6 @@ public interface MainViewService<T, Y> {
     void updateFromDtos(List<Y> dtos);
 
     List<Y> getDtosByProject(Project project);
+
+    Y cloneDto(Y egeDto);
 }

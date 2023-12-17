@@ -60,6 +60,9 @@ public interface SurveyPointsService extends MainViewService<SurveyPoint, Survey
         return null;
     }
 
+    @Override
+    SurveyPointDTO cloneDto(SurveyPointDTO egeDto);
+
     SurveyPoint getByPointNumber(String pointNumber, Project project);
 
     List<SurveyPoint> getAllByProject(Project currentProject);

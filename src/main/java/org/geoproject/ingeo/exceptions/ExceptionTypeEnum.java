@@ -20,6 +20,7 @@ public enum ExceptionTypeEnum {
     SHEAR_NOT_FOUND_EXCEPTION("Точка сдвиговых исследований не найдена"),
     ZERO_DIVISION_ATTEMPT_EXCEPTION("Попытка деления на 0, проверьте введенные данные"),
     SOIL_SUBKIND_NOT_FOUND_EXCEPTION("Тип группы не найден"),
+    EGE_NOT_SAVED_EXCEPTION("Выделенный ИГЭ не сохранен"),
     ;
 
     private final String message;

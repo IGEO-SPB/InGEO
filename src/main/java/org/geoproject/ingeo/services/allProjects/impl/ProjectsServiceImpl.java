@@ -2,6 +2,7 @@ package org.geoproject.ingeo.services.allProjects.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.geoproject.ingeo.dto.mainViewsDtos.ProjectDto;
+import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.exceptions.NotImplemented;
 import org.geoproject.ingeo.mapper.ProjectMapper;
@@ -115,12 +116,17 @@ public class ProjectsServiceImpl implements ProjectsService {
 
     @Override
     public void updateFromDtos(List<ProjectDto> dtos) {
-
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("updateFromDtos"));
     }
 
     @Override
     public List<ProjectDto> getDtosByProject(Project project) {
-        return null;
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("getDtosByProject"));
+    }
+
+    @Override
+    public ProjectDto cloneDto(ProjectDto egeDto) {
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("cloneDto"));
     }
 
     @Override

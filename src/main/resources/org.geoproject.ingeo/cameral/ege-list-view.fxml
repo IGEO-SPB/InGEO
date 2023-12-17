@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -59,7 +60,7 @@
                             </items>
                         </SplitMenuButton>
                         <Region prefHeight="26.0" prefWidth="6.0" />
-                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
+                        <SplitMenuButton alignment="CENTER" mnemonicParsing="false" onAction="#onCameralModuleButtonClicked" prefHeight="26.0" prefWidth="168.0" text="Камеральный модуль">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Action 1" />
                                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -110,7 +111,7 @@
                                     <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
                                     <Button layoutX="10.0" layoutY="12.0" mnemonicParsing="false" onAction="#onPumpButtonClicked" prefHeight="42.0" prefWidth="184.0" text="Колонка" />
                                     <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
-                                    <Button mnemonicParsing="false" onAction="#onStatisticalProcesssingButtonClicked" prefHeight="42.0" prefWidth="214.0" text="Статистическая обработка" />
+                                    <Button mnemonicParsing="false" onAction="#onStatisticalProcessingButtonClicked" prefHeight="42.0" prefWidth="214.0" text="Статистическая обработка" />
                                     <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
                                  </children>
                               </HBox>
@@ -131,39 +132,50 @@
                               <Insets left="10.0" right="10.0" />
                           </VBox.margin>
                       </HBox>
-                  <HBox prefHeight="83.0" prefWidth="922.0" spacing="10.0">
-                     <children>
-                        <HBox alignment="CENTER" prefHeight="79.0" prefWidth="285.0" spacing="5.0">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="126.0" text="Взять список&#10;из другого объекта" />
-                              <Button fx:id="soilKindChoiceViewButton" mnemonicParsing="false" onAction="#onSoilKindChoiceViewButtonClicked" prefHeight="63.0" prefWidth="136.0" text="Заполнение &#10;классификатора КГА" />
-                           </children>
-                        </HBox>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <HBox alignment="CENTER" prefHeight="79.0" prefWidth="314.0" spacing="5.0">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="144.0" text="Запись как по &#10;классификатору&#10;для локальный &#10;список грн." />
-                              <Button mnemonicParsing="false" prefHeight="75.0" prefWidth="151.0" text="Запись как по &#10;классификатору&#10;для описания для &#10;камеральной задачи" />
-                              <Separator orientation="VERTICAL" prefHeight="200.0" />
-                           </children>
-                        </HBox>
-                        <VBox prefHeight="91.0" prefWidth="272.0" spacing="5.0">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Button disable="true" mnemonicParsing="false" prefHeight="75.0" prefWidth="114.0" text="Скопировать&#10;коды и описание &#10;для выработок" />
-                                    <Button disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Скопировать &#10;штриховку &#10;и консистенцию &#10;для выработок" />
-                                 </children>
-                              </HBox>
-                           </children></VBox>
-                     </children>
-                  </HBox>
                   <Separator prefWidth="200.0" />
-                      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="922.0" spacing="15.0">
+                      <HBox alignment="CENTER_LEFT" prefHeight="133.0" prefWidth="913.0" spacing="10.0">
                           <children>
-                              <Button fx:id="deleteRowButton" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="26.0" prefWidth="136.0" text="Удалить строку" />
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Дублировать строку" />
-                              <Button fx:id="saveAllObjectsButton" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" prefHeight="26.0" prefWidth="122.0" text="Сохранить" />
+                        <VBox alignment="CENTER" prefHeight="109.0" prefWidth="227.0" spacing="5.0">
+                           <children>
+                                    <Button fx:id="deleteRowButton" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="30.0" prefWidth="200.0" text="Удалить выбранную строку" />
+                                      <Button mnemonicParsing="false" onAction="#onDuplicateRowButtonClicked" prefHeight="30.0" prefWidth="200.0" text="Дублировать выбранную строку" />
+                                    <Button fx:id="saveAllObjectsButton" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" prefHeight="30.0" prefWidth="200.0" text="Сохранить" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="119.0" prefWidth="173.0" spacing="5.0">
+                           <children>
+                              <Button minHeight="40.0" mnemonicParsing="false" onAction="#onAddNewRowBeforeSelectedRowButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Вставить новый ИГЭ &#10;перед выбранным" />
+                              <Button minHeight="40.0" mnemonicParsing="false" onAction="#onAddNewRowAtTheEndButtonClicked" prefHeight="40.0" prefWidth="150.0" text="Добавить новый ИГЭ &#10;в конец списка" />
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox alignment="CENTER" prefHeight="109.0" prefWidth="126.0" spacing="5.0">
+                           <children>
+                              <Label text="Переместить &#10;выбранный ИГЭ &#10;в строку перед &#10;ИГЭ с номером:" />
+                              <ChoiceBox fx:id="egeNumberChoiceBox" prefHeight="26.0" prefWidth="91.0" />
+                              <Button mnemonicParsing="false" onAction="#onAcceptEgeChoiceButtonClicked" text="Подтвердить выбор" />
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox alignment="CENTER" prefHeight="109.0" prefWidth="163.0" spacing="5.0">
+                           <children>
+                              <Button disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="Взять список&#10;из другого объекта" />
+                              <Button fx:id="soilKindChoiceViewButton" mnemonicParsing="false" onAction="#onSoilKindChoiceViewButtonClicked" prefHeight="40.0" prefWidth="130.0" text="Заполнение &#10;классификатора КГА" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="119.0" prefWidth="201.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#onCopyDescriptionKgaToDescriptionCredoFormularButtonClicked" prefHeight="74.0" prefWidth="140.0" text="Копировать описание&#10;КГА в описание &#10;для чертежа" />
+                              <Button mnemonicParsing="false" onAction="#onCopyDescriptionKgaToDescriptionForOrganisationButtonClicked" prefHeight="75.0" prefWidth="140.0" text="Копировать описание&#10;КГА в описание для &#10;камеральной задачи" />
+                           </children>
+                        </VBox>
+                        <Separator layoutX="571.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox alignment="CENTER" prefHeight="119.0" prefWidth="154.0">
+                           <children>
+                              <Button disable="true" mnemonicParsing="false" prefHeight="75.0" prefWidth="114.0" text="Скопировать&#10;коды и описание &#10;для выработок" />
+                              <Button disable="true" mnemonicParsing="false" prefWidth="114.0" text="Скопировать &#10;штриховку &#10;и консистенцию &#10;для выработок" />
+                           </children>
+                        </VBox>
                           </children>
                      <VBox.margin>
                         <Insets left="5.0" right="5.0" />
@@ -174,14 +186,14 @@
             </VBox>
                 <TableView fx:id="tableView" tableMenuButtonVisible="true">
                     <columns>
-                        <TableColumn fx:id="number" prefWidth="57.60000765323639" text="№ ИГЭ" />
+                        <TableColumn fx:id="egeNumber" prefWidth="57.60000765323639" text="№ ИГЭ" />
                         <TableColumn fx:id="shortName" prefWidth="95.20000457763672" text="Вид грунта &#10;(коротко)" />
                         <TableColumn fx:id="genesis" prefWidth="60.000030517578125" text="Генезис" />
                         <TableColumn fx:id="descriptionCredoFormular" prefWidth="164.00003051757812" text="Локальный список гр. &#10;- для чертежа, CREDO &#10;и ФОД" />
-                        <TableColumn fx:id="descriptionKga" prefWidth="171.19998168945312" text="Описание грунтов &#10;по классификатору &#10;КГА" />
+                        <TableColumn fx:id="descriptionKga" editable="false" prefWidth="171.19998168945312" text="Описание грунтов &#10;по классификатору &#10;КГА" />
                         <TableColumn fx:id="descriptionForCameralTask" minWidth="0.0" prefWidth="138.4000244140625" text="Описание для камеральной задачи ЛенТИСИЗ">
                             <columns>
-                                <TableColumn fx:id="genesisDescription" prefWidth="120.0" text="Описание генезиса" />
+                                <TableColumn fx:id="genesisDescription" editable="false" prefWidth="120.0" text="Описание генезиса" />
                                 <TableColumn fx:id="descriptionForOrganisation" prefWidth="100.0" text="Описание грунтов" />
                             </columns>
                         </TableColumn>

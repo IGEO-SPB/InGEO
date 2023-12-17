@@ -118,6 +118,11 @@ public class SurveyPointsServiceImpl implements SurveyPointsService {
     }
 
     @Override
+    public SurveyPointDTO cloneDto(SurveyPointDTO egeDto) {
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("cloneDto"));
+    }
+
+    @Override
     public SurveyPoint getByPointNumber(String pointNumber, Project project) {
         return surveyPointsRepository.findByPointNumberAndProject(pointNumber, project);
     }

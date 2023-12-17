@@ -26,7 +26,7 @@ public class GeoJavaFXApp extends javafx.application.Application {
             Initializer initializer = applicationContext.getBean(Initializer.class);
 
             try {
-                var project = projectsService.getById(1L);
+                var project = projectsService.getAll().get(0);
                 state.setCurrentProject(project);
                 log.info("project");
                 log.info(project.getId());
@@ -34,7 +34,7 @@ public class GeoJavaFXApp extends javafx.application.Application {
                 initializer.setCurrentSurveyPoint(project);
                 initializer.setCurrentSample(state.getSurveyPoint());
             } catch (NotFoundException e) {
-                log.info(e.getMessage());
+                log.error(e.getMessage());
                 state.setCurrentProject(null);
             }
 

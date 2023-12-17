@@ -24,6 +24,7 @@ import org.geoproject.ingeo.controllers.functionalInterfaces.Refreshable;
 import org.geoproject.ingeo.dto.DescriptionKgaDto;
 import org.geoproject.ingeo.dto.classificators.kga.SoilKindDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
+import org.geoproject.ingeo.exceptions.ConflictException;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
@@ -203,7 +204,6 @@ public class SoilKindChoiceViewController implements Initializable {
     //endregion
 
     private void setDto() {
-//        egeDto = egeServise.getDto(ege);
         descriptionKgaDto = egeServise.getDescriptionKgaDto(egeDto.getId());
     }
 
@@ -294,6 +294,7 @@ public class SoilKindChoiceViewController implements Initializable {
                 descriptionKgaDto.getSoilSubkindAdjMap().forEach((key, value) -> descriptionKgaDto.getSoilSubkindAdjMap().replace(key, null));
                 descriptionKgaDto.setColor(null);
                 descriptionKgaDto.setWaterDepth(null);
+                descriptionKgaDto.setShortName(soilKind.getSkKind());
 
                 setDescriptionKgaTextArea();
                 setSoilKindGroupTypeChoiceBox();
