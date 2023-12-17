@@ -1,25 +1,42 @@
 package org.geoproject.ingeo.controllers.cameral;
 
-import org.geoproject.ingeo.controllers.AbstractMainViewController;
-import org.geoproject.ingeo.dto.mainViewsDtos.EgeDTO;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import org.apache.commons.lang.StringUtils;
+import org.geoproject.ingeo.controllers.NewAbstractStaticTableController;
+import org.geoproject.ingeo.controllers.functionalInterfaces.Description;
+import org.geoproject.ingeo.controllers.functionalInterfaces.GetComboBoxValue;
+import org.geoproject.ingeo.controllers.functionalInterfaces.Refreshable;
+import org.geoproject.ingeo.controllers.functionalInterfaces.Settable;
+import org.geoproject.ingeo.customFXnodes.CustomConsistencyDtoComboBoxTableCell;
+import org.geoproject.ingeo.customFXnodes.CustomGenesisDtoComboBoxTableCell;
+import org.geoproject.ingeo.customFXnodes.CustomSearchableComboBoxTableCell;
+import org.geoproject.ingeo.dto.classificators.ConsistencyDto;
+import org.geoproject.ingeo.dto.classificators.GenesisDto;
+import org.geoproject.ingeo.dto.classificators.HatchingDto;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.enums.dtoenums.EgeDTOFieldsEnum;
 import org.geoproject.ingeo.models.Ege;
-import org.geoproject.ingeo.models.classificators.Genesis;
+import org.geoproject.ingeo.services.classificators.ConsistencyService;
+import org.geoproject.ingeo.services.classificators.GenesisService;
+import org.geoproject.ingeo.services.classificators.HatchingService;
 import org.geoproject.ingeo.services.classificators.impl.GenesisServiceImpl;
 import org.geoproject.ingeo.services.MainViewService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -27,314 +44,418 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static org.geoproject.ingeo.constants.JavaFXConstants.CONSISTENCY_COLUMN;
+import static org.geoproject.ingeo.constants.JavaFXConstants.DESCRIPTION_KGA_COLUMN;
+import static org.geoproject.ingeo.constants.JavaFXConstants.GENESIS_COLUMN;
+import static org.geoproject.ingeo.constants.JavaFXConstants.GENESIS_DESCRIPTION_COLUMN;
+import static org.geoproject.ingeo.constants.JavaFXConstants.HATCHING_COLUMN;
+import static org.geoproject.ingeo.constants.ServiceConstants.COMBOBOX_LAST_COLUMN_PIXEL_GAP;
+import static org.geoproject.ingeo.constants.ServiceConstants.HAVE_TO_SAVE_CHOSEN_EGE_SERVICE_MESSAGE;
+import static org.geoproject.ingeo.constants.ServiceConstants.SINGLE_CODE_NUMBER;
+import static org.geoproject.ingeo.constants.ServiceConstants.SINGLE_INDEX_POINT;
+import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Log4j2
 @Component
-public class EgeListViewController extends AbstractMainViewController<Ege, EgeDTO> implements Initializable {
+public class EgeListViewController extends NewAbstractStaticTableController<Ege, EgeDto> implements Initializable {
 
-    private final GenesisServiceImpl genesisService;
+    private final GenesisService genesisService;
+    private final HatchingService hatchingService;
+    private final ConsistencyService consistencyService;
+
     Stage stage;
 
+    ObservableList<GenesisDto> genesisDtoObservableList = FXCollections.observableArrayList();
+    ObservableList<ConsistencyDto> consistencyDtoObservableList = FXCollections.observableArrayList();
+    ObservableList<HatchingDto> hatchingDtoObservableList = FXCollections.observableArrayList();
+
     @FXML
-    private TableColumn<Ege, String> number;
+    TableColumn<EgeDto, ComboBox<GenesisDto>> genesis = new TableColumn<>();
     @FXML
-    private TableColumn<Ege, Integer> codeNumber;
+    TableColumn<EgeDto, ComboBox<ConsistencyDto>> consistency = new TableColumn<>();
     @FXML
-    private TableColumn<Ege, String> shortName;
+    TableColumn<EgeDto, ComboBox<HatchingDto>> hatching = new TableColumn<>();
+
     @FXML
-    private TableColumn<Ege, Genesis> genesis;
+    ChoiceBox<EgeDto> egeNumberChoiceBox;
+
     @FXML
-    private TableColumn<Ege, String> soilKindEnum;
-    @FXML
-    private TableColumn<Ege, String> descriptionCredoFormular;
-    @FXML
-    private TableColumn<Ege, String> descriptionKga;
-    //    @FXML
-//    private TableColumn<Ege, String> descriptionForCameralTask;
-    @FXML
-    private TableColumn<Ege, String> genesisDescription;
-    @FXML
-    private TableColumn<Ege, String> descriptionForOrganisation;
-    @FXML
-    private TableColumn<Ege, String> hatchingNameCredoAutocad;
-    @FXML
-    private TableColumn<Ege, String> consistency;
-    @FXML
-    private TableColumn<Ege, String> color;
+    private Button soilKindChoiceViewButton;
 
 
     public EgeListViewController(ConfigurableApplicationContext applicationContext,
-                                 MainViewService<Ege, EgeDTO> service,
+                                 MainViewService<Ege, EgeDto> service,
                                  CurrentState currentState,
-                                 GenesisServiceImpl genesisService) {
+                                 GenesisServiceImpl genesisService, HatchingService hatchingService, ConsistencyService consistencyService) {
         super(currentState, applicationContext, service);
         this.genesisService = genesisService;
+        this.hatchingService = hatchingService;
+        this.consistencyService = consistencyService;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Ege Table init...");
+        log.info("Открыто окно список ИГЭ");
+
         init();
-        tableView.setEditable(true);
-        showAllObjectsInCurrentProject();
+
+        if (tableView.getItems().isEmpty()) {
+            soilKindChoiceViewButton.setDisable(Boolean.TRUE);
+        }
+
+        setEgeNumberChoiceBox();
     }
 
-    public void showAllObjectsInCurrentProject() {
+    @Override
+    public void sortObservableDtoList(List<EgeDto> egeDtoList) {
+        dtos.sort(Comparator.comparing(EgeDto::getCodeNumber));
+        observableDtoList.sort(Comparator.comparing(EgeDto::getCodeNumber));
+    }
 
-        codeNumber.setCellValueFactory(new PropertyValueFactory<Ege, Integer>("codeNumber"));
+    @Override
+    public void setCellsFormat() {
+        tableView.setEditable(true);
+        tableView.getSelectionModel().setCellSelectionEnabled(false);
 
-        number.setCellValueFactory(new PropertyValueFactory<Ege, String>("number"));
-        number.setCellFactory(TextFieldTableCell.forTableColumn());
-        number.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setNumber(event.getNewValue());
-                updateObjectInListForView(ege);
+        //список для колонок с нестандартным поведением - например, choicebox.
+        // Обязательно заполнять!
+        var excludeColumnNameList = new ArrayList<>(Arrays.asList(
+                GENESIS_COLUMN,
+                DESCRIPTION_KGA_COLUMN,
+                GENESIS_DESCRIPTION_COLUMN,
+                HATCHING_COLUMN,
+                CONSISTENCY_COLUMN
+        ));
+
+        columnsMap.values().forEach(e -> JavaFXCommonMethods.setCellFactory(e, tableView, observableDtoList,
+                null, excludeColumnNameList));
+
+        columnsMap.forEach((columnName, column) -> {
+            switch (columnName) {
+                case GENESIS_COLUMN -> setGenesisChoiceBox();
+                case CONSISTENCY_COLUMN -> setConsistencyChoiceBox();
+                case HATCHING_COLUMN -> setHatchingChoiceBox();
+                default -> column.setCellValueFactory(new PropertyValueFactory<>(columnName));
             }
         });
 
-        shortName.setCellValueFactory(new PropertyValueFactory<Ege, String>("shortName"));
-        shortName.setCellFactory(TextFieldTableCell.forTableColumn());
-        shortName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setShortName(event.getNewValue());
-                updateObjectInListForView(ege);
+        columnsMap.forEach((columnName, column) ->
+                column.setOnEditCommit(event ->
+                            event.getRowValue()
+                                    .setFieldValue(EgeDTOFieldsEnum.getEnumByName(columnName), event.getNewValue())
+                ));
+
+        ((TableColumn<EgeDto, String>) columnsMap.get(GENESIS_DESCRIPTION_COLUMN)).setCellValueFactory(data -> {
+            var genesisDescription = StringUtils.EMPTY;
+
+            if (Objects.nonNull(data.getValue().getGenesisDto())) {
+                genesisDescription = data.getValue().getGenesisDto().getGenesisDescription();
             }
+
+            return new SimpleStringProperty(genesisDescription);
         });
 
-        ObservableList<Genesis> genesisObservableList = FXCollections.observableArrayList();
-        genesisObservableList.addAll(genesisService.findAll());
-        genesis.setCellValueFactory(new PropertyValueFactory<Ege, Genesis>("genesis"));
-        genesis.setCellFactory(ChoiceBoxTableCell.forTableColumn(genesisObservableList));
-        genesis.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, Genesis>>() {
+        tableView.setItems(observableDtoList);
+    }
+
+    public void setGenesisChoiceBox() {
+        var genesisDtoList = genesisService.getEgeDtos();
+        genesisDtoObservableList.clear();
+        genesisDtoObservableList.addAll(genesisDtoList);
+
+        Callback<TableColumn<EgeDto, ComboBox<GenesisDto>>, TableCell<EgeDto, ComboBox<GenesisDto>>> cellFactory
+                = genesisColumn -> new CustomGenesisDtoComboBoxTableCell(genesisDtoObservableList, genesisColumn, observableDtoList, tableView);
+
+        genesis.setCellFactory(cellFactory);
+    }
+
+    public void setConsistencyChoiceBox() {
+        var consistencyDtoList = consistencyService.getConsistencyDtos();
+        consistencyDtoObservableList.clear();
+        consistencyDtoObservableList.addAll(consistencyDtoList);
+
+        Callback<TableColumn<EgeDto, ComboBox<ConsistencyDto>>, TableCell<EgeDto, ComboBox<ConsistencyDto>>> cellFactory
+                = consistencyColumn -> new CustomConsistencyDtoComboBoxTableCell(consistencyDtoObservableList, consistencyColumn,
+                observableDtoList, tableView);
+
+        consistency.setCellFactory(cellFactory);
+    }
+
+    public void setHatchingChoiceBox() {
+        var hatchingDtoList = hatchingService.getHatchingDtos();
+        hatchingDtoObservableList.clear();
+        hatchingDtoObservableList.addAll(hatchingDtoList);
+
+        Description<HatchingDto> description = HatchingDto::getShortName;
+        GetComboBoxValue<EgeDto, HatchingDto> getComboBoxValue = EgeDto::getHatchingDto;
+        Settable<EgeDto, HatchingDto> settable = EgeDto::setHatchingDto;
+
+        Callback<TableColumn<EgeDto, ComboBox<HatchingDto>>, TableCell<EgeDto, ComboBox<HatchingDto>>> cellFactory =
+                hatchingColumn -> new CustomSearchableComboBoxTableCell<>(
+                        hatchingDtoObservableList,
+                        hatchingColumn,
+                        observableDtoList,
+                        COMBOBOX_LAST_COLUMN_PIXEL_GAP,
+                        description,
+                        getComboBoxValue,
+                        settable
+                );
+
+        hatching.setCellFactory(cellFactory);
+    }
+
+    public void setEgeNumberChoiceBox() {
+        egeNumberChoiceBox.getItems().clear();
+        egeNumberChoiceBox.getItems().addAll(observableDtoList);
+
+        var converter = new StringConverter<EgeDto>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Ege, Genesis> event) {
-                Ege ege = event.getRowValue();
-                Genesis genesis = genesisService.findByGiId(event.getNewValue().getGiId());
-                ege.setGenesis(genesis);
-                updateObjectInListForView(ege);
+            public String toString(EgeDto object) {
+
+                if (Objects.nonNull(object)) {
+                    if (Objects.nonNull(object.getEgeNumber())) {
+                        return object.getEgeNumber();
+                    }
+                }
+                return StringUtils.EMPTY;
             }
-        });
 
-
-        ObservableList<String> soilObservableList = FXCollections.observableArrayList();
-        //todo для чего пустое поле?
-        //todo посмотреть урок про Enum в гибере
-        soilObservableList.addAll("Почва", "Пески", "Глинистые", "Пустое поле");
-        soilKindEnum.setCellValueFactory(new PropertyValueFactory<Ege, String>("soilKind"));
-        soilKindEnum.setCellFactory(ChoiceBoxTableCell.forTableColumn(soilObservableList));
-//        soilKindEnum.setCellFactory(new TableCell<Ege, String>());
-        soilKindEnum.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setSoilKindEnum(event.getNewValue());
-                updateObjectInListForView(ege);
+            public EgeDto fromString(String string) {
+                return null;
             }
-        });
+        };
 
-        descriptionCredoFormular.setCellValueFactory(new PropertyValueFactory<Ege, String>("descriptionCredoFormular"));
-        descriptionCredoFormular.setCellFactory(TextFieldTableCell.forTableColumn());
-        descriptionCredoFormular.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setDescriptionCredoFormular(event.getNewValue());
-                updateObjectInListForView(ege);
-            }
-        });
+        egeNumberChoiceBox.setConverter(converter);
+        egeNumberChoiceBox.setValue(observableDtoList.isEmpty() ? null : observableDtoList.get(ZERO_INDEX));
+    }
 
-        descriptionKga.setCellValueFactory(new PropertyValueFactory<Ege, String>("descriptionKga"));
-        descriptionKga.setCellFactory(TextFieldTableCell.forTableColumn());
-        descriptionKga.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setDescriptionKga(event.getNewValue());
-                updateObjectInListForView(ege);
-            }
-        });
+    public void addNewRow() {
+        log.info("Init addNewRow()");
 
-        genesisDescription.setCellValueFactory(ege -> new SimpleObjectProperty<>(ege.getValue().getGenesis().getName()));
+        var egeDto = new EgeDto();
+        egeDto.setCodeNumber(observableDtoList.size() + SINGLE_INDEX_POINT);
 
-        descriptionForOrganisation.setCellValueFactory(new PropertyValueFactory<Ege, String>("descriptionForOrganisation"));
-        descriptionForOrganisation.setCellFactory(TextFieldTableCell.forTableColumn());
-        descriptionForOrganisation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setDescriptionForOrganisation(event.getNewValue());
-                updateObjectInListForView(ege);
-            }
-        });
+        observableDtoList.add(egeDto);
 
-        //todo временно ввод вручную. Переделать на выпадающий список (сущность SoilType)
-        //        hatching_name_credo_autocad IS 'ACAD,
-        //        private TableColumn<Ege, String> hatchingNameCredoAutocad;
-        hatchingNameCredoAutocad.setCellValueFactory(new PropertyValueFactory<Ege, String>("hatchingNameCredoAutocad"));
-        hatchingNameCredoAutocad.setCellFactory(TextFieldTableCell.forTableColumn());
-        hatchingNameCredoAutocad.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setHatchingNameCredoAutocad(event.getNewValue());
-                updateObjectInListForView(ege);
-            }
-        });
+        dtos.add(egeDto);
 
-        //todo временно ввод вручную. Переделать на выпадающий список. Сделать классификатор, сущность с репозиторием и сервисом.
-        //Консистенция, выбирается из классификатора
-        //        @Column(name = "consistency")
-        //        private TableColumn<Ege, String> consistency;
+        tableView.refresh();
+    }
 
-        consistency.setCellValueFactory(new PropertyValueFactory<Ege, String>("consistency"));
-        consistency.setCellFactory(TextFieldTableCell.forTableColumn());
-        consistency.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setConsistency(event.getNewValue());
-                updateObjectInListForView(ege);
-            }
-        });
+    public void addNewRow(int selectedIndex) {
+        log.info("Init addNewRow(int selectedIndex)");
 
-        //todo временно ввод вручную. Переделать на выпадающий список. Сделать классификатор, сущность с репозиторием и сервисом.
-        //private TableColumn<Ege, String> color;
+        var dtoForIndex = tableView.getItems().get(selectedIndex);
 
-        color.setCellValueFactory(new PropertyValueFactory<Ege, String>("color"));
-        color.setCellFactory(TextFieldTableCell.forTableColumn());
-        color.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Ege, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Ege, String> event) {
-                Ege ege = event.getRowValue();
-                ege.setColor(event.getNewValue());
-                updateObjectInListForView(ege);
-            }
-        });
+        var egeDto = new EgeDto();
 
-        tableView.getItems().setAll(objectListForView);
+        egeDto.setCodeNumber(dtoForIndex.getCodeNumber());
+
+        for (int i = dtoForIndex.getCodeNumber() - 1; i < observableDtoList.size(); i++) {
+            observableDtoList.get(i).setCodeNumber(observableDtoList.get(i).getCodeNumber() + SINGLE_INDEX_POINT);
+            dtos.get(i).setCodeNumber(dtos.get(i).getCodeNumber());
+        }
+
+        observableDtoList.add(egeDto);
+        observableDtoList.sort(Comparator.comparing(EgeDto::getCodeNumber));
+
+        dtos.add(egeDto);
+        dtos.sort(Comparator.comparing(EgeDto::getCodeNumber));
+
+        tableView.refresh();
     }
 
     //кнопки
+
+    @FXML
+    public void onAddNewRowBeforeSelectedRowButtonClicked() {
+        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+        addNewRow(selectedIndex);
+    }
+
+    @FXML
+    public void onAddNewRowAtTheEndButtonClicked() {
+        addNewRow();
+    }
 
     @Override
     @FXML
     public void onSaveAllObjectsButtonClicked() {
         super.onSaveAllObjectsButtonClicked();
-        System.out.println("onSaveAllEgesButtonClicked clicked...");
-    }
 
-    @Override
-    public List<Ege> setObjectListForObjectListForView() {
-        return service.getByProject(currentState.getCurrentProject());
-    }
+        if (!tableView.getItems().isEmpty() && soilKindChoiceViewButton.isDisabled()) {
+            soilKindChoiceViewButton.setDisable(Boolean.FALSE);
+        }
 
-    @Override
-    @FXML
-    public void onAddNewRowButtonClicked() {
-        Ege ege = new Ege();
-        List<Integer> numberList = objectListForView.stream().map(e -> e.getCodeNumber()).toList();
-        int maxCodeNumber = numberList.stream().reduce(Integer::max).get();
-        ege.setCodeNumber(maxCodeNumber + 1);
-        ege.setGenesis(new Genesis());
-        addNewObjectAtListForView(ege);
+        dtos.clear();
+        observableDtoList.clear();
+
+        setObjectListForView();
+        setCellsFormat();
     }
 
     @FXML
     public void onSoilKindChoiceViewButtonClicked(ActionEvent event) throws IOException {
-        log.info("onSoilKindChoiceViewButtonClicked clicked...");
-//        JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
-//                applicationContext, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
+        log.info("Нажата кнопка перехода на экран формирования описания КГА...");
 
-        JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
-                applicationContext, stage, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
+        var childController = (SoilKindChoiceViewController) applicationContext.getBean("soilKindChoiceViewController");
+
+        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex < ZERO_INDEX) {
+            selectedIndex = ZERO_INDEX;
+        }
+
+        if (!tableView.getItems().isEmpty()) {
+            var egeDto = tableView.getItems().get(selectedIndex);
+
+            if (Objects.isNull(egeDto.getId())) {
+                JavaFXCommonMethods.initAlert(HAVE_TO_SAVE_CHOSEN_EGE_SERVICE_MESSAGE);
+            } else {
+                childController.passEge(egeDto);
+
+                Refreshable refreshTable = () -> tableView.refresh();
+
+                childController.passTableRefreshLambda(refreshTable);
+
+                JavaFXCommonMethods.changeSceneToModalWindow(event, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getPath(),
+                        applicationContext, stage, ViewsEnum.SOIL_KIND_CHOICE_VIEW.getTitle());
+            }
+        }
     }
 
-    //todo придумать уведомление о необходимости нажать на сохранить для удаления из базы
-    @Override
     @FXML
-    public void onDeleteRowButtonClicked() {
-        //todo реализовать выделение строки по умолчанию - следующая после удаленной
-        super.onDeleteRowButtonClicked();
-        System.out.println("onDeleteRowButtonClicked clicked...");
+    public void onDuplicateRowButtonClicked() {
+        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex < ZERO_INDEX) {
+            selectedIndex = ZERO_INDEX;
+        }
+
+        var egeDto = tableView.getItems().get(selectedIndex);
+
+        var cloneDto = service.cloneDto(egeDto);
+
+        var cloneDtoCodeNumber = selectedIndex + SINGLE_INDEX_POINT + SINGLE_CODE_NUMBER;
+
+        cloneDto.setCodeNumber(cloneDtoCodeNumber);
+
+        dtos.add(cloneDto);
+
+        for (int i = selectedIndex + SINGLE_CODE_NUMBER; i < observableDtoList.size(); i++) {
+            dtos.get(i).setCodeNumber(dtos.get(i).getCodeNumber() + SINGLE_CODE_NUMBER);
+        }
+
+        dtos.sort(Comparator.comparing(EgeDto::getCodeNumber));
+
+        observableDtoList.clear();
+        observableDtoList.addAll(dtos);
+
+        tableView.refresh();
     }
 
-
-    //todo перемещение строчек в таблице, сортировка по порядковому номеру либо по названию ИГЭ
-
-    @Override
     @FXML
-    public void onAllProjectsButtonClicked(ActionEvent event) throws IOException {
-        super.onAllProjectsButtonClicked(event);
-        System.out.println("Change scene to all projects from cameral module...");
+    public void onAcceptEgeChoiceButtonClicked() {
+        var selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex >= ZERO_INDEX) {
+            var egeDto = tableView.getItems().get(selectedIndex);
+
+            var codeNumber = egeNumberChoiceBox.getValue().getCodeNumber();
+
+            var setIndex = codeNumber - SINGLE_INDEX_POINT;
+
+            if (setIndex != selectedIndex) {
+
+                if (selectedIndex > setIndex) {
+                    dtos.remove(selectedIndex);
+                    dtos.add(setIndex, egeDto);
+                } else {
+                    dtos.add(setIndex, egeDto);
+                    dtos.remove(selectedIndex);
+                }
+
+            for (int i = 0; i < observableDtoList.size(); i++) {
+                dtos.get(i).setCodeNumber(i + SINGLE_CODE_NUMBER);
+            }
+
+                observableDtoList.clear();
+                observableDtoList.addAll(dtos);
+
+                setEgeNumberChoiceBox();
+                tableView.refresh();
+            }
+        }
     }
 
-    @Override
     @FXML
-    public void onFieldModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onFieldModuleButtonClicked(event);
-        System.out.println("Change scene to field module from cameral module...");
+    public void onCopyDescriptionKgaToDescriptionCredoFormularButtonClicked() {
+        Settable<EgeDto, String> settable = EgeDto::setDescriptionCredoFormular;
 
+        copyDescriptionKga(settable);
     }
 
-    @Override
     @FXML
-    public void onLaborModuleButtonClicked(ActionEvent event) throws IOException {
-        super.onLaborModuleButtonClicked(event);
-        System.out.println("Change scene to labor module from cameral module...");
+    public void onCopyDescriptionKgaToDescriptionForOrganisationButtonClicked() {
+        Settable<EgeDto, String> settable = EgeDto::setDescriptionForOrganisation;
+
+        copyDescriptionKga(settable);
+    }
+
+    private void copyDescriptionKga(Settable<EgeDto, String> settable) {
+        var selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex >= ZERO_INDEX) {
+            var egeDto = tableView.getItems().get(selectedIndex);
+
+            settable.setValue(egeDto, egeDto.getDescriptionKga());
+
+            tableView.refresh();
+        }
     }
 
     @Override
     @FXML
     public void onCameralModuleButtonClicked(ActionEvent event) throws IOException {
-        System.out.println("Trying change scene to cameral module from cameral module... \n" +
-                "Already in cameral module");
-    }
-
-//    @FXML
-//    public void onLocalSoilListButtonClicked() {
-//        System.out.println("onLocalSoilListButtonClicked clicked...");
-//
-//    }
-//
-//    @FXML
-//    public void onLitologyAndConsistencyButtonClicked(ActionEvent event) throws IOException {
-//        var path = ViewsEnum.BOREHOLE_LAYERS_DESCRIPTION_MAIN_VIEW.getPath();
-//        var title = ViewsEnum.BOREHOLE_LAYERS_DESCRIPTION_MAIN_VIEW.getTitle();
-//        JavaFXCommonMethods.changeScene(event, path, applicationContext, title);
-//    }
-
-    @FXML
-    public void onCameralModuleMainViewButtonClicked(ActionEvent event) throws IOException {
-        log.info("onCameralModuleMainViewButtonClicked clicked...");
+        log.info("Нажата кнопка смены экрана на Камеральный модуль. Уже на экране камерального модуля");
     }
 
     @FXML
-    public void onPumpButtonClicked(ActionEvent event) throws IOException {
-        log.info("onPumpButtonClicked clicked...");
+    public void onCameralModuleMainViewButtonClicked() {
+        log.info("Нажата кнопка смены экрана на главное окно Камерального модуля...");
     }
 
     @FXML
-    public void onStatisticalProcesssingButtonClicked(ActionEvent event) throws IOException {
-        log.info("onStatisticalProcesssingButtonClicked clicked...");
+    public void onPumpButtonClicked(){
+        log.info("Нажата кнопка смены экрана на окно Колонка...");
+    }
+
+    @FXML
+    public void onStatisticalProcessingButtonClicked() {
+        log.info("Нажата кнопка смены экрана на окно Статистической обработки...");
     }
 
     @FXML
     public void onEgeListButtonClicked(ActionEvent event) throws IOException {
-        System.out.println("onEgeListButtonClicked clicked...");
+        log.info("Нажата кнопка смены экрана на Список ИГЭ...");
+
         JavaFXCommonMethods.changeScene(event, ViewsEnum.EGE_LIST_VIEW.getPath(),
                 applicationContext, ViewsEnum.EGE_LIST_VIEW.getTitle());
     }
 
     @FXML
     public void onBoreholeLayerButtonClicked(ActionEvent event) throws IOException {
-        var path = ViewsEnum.BOREHOLE_LAYERS_DESCRIPTION_MAIN_VIEW.getPath();
-        var title = ViewsEnum.BOREHOLE_LAYERS_DESCRIPTION_MAIN_VIEW.getTitle();
-        JavaFXCommonMethods.changeScene(event, path, applicationContext, title);
+        log.info("Нажата кнопка смены экрана на окно Послойное описание...");
+
+        JavaFXCommonMethods.changeScene(event, ViewsEnum.BOREHOLE_LAYERS_DESCRIPTION_MAIN_VIEW.getPath(),
+                applicationContext, ViewsEnum.BOREHOLE_LAYERS_DESCRIPTION_MAIN_VIEW.getTitle());
     }
 }

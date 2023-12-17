@@ -1,7 +1,11 @@
 package org.geoproject.ingeo.models;
 
+import org.geoproject.ingeo.models.classificators.Consistency;
 import org.geoproject.ingeo.models.classificators.Genesis;
+import org.geoproject.ingeo.models.classificators.Hatching;
+import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.models.classificators.kga.SoilKind;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,14 +41,14 @@ public class Ege {
 
     //Номер ИГЭ
     @Column(name = "number")
-    private String number;
+    private String egeNumber;
 
     //Следующие два поля просто цифры по порядку, не понятно, нужно ли это вообще:
     @Column(name = "code")
     private String code;
 
     @Column(name = "code_number")
-    private int codeNumber;
+    private Integer codeNumber;
 
     //описание почвы, вводится вручную
     //todo переназвать
@@ -69,54 +73,69 @@ public class Ege {
     @Column(name = "description_for_organisation")
     private String descriptionForOrganisation;
 
-    //Штриховка, выбирается из классификатора
-    @Column(name = "hatching_name_credo_autocad")
-    private String hatchingNameCredoAutocad;
+    /**
+     * Штриховка, выбирается из классификатора - класс Hatching
+     * Ранее название поля - hatchingNameCredoAutocad
+     * ВА: ACAD, для СREDO
+     */
+    @ManyToOne
+    @JoinColumn(name = "hatching_id")
+    private Hatching hatching;
 
-    //Консистенция, выбирается из классификатора
-    @Column(name = "consistency")
-    private String consistency;
+    /**
+     * Консистенция, выбирается из классификатора
+     * ВА: TCNS (консистенция)
+     */
+    @ManyToOne
+    @JoinColumn(name = "consistency_id")
+    private Consistency consistency;
 
+
+
+
+
+    // убрал поле - это "вид грунта - быстро". Перенес выпадающий список в окно создания описания КГА
     //ВА: SSA, enum - почва, пески, глинистые. От выбора зависят данные в меню "Вид грунта" и "Разновидность"
-    @Column(name = "soil_kind_enum")
-    private String soilKindEnum;
+    //это то же, что класс SoilKind (сетится по кнопке в таблице на экране заполнения описания КГА)
+//    @Column(name = "soil_kind_enum")
+//    private String soilKindEnum;
 
 
     @Column(name = "SSA1")
-    private Long ssa1;
+    private Long SSA1;
 
     @Column(name = "SSA2")
-    private Long ssa2;
+    private Long SSA2;
 
     @Column(name = "SSA3")
-    private Long ssa3;
+    private Long SSA3;
 
     @Column(name = "SSA4")
-    private Long ssa4;
+    private Long SSA4;
 
     @Column(name = "SSA5")
-    private Long ssa5;
+    private Long SSA5;
 
     @Column(name = "SSA6")
-    private Long ssa6;
+    private Long SSA6;
 
     @Column(name = "SSA7")
-    private Long ssa7;
+    private Long SSA7;
 
     @Column(name = "SSA8")
-    private Long ssa8;
+    private Long SSA8;
 
     @Column(name = "SSA9")
-    private Long ssa9;
+    private Long SSA9;
 
     @Column(name = "SSA10")
-    private Long ssa10;
+    private Long SSA10;
 
     @Column(name = "SSA11")
-    private Long ssa11;
+    private Long SSA11;
 
     @Column(name = "SSA12")
-    private Long ssa12;
+    private Long SSA12;
 
 
 //    @Column(name = "SS1")
@@ -126,7 +145,7 @@ public class Ege {
      * ВА: SS1, для Формуляр
      */
     @Column(name = "SS1")
-    private Long ss1;
+    private Long SS1;
 
     @Column(name = "SS2")
     private Long SS2;
@@ -194,10 +213,13 @@ public class Ege {
     @JoinColumn(name = "soil_kind_id")
     private SoilKind soilKind;
 
+    @ManyToOne
+    @JoinColumn(name = "soil_class_kind_group")
+    private SoilClassKindGroup soilClassKindGroup;
 
-    //  todo сделать отдельную таблицу с цветами:
-    @Column(name = "color")
-    private String color;
+    @ManyToOne
+    @JoinColumn(name = "color")
+    private Color color;
 
     //  След.два поля назначение пока не ясно, связаны с формуляром:
     //ВА: GB_NMB, порядок следования слоев -для формуляра
@@ -208,19 +230,29 @@ public class Ege {
     @Column(name = "F_Opis")
     private String F_Opis;
 
-//    @Column(name = "water_depth")
-//    private float waterDepth;
+    //BA: с гл.хх м -насыщ водой
+    @Column(name = "f_G")
+    private Float waterDepth;
+
+    //для мягкого удаления
+    @Column
+    private Boolean isArchive;
+
+    /**
+     * COLG, цвет в CREDO (таблица ВА)
+     * Из таблицы classif_hatching (класс Hatching)
+     */
+    @Column(name = "credo_color")
+    private Integer credoColor;
+
+    /**
+     * PATT, штриховка в CREDO (таблица ВА)
+     * Из таблицы classif_hatching (класс Hatching)
+     */
+    @Column(name = "hatching_credo")
+    private String hatchingCredo;
 
     @OneToMany(mappedBy = "ege")
     private List<BoreholeLayer> boreholeLayerList;
 
-
-    @Override
-    public String toString() {
-        return "Ege{" +
-                "name='" + number + '\'' +
-                ", genesis code=" + genesis.getCodeUni() +
-                ", genesis name=" + genesis.getName() +
-                '}';
-    }
 }

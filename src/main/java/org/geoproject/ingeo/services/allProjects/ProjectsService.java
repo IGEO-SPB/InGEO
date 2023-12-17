@@ -17,11 +17,8 @@ public interface ProjectsService extends MainViewService<Project, ProjectDto> {
     @Override
     Project getById(Long id);
 
-    @Override
-    Project getBySample(Sample sample);
-
-    @Override
-    void create(ProjectDto dto);
+//    @Override
+//    void create(ProjectDto dto);
 
     @Override
     void create(List<Project> objectList);
@@ -36,6 +33,11 @@ public interface ProjectsService extends MainViewService<Project, ProjectDto> {
     void delete(ProjectDto object);
 
     @Override
+    default void deleteByDto(ProjectDto dto) {
+
+    }
+
+    @Override
     List<Project> getByProject(Project project);
 
     @Override
@@ -46,6 +48,19 @@ public interface ProjectsService extends MainViewService<Project, ProjectDto> {
 
     @Override
     void updateFromDtos(List<Project> objects, List<ProjectDto> dtos);
+
+    @Override
+    default void updateFromDtos(List<ProjectDto> dtos) {
+
+    }
+
+    @Override
+    default List<ProjectDto> getDtosByProject(Project project) {
+        return null;
+    }
+
+    @Override
+    ProjectDto cloneDto(ProjectDto egeDto);
 
     Project getByContractNumber(String contractNumber);
 }

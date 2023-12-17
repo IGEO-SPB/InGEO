@@ -16,8 +16,11 @@ CREATE TABLE CL_SOIL_KIND
     ARCHIVER       VARCHAR,
     DATE_ARCH      varchar,
     SK_BASE_ENABLE int,
-    SK_DESCR       varchar
+    SK_DESCR       varchar,
+
+    soil_class_kind_group_id int NOT NULL REFERENCES classif_soil_class_kind_group(id) ON DELETE SET NULL
 );
 
--- ALTER TABLE CL_SOIL_CLASS RENAME COLUMN sc_id TO id;
+ALTER TABLE CL_SOIL_KIND ADD COLUMN
+    soil_class_kind_group_id int REFERENCES classif_soil_class_kind_group(id) ON DELETE SET NULL;
 

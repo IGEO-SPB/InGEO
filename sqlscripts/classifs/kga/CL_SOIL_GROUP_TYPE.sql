@@ -9,3 +9,5 @@ CREATE TABLE CL_SOIL_GROUP_TYPE
     ARCHIVER  VARCHAR,
     DATE_ARCH varchar
 );
+
+COMMENT ON TABLE CL_SOIL_GROUP_TYPE IS 'На нашей форме составления описания КГА - категория [29.11.2023]';

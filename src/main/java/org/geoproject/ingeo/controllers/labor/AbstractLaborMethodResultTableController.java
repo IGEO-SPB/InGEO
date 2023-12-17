@@ -79,8 +79,6 @@ public abstract class AbstractLaborMethodResultTableController<T, Y> {
     }
 
     public void setObjectListForView() {
-//        objects = new ArrayList<>();
-//        objects = service.getEntitiesBySurveyPoint(currentState.getSurveyPoint());
         dtos = service.getDTOs(currentState.getSurveyPoint());
         this.observableList = FXCollections.observableArrayList();
         this.observableList.addAll(dtos);

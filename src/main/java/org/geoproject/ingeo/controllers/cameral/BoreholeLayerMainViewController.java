@@ -6,7 +6,7 @@ import org.geoproject.ingeo.models.BoreholeLayer;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.SurveyPoint;
-import org.geoproject.ingeo.services.cameral.EgesServise;
+import org.geoproject.ingeo.services.cameral.EgeServise;
 import org.geoproject.ingeo.services.MainViewService;
 import org.geoproject.ingeo.services.common.SurveyPointsService;
 import org.geoproject.ingeo.utils.CurrentState;
@@ -46,7 +46,7 @@ import static org.geoproject.ingeo.constants.ServiceConstants.NOT_EDITABLE_FROM_
 @Component
 public class BoreholeLayerMainViewController extends AbstractMainViewController<BoreholeLayer, BoreholeLayerDTO> implements Initializable {
     private final SurveyPointsService surveyPointsService;
-    private final EgesServise egesServise;
+    private final EgeServise egeServise;
 
     private final CurrentState currentState;
 
@@ -97,10 +97,10 @@ public class BoreholeLayerMainViewController extends AbstractMainViewController<
     public BoreholeLayerMainViewController(ConfigurableApplicationContext applicationContext,
                                            MainViewService<BoreholeLayer, BoreholeLayerDTO> service,
                                            CurrentState currentState,
-                                           SurveyPointsService surveyPointsService, EgesServise egesServise) {
+                                           SurveyPointsService surveyPointsService, EgeServise egeServise) {
         super(currentState, applicationContext, service);
         this.surveyPointsService = surveyPointsService;
-        this.egesServise = egesServise;
+        this.egeServise = egeServise;
         this.currentState = currentState;
     }
 
@@ -128,16 +128,16 @@ public class BoreholeLayerMainViewController extends AbstractMainViewController<
         Hibernate.initialize(currentProject.getEgeList());
         List<Ege> egesInCurrentProject = currentProject.getEgeList();
 
-        List<String> egesNumberList = egesInCurrentProject.stream().map(e -> e.getNumber()).toList();
+        List<String> egesNumberList = egesInCurrentProject.stream().map(e -> e.getEgeNumber()).toList();
 
         egeNumberObservableList.addAll(egesNumberList);
-        egeNumber.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getEge().getNumber()));
+        egeNumber.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getEge().getEgeNumber()));
         egeNumber.setCellFactory(ChoiceBoxTableCell.forTableColumn(egeNumberObservableList));
         egeNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<BoreholeLayer, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<BoreholeLayer, String> event) {
                 BoreholeLayer boreholeLayer = event.getRowValue();
-                Ege ege = egesServise.getByNumberAndProject(event.getNewValue(), currentState.getCurrentProject());
+                Ege ege = egeServise.getByNumberAndProject(event.getNewValue(), currentState.getCurrentProject());
                 boreholeLayer.setEge(ege);
                 updateObjectInListForView(boreholeLayer);
             }
@@ -269,7 +269,7 @@ public class BoreholeLayerMainViewController extends AbstractMainViewController<
         boreholeLayer.setSurveyPoint(currentState.getSurveyPoint());
         //todo переделать на первый ИГЭ из текущего проекта.
         // Это возможно приведет к изменению списков - где-то нужно автоматически сортировать
-        boreholeLayer.setEge(egesServise.getById(1L));
+        boreholeLayer.setEge(egeServise.getById(1L));
         boreholeLayer.setIsEditableFromEgeList(new SimpleBooleanProperty(NOT_EDITABLE_FROM_EGE_LIST));
         boreholeLayer.setIsEditableFromEgeListBasic(NOT_EDITABLE_FROM_EGE_LIST);
 

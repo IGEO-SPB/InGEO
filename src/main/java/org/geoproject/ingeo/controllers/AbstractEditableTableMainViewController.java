@@ -81,6 +81,10 @@ public abstract class AbstractEditableTableMainViewController<T, Y> {
 
     public void setObjectListForView() {
         objects = service.getByProject(currentState.getCurrentProject());
+
+        System.out.println("CHECK PROJECT IN ABSTRACT");
+        System.out.println(currentState.getCurrentProject());
+
         dtos = service.getDtos(objects);
 
         this.observableList = FXCollections.observableArrayList();

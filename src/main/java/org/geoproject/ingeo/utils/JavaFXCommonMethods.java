@@ -1,7 +1,13 @@
 package org.geoproject.ingeo.utils;
 
-import org.geoproject.ingeo.controllers.labor.functionalInterfaces.EntitiesUpdateable;
-import org.geoproject.ingeo.controllers.labor.functionalInterfaces.NewRowAddable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TablePosition;
+import org.geoproject.ingeo.controllers.functionalInterfaces.EntitiesUpdateable;
+import org.geoproject.ingeo.controllers.functionalInterfaces.NewRowAddable;
+import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
 import org.geoproject.ingeo.dto.methodDtos.WaterSampleResultDto;
@@ -13,6 +19,13 @@ import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.classificators.Pot;
 import org.geoproject.ingeo.models.classificators.Ring;
 import org.geoproject.ingeo.models.classificators.WeighingBottle;
+import org.geoproject.ingeo.models.classificators.kga.Color;
+import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
+import org.geoproject.ingeo.models.classificators.kga.SoilGroupType;
+import org.geoproject.ingeo.models.classificators.kga.SoilKindGroupType;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
+import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 import org.geoproject.ingeo.services.classificators.ClassificatorService;
 import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
@@ -55,12 +68,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.LongFunction;
 
 import static org.geoproject.ingeo.constants.JavaFXConstants.FLOAT_SPLIT_PATTERN;
 import static org.geoproject.ingeo.constants.JavaFXConstants.IS_FLOAT_VALUE_PATTERN;
 import static org.geoproject.ingeo.constants.JavaFXConstants.SINGLE_COLUMN_INDEX;
 import static org.geoproject.ingeo.constants.JavaFXConstants.SINGLE_ROW_COUNT;
 import static org.geoproject.ingeo.constants.JavaFXConstants.TEXTFIELD_NUMERIC_PATTERN;
+import static org.geoproject.ingeo.constants.ServiceConstants.ALERT_WINDOW_TITLE;
 import static org.geoproject.ingeo.constants.ServiceConstants.SCIENTIFIC_NOTATION_PATTERN;
 
 @Log4j2
@@ -210,7 +226,10 @@ public final class JavaFXCommonMethods {
                 super.setGraphic(this.textField);
                 super.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 
+                System.out.println("SET RUNNABLE:");
                 Platform.runLater(() -> {
+                    System.out.println("INSIDE RUNNABLE:");
+
                     this.textField.requestFocus();
                     this.textField.selectAll();
                 });
@@ -270,7 +289,6 @@ public final class JavaFXCommonMethods {
                 }
             }
 
-
             private String getString() {
                 return super.getItem() == null ? StringUtils.EMPTY : String.valueOf(super.getItem());
             }
@@ -282,7 +300,14 @@ public final class JavaFXCommonMethods {
 
                 this.textField.setOnKeyPressed(this::handleKeyEvent);
 
-                this.textField.focusedProperty().addListener((observable, oldValue, isFocused) -> this.handleFocusChange(isFocused));
+//                this.textField.focusedProperty().addListener((observable, oldValue, isFocused) -> this.handleFocusChange(isFocused));
+
+                textField.focusedProperty().addListener((arg0, arg1, arg2) -> {
+                    if (!arg2) {
+                        setText(textField.getText());
+                        commitEditOrConvert();
+                    }
+                });
             }
 
             private void handleKeyEvent(KeyEvent keyEvent) {
@@ -298,7 +323,8 @@ public final class JavaFXCommonMethods {
                     if ((observableList.get(0) instanceof AbstractClassificator ||
                             observableList.get(0) instanceof WaterSampleResultDto ||
                             observableList.get(0) instanceof WaterExtractPartialDto ||
-                            observableList.get(0) instanceof WaterExtractFullDto
+                            observableList.get(0) instanceof WaterExtractFullDto ||
+                            observableList.get(0) instanceof EgeDto
                     ) &&
                             observableList.size() == rowIndex + SINGLE_ROW_COUNT) {
                         if (Objects.nonNull(newRowAddable)) {
@@ -311,7 +337,10 @@ public final class JavaFXCommonMethods {
 
                 } else if (keyEvent.getCode() == KeyCode.TAB) {
                     log.info("TAB pressed");
+                    //!!!Желательно не называть колонки "number" кроме классификаторов
+                    //Если название содержит "number" надо добавить его в исключения
                     if (column.getId().toLowerCase().contains("number") &&
+                            !column.getId().equalsIgnoreCase("egenumber") &&
                             !column.getId().equalsIgnoreCase("labornumber") &&
                             !column.getId().equalsIgnoreCase("surveyPointNumber")) {
                         List<String> numbers = observableList.stream()
@@ -357,28 +386,43 @@ public final class JavaFXCommonMethods {
 
             private void commitEditOrConvert() {
 
+                System.out.println("1");
+
                 if (textField.getText().equals(StringUtils.EMPTY)) {
+                    System.out.println("2");
+
                     commitEdit(null);
                 }
 
                 try {
+                    System.out.println("3");
+                    System.out.println(textField.getText());
+//                    setEditing(Boolean.TRUE);
+//                    startEdit();
                     commitEdit((R) textField.getText());
                 } catch (ClassCastException e) {
                     try {
+                        System.out.println("4");
+
                         commitEdit((R) new FloatStringConverter().fromString(textField.getText()));
                     } catch (NumberFormatException exception) {
                         try {
+                            System.out.println("5");
+
                             commitEdit((R) Boolean.valueOf(textField.getText()));
                         } catch (ClassCastException e1) {
 
                             if (textField.getText().matches(".*[-\\.].*[-\\.].*")) {
                                 log.info("This is date!!!");
                                 try {
+                                    System.out.println("6");
+
                                     String[] split = textField.getText().split("-");
                                     commitEdit((R) LocalDate.of(Integer.parseInt(split[0]),
                                             Integer.parseInt(split[1]),
                                             Integer.parseInt(split[2])));
                                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException e2) {
+                                    System.out.println("7");
 
                                     String[] split = textField.getText().split("\\.");
                                     commitEdit((R) LocalDate.of(Integer.parseInt(split[2]),
@@ -387,11 +431,15 @@ public final class JavaFXCommonMethods {
                                 }
                             }
                             else if (textField.getText().matches(".*[,\\.].*")) {
+                                System.out.println("8");
+
                                 var text = textField.getText().replace(',', '.');
 
                                 commitEdit((R) new FloatStringConverter().fromString(text));
                             }
                             else {
+                                System.out.println("9");
+
                                 throw new UnpredictableException("JavaFXCommonMethods - private commitEditOrConvert() - string 388");
                             }
 //                            commitEdit((R) textField.getText());
@@ -400,13 +448,35 @@ public final class JavaFXCommonMethods {
                 }
             }
 
-            private void handleFocusChange(Boolean isFocused) {
-                if (isFocused) {
-                    Platform.runLater(textField::selectAll);
-                } else if (!isFocused && textField != null) {
-                    commitEditOrConvert();
+            @Override
+            public void commitEdit(R item) {
+
+                if (isEditing()) {
+                    super.commitEdit(item);
+                } else {
+                    final TableView table = getTableView();
+                    if (table != null) {
+                        TablePosition position = new TablePosition(getTableView(), getTableRow().getIndex(), getTableColumn());
+                        TableColumn.CellEditEvent editEvent = new TableColumn.CellEditEvent(table, position, TableColumn.editCommitEvent(), item);
+
+                        Event.fireEvent(getTableColumn(), editEvent);
+                    }
+                    updateItem(item, false);
+
+                    if (table != null) {
+                        table.edit(-1, null);
+                    }
+
                 }
             }
+
+//            private void handleFocusChange(Boolean isFocused) {
+//                if (isFocused) {
+//                    Platform.runLater(textField::selectAll);
+//                } else if (!isFocused && textField != null) {
+//                    commitEditOrConvert();
+//                }
+//            }
 
             private TableColumn<Y, ?> getNextColumn(Boolean forward) {
                 List<TableColumn<Y, ?>> columns = getEditableColumns();
@@ -657,8 +727,9 @@ public final class JavaFXCommonMethods {
 
                         TextField numberTextField = (TextField) currentScene.lookup(numberTextFieldId);
 
-
+                        System.out.println("SET RUNNABLE:");
                         Platform.runLater(() -> {
+                        System.out.println("INSIDE RUNNABLE:");
 //                            textField.clear();
 //                        numberTextField.setText(StringUtils.EMPTY);
                             numberTextField.clear();
@@ -820,6 +891,50 @@ public final class JavaFXCommonMethods {
 
         allTextFieldMap.keySet().forEach(textField ->
                 JavaFXCommonMethods.addListenerOnTextField(textField, classificatorService, entitiesUpdateable));
+    }
+
+    public static <E> void setConverterForChoiceBox(ChoiceBox<E> choiceBox, LongFunction<SoilGroupType> getSoilGroupType) {
+        choiceBox.setConverter(new StringConverter<E>() {
+            @Override
+            public String toString(E object) {
+
+                if (Objects.isNull(object)) {
+                    return StringUtils.EMPTY;
+                }
+
+                if (object instanceof SoilClass soilClass) {
+                    return soilClass.getScName();
+                } else if (object instanceof SoilClassKindGroup soilClassKindGroup) {
+                    return soilClassKindGroup.getSoilKindGroup();
+                } else if (object instanceof SoilKindGroupType soilKindGroupType) {
+                    var soilGroupTypeId = soilKindGroupType.getSoilGroupType().getId();
+                    var soilKindGroupTypeName = getSoilGroupType.apply(soilGroupTypeId);
+
+                    return soilKindGroupTypeName.getGtName();
+                } else if (object instanceof SoilSubkind soilSubkind) {
+                    return soilSubkind.getSsDescr();
+                } else if (object instanceof SoilSubkindAdj soilSubkindAdj) {
+                    return soilSubkindAdj.getSsaDescr();
+                } else if (object instanceof Color color) {
+                    return color.getCltName();
+                }
+
+                return StringUtils.EMPTY;
+            }
+
+            @Override
+            public E fromString(String string) {
+                return null;
+            }
+        });
+    }
+
+    public static void initAlert(String message) {
+        var alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(ALERT_WINDOW_TITLE);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
 

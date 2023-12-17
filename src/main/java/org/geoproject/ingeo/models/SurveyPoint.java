@@ -135,4 +135,14 @@ public class SurveyPoint {
     public SurveyPoint(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "SurveyPoint{" +
+                "id=" + id +
+                ", project=" + project +
+                ", surveyPointsType=" + surveyPointsType +
+                ", pointNumber='" + pointNumber + '\'' +
+                '}';
+    }
 }

@@ -54,6 +54,10 @@ public class SoilClass {
 
     @OneToMany
     @JoinColumn(name = "soil_class_id")
+    private List<SoilClassKindGroup> soilClassKindGroups;
+
+    @OneToMany
+    @JoinColumn(name = "soil_class_id")
     private List<Ege> egeList;
 
 }

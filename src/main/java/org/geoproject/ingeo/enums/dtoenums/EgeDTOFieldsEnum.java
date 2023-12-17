@@ -8,18 +8,20 @@ import java.util.Arrays;
 @Getter
 @RequiredArgsConstructor
 public enum EgeDTOFieldsEnum {
-        NUMBER("number"),
+        EGE_NUMBER("egeNumber"),
         CODE_NUMBER("codeNumber"),
         SHORT_NAME("shortName"),
-        GENESIS_CODE("genesisCode"),
+        GENESIS("genesis"),
+//        GENESIS_CODE("genesisCode"),
         GENESIS_DESCRIPTION("genesisDescription"),
-        SOIL_KIND_ENUM("soilKindEnum"),
+//        SOIL_KIND_ENUM("soilKindEnum"),
         DESCRIPTION_CREDO_FORMULAR("descriptionCredoFormular"),
         DESCRIPTION_KGA("descriptionKga"),
         DESCRIPTION_FOR_ORGANISATION("descriptionForOrganisation"),
-        HATCHING_NAME_CREDO_AUTOCAD("hatchingNameCredoAutocad"),
+        HATCHING("hatching"),
         CONSISTENCY("consistency"),
-        COLOR("color");
+//        COLOR("color")
+        ;
 
         private final String name;
 

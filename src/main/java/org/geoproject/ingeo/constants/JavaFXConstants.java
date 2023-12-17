@@ -42,6 +42,12 @@ public class JavaFXConstants {
     public static final String DEPTH_TO_COLUMN = "depthTo";
     public static final String SAMPLING_DATE_COLUMN = "samplingDate";
 
+    public static final String GENESIS_COLUMN = "genesis";
+    public static final String DESCRIPTION_KGA_COLUMN = "descriptionKga";
+    public static final String GENESIS_DESCRIPTION_COLUMN = "genesisDescription";
+    public static final String HATCHING_COLUMN = "hatching";
+    public static final String CONSISTENCY_COLUMN = "consistency";
+
     public static final String KD_COLUMN = "kd";
     public static final String IS_EXCLUDED = "isExcluded";
 

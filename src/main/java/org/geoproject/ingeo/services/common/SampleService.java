@@ -17,11 +17,8 @@ public interface SampleService extends MainViewService<Sample, SampleDto> {
     @Override
     Sample getById(Long id);
 
-    @Override
-    Sample getBySample(Sample sample);
-
-    @Override
-    void create(SampleDto object);
+//    @Override
+//    void create(SampleDto object);
 
     @Override
     void create(List<Sample> objectList);
@@ -48,8 +45,26 @@ public interface SampleService extends MainViewService<Sample, SampleDto> {
     void delete(SampleDto object);
 
     @Override
+    default void deleteByDto(SampleDto dto) {
+
+    }
+
+    @Override
     List<SampleDto> getDtos(List<Sample> objects);
 
     @Override
     void updateFromDtos(List<Sample> objects, List<SampleDto> dtos);
+
+    @Override
+    default void updateFromDtos(List<SampleDto> dtos) {
+
+    }
+
+    @Override
+    default List<SampleDto> getDtosByProject(Project project) {
+        return null;
+    }
+
+    @Override
+    SampleDto cloneDto(SampleDto egeDto);
 }

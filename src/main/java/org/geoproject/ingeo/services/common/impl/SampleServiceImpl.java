@@ -2,6 +2,7 @@ package org.geoproject.ingeo.services.common.impl;
 
 import org.geoproject.ingeo.dto.SampleDto;
 import org.geoproject.ingeo.exceptions.ConflictException;
+import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotImplemented;
 import org.geoproject.ingeo.mapper.SampleMapper;
 import org.geoproject.ingeo.models.Project;
@@ -36,21 +37,16 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public Sample getById(Long id) {
-        return null;
+        throw new NotImplementedException("getById метод не реализован");
     }
 
-    @Override
-    public Sample getBySample(Sample sample) {
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public void create(SampleDto dto) {
-        Sample newSample = sampleMapper.sampleDtoToSample(dto);
-        
-        samplesRepository.save(newSample);
-    }
+//    @Override
+//    @Transactional
+//    public void create(SampleDto dto) {
+//        Sample newSample = sampleMapper.sampleDtoToSample(dto);
+//
+//        samplesRepository.save(newSample);
+//    }
 
     @Override
     @Transactional
@@ -89,7 +85,7 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public Sample getBySurveyPointAndLaborNumber(String laborNumber) {
-        return null;
+        throw new NotImplementedException("getBySurveyPointAndLaborNumber метод не реализован");
     }
 
     @Override
@@ -111,6 +107,11 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
+    public void deleteByDto(SampleDto dto) {
+
+    }
+
+    @Override
     public List<SampleDto> getDtos(List<Sample> objects) {
         throw new NotImplementedException("getDtos метод не реализован");
     }
@@ -118,5 +119,20 @@ public class SampleServiceImpl implements SampleService {
     @Override
     public void updateFromDtos(List<Sample> objects, List<SampleDto> dtos) {
         throw new NotImplemented("updateFromDtos not implemented");
+    }
+
+    @Override
+    public void updateFromDtos(List<SampleDto> dtos) {
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("updateFromDtos"));
+    }
+
+    @Override
+    public List<SampleDto> getDtosByProject(Project project) {
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("getDtosByProject"));
+    }
+
+    @Override
+    public SampleDto cloneDto(SampleDto egeDto) {
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("cloneDto"));
     }
 }
