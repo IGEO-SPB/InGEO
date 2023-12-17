@@ -4,14 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 import org.geoproject.ingeo.enums.ViewsEnum;
-import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.services.MainViewService;
 import org.geoproject.ingeo.utils.CurrentState;
 import org.geoproject.ingeo.utils.JavaFXCommonMethods;
@@ -26,43 +23,30 @@ import java.util.Map;
 
 @Component
 @Log4j2
-public abstract class NewAbstractMainViewController<T, Y> {
+public abstract class NewAbstractStaticTableController<T, Y> {
     protected final ConfigurableApplicationContext applicationContext;
     protected final MainViewService<T, Y> service;
     protected final CurrentState currentState;
 
     protected ObservableList<Y> observableDtoList;
-//    List<T> newObjectList;
-//    List<T> updatedObjectList;
-//    List<T> deletedObjectList;
 
     protected List<Y> dtos;
-
-    Scene scene;
-    Stage stage;
 
     @FXML
     protected TableView<Y> tableView;
     public Map<String, TableColumn<Y, ?>> columnsMap;
 
-
     protected @FXML Label projectNameInFooter;
     protected @FXML Label projectCipherInFooter;
 
-
-    public NewAbstractMainViewController(CurrentState currentState, ConfigurableApplicationContext applicationContext,
-                                         MainViewService<T, Y> service) {
+    public NewAbstractStaticTableController(CurrentState currentState, ConfigurableApplicationContext applicationContext,
+                                            MainViewService<T, Y> service) {
         this.applicationContext = applicationContext;
         this.service = service;
         this.currentState = currentState;
-
-//        this.newObjectList = new ArrayList<>();
-//        this.updatedObjectList = new ArrayList<>();
-//        this.deletedObjectList = new ArrayList<>();
     }
 
     public void init() {
-
         setObjectListForView();
 
         setTableViewSettings();
@@ -84,60 +68,15 @@ public abstract class NewAbstractMainViewController<T, Y> {
 
     public abstract void sortObservableDtoList(List<Y> dtos);
 
-//    public void addNewObjectAtListForView(T object) {
-//        this.objectListForView.add(object);
-//        this.newObjectList.add(object);
-//
-//        showAllObjectsInCurrentProject();
-//    }
-
-//    public void updateObjectInListForView(T object) {
-//        T updatedObject = objectListForView
-//                .stream()
-//                .filter(e -> e.equals(object))
-//                .findFirst()
-//                .orElseThrow(() -> new NotFoundException("Такого объекта нет в списке для представления"));
-//
-//        if (newObjectList.contains(updatedObject)) {
-//            newObjectList.remove(updatedObject);
-//            newObjectList.add(object);
-//        } else {
-//            updatedObjectList.remove(updatedObject);
-//            updatedObjectList.add(object);
-//        }
-//
-//        objectListForView.remove(updatedObject);
-//        objectListForView.add(object);
-//
-//        showAllObjectsInCurrentProject();
-//    }
-
-//    public abstract void showAllObjectsInCurrentProject();
-
     public void onSaveAllObjectsButtonClicked() {
         log.info("Abstract method 'onSaveAllObjectsButtonClicked()' inited...");
-//        service.create(updatedObjectList);
-//        service.create(newObjectList);
-//        service.delete(deletedObjectList);
-//        updatedObjectList.clear();
-//        newObjectList.clear();
-//        deletedObjectList.clear();
-//        List<T> objectList = setObjectListForObjectListForView();
-//
-//        setObjectListForView(objectList);
-//        showAllObjectsInCurrentProject();
-
-//        dtos = tableView.getItems();
 
         service.updateFromDtos(dtos);
 
         setObjectListForView();
 
         tableView.refresh();
-
     }
-
-
 
     public void onDeleteRowButtonClicked() {
         log.info("Abstract method 'onDeleteRowButtonClicked()' inited...");
@@ -154,7 +93,6 @@ public abstract class NewAbstractMainViewController<T, Y> {
 
         service.deleteByDto(object);
     }
-
 
     public void setTableViewSettings() {
         tableView.setEditable(true);

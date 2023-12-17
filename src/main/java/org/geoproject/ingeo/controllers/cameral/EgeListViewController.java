@@ -8,7 +8,7 @@ import javafx.scene.control.TableCell;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.apache.commons.lang.StringUtils;
-import org.geoproject.ingeo.controllers.NewAbstractMainViewController;
+import org.geoproject.ingeo.controllers.NewAbstractStaticTableController;
 import org.geoproject.ingeo.controllers.functionalInterfaces.Description;
 import org.geoproject.ingeo.controllers.functionalInterfaces.GetComboBoxValue;
 import org.geoproject.ingeo.controllers.functionalInterfaces.Refreshable;
@@ -64,7 +64,7 @@ import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Log4j2
 @Component
-public class EgeListViewController extends NewAbstractMainViewController<Ege, EgeDto> implements Initializable {
+public class EgeListViewController extends NewAbstractStaticTableController<Ege, EgeDto> implements Initializable {
 
     private final GenesisService genesisService;
     private final HatchingService hatchingService;
@@ -147,10 +147,9 @@ public class EgeListViewController extends NewAbstractMainViewController<Ege, Eg
         });
 
         columnsMap.forEach((columnName, column) ->
-                column.setOnEditCommit(event -> {
+                column.setOnEditCommit(event ->
                             event.getRowValue()
-                                    .setFieldValue(EgeDTOFieldsEnum.getEnumByName(columnName), event.getNewValue());
-                        }
+                                    .setFieldValue(EgeDTOFieldsEnum.getEnumByName(columnName), event.getNewValue())
                 ));
 
         ((TableColumn<EgeDto, String>) columnsMap.get(GENESIS_DESCRIPTION_COLUMN)).setCellValueFactory(data -> {
