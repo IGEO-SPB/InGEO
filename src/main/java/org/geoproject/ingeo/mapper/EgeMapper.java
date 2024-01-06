@@ -2,29 +2,29 @@ package org.geoproject.ingeo.mapper;
 
 import org.geoproject.ingeo.config.MapStructConfiguration;
 import org.geoproject.ingeo.dto.DescriptionKgaDto;
-import org.geoproject.ingeo.dto.SurveyPointDTO;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
-import org.geoproject.ingeo.dto.methodDtos.DensityDTO;
+import org.geoproject.ingeo.mapper.classificators.kga.ColorMapper;
+import org.geoproject.ingeo.mapper.classificators.kga.SoilClassKindGroupMapper;
+import org.geoproject.ingeo.mapper.classificators.kga.SoilClassMapper;
+import org.geoproject.ingeo.mapper.classificators.kga.SoilKindMapper;
 import org.geoproject.ingeo.mapper.qualifier.EgeMapperQualifier;
-import org.geoproject.ingeo.mapper.qualifier.ShearMapperQualifier;
 import org.geoproject.ingeo.models.Ege;
-import org.geoproject.ingeo.models.SurveyPoint;
-import org.geoproject.ingeo.models.classificators.kga.SoilClass;
-import org.geoproject.ingeo.models.classificators.kga.SoilKind;
-import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
-import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Mapper(config = MapStructConfiguration.class,
-        uses = {EgeMapperQualifier.class}
+        uses = {EgeMapperQualifier.class,
+                SoilClassMapper.class,
+                SoilClassKindGroupMapper.class,
+                SoilKindMapper.class,
+                ColorMapper.class
+        }
 )
 public interface EgeMapper {
 
@@ -70,16 +70,26 @@ public interface EgeMapper {
 //    @Mapping(target = "ssa12", source = "ege.ssa12", qualifiedByName = {"EgeMapperQualifier", "getSoilSubkindAdjById"})
 
     @Mapping(target = "egeId", source = "ege.id")
+    @Mapping(target = "boreholeLayerId", ignore = true)
     @Mapping(target = "soilSubkindMap", ignore = true)
     @Mapping(target = "soilSubkindAdjMap", ignore = true)
+
+    @Mapping(target = "soilClassDto", source = "ege.soilClass")
+    @Mapping(target = "soilClassKindGroupDto", source = "ege.soilClassKindGroup")
+    @Mapping(target = "soilKindDto", source = "ege.soilKind")
+    @Mapping(target = "colorDto", source = "ege.color")
     DescriptionKgaDto egeToDescriptionKgaDto(Ege ege);
 
     default void updateEge(@MappingTarget Ege ege, DescriptionKgaDto descriptionKgaDto) {
 //        ege.set
 
-        ege.setSoilClass(descriptionKgaDto.getSoilClass());
-        ege.setSoilClassKindGroup(descriptionKgaDto.getSoilClassKindGroup());
-        ege.setSoilKind(descriptionKgaDto.getSoilKind());
+//        Mappers.getMapper(SoilClassMapper.class).soilClassDtoToSoilClass(descriptionKgaDto.getSoilClassDto());
+
+//        ege.setSoilClass(descriptionKgaDto.getSoilClass());
+//        ege.setSoilClassKindGroup(descriptionKgaDto.getSoilClassKindGroup());
+//        ege.setSoilKind(descriptionKgaDto.getSoilKind());
+
+        ege.setDescriptionKga(descriptionKgaDto.getDescriptionKga());
 
 //        ege.setSS1(descriptionKgaDto.getSoilSubkindMap().get("SS1").getId());
 
@@ -128,7 +138,7 @@ public interface EgeMapper {
 //    private SoilSubkind SS20;
 
 
-        ege.setColor(descriptionKgaDto.getColor());
+//        ege.setColor(descriptionKgaDto.getColor());
 
         descriptionKgaDto.getSoilSubkindAdjMap().forEach((key, value) -> {
             if (Objects.nonNull(value)) {

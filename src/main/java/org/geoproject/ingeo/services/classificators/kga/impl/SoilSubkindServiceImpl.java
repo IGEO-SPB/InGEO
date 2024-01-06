@@ -1,6 +1,8 @@
 package org.geoproject.ingeo.services.classificators.kga.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.geoproject.ingeo.dto.classificators.kga.SoilSubkindDto;
+import org.geoproject.ingeo.mapper.classificators.kga.SoilSubkindMapper;
 import org.geoproject.ingeo.models.classificators.kga.SoilKindGroupType;
 import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
 import org.geoproject.ingeo.repositories.classificators.kga.SoilSubkindRepository;
@@ -14,9 +16,12 @@ import java.util.List;
 public class SoilSubkindServiceImpl implements SoilSubkindService {
 
     private final SoilSubkindRepository soilSubkindRepository;
+    private final SoilSubkindMapper soilSubkindMapper;
 
     @Override
-    public List<SoilSubkind> getBySoilKindGroupType(SoilKindGroupType soilKindGroupType) {
-        return soilSubkindRepository.findAllBySoilKindGroupType(soilKindGroupType);
+    public List<SoilSubkindDto> getBySoilKindGroupTypeId(Long soilKindGroupTypeId) {
+        var soilSubkinds = soilSubkindRepository.findAllBySoilKindGroupTypeId(soilKindGroupTypeId);
+
+        return soilSubkindMapper.soilSubkindToSoilSubkindDto(soilSubkinds);
     }
 }

@@ -16,6 +16,7 @@ public enum ViewsEnum {
     CAMERAL_MODULE_MAIN_VIEW("cameral/cameral-module-main-view.fxml", "Cameral module"),
     EGE_LIST_VIEW("cameral/ege-list-view.fxml", "Ege list"),
     SOIL_KIND_CHOICE_VIEW("cameral/soil-kind-choice-view.fxml", "Soil kind choice"),
+    BOREHOLE_LAYER_SOIL_KIND_CHOICE_VIEW("cameral/borehole-layer-soil-kind-choice-view.fxml", "Классификатор КГА в послойном описании"),
 
     WEIGHING_BOTTLES_VIEW("modalWindows/weighing-bottles-view.fxml", "weighing bottles view"),
     RINGS_VIEW("modalWindows/rings-view.fxml", "rings view"),

@@ -55,6 +55,9 @@ public final class ServiceConstants {
     public static final String NO_PROJECTS_SERVICE_MESSAGE = "Проектов не существует";
     public static final String NO_SURVEY_POINTS_SERVICE_MESSAGE = "Точек исследования не существует";
     public static final String HAVE_TO_SAVE_CHOSEN_EGE_SERVICE_MESSAGE = "Сохраните выбранный ИГЭ";
+    public static final String HAVE_TO_SAVE_CHOSEN_BOREHOLE_LAYER_SERVICE_MESSAGE = "Сохраните выбранный слой";
+    public static final String ALL_SLOTS_IN_SOIL_SUBKIND_LIST_ARE_USED_SERVICE_MESSAGE = "Все слоты для типов группы заполнены. Удалите любое значение";
+    public static final String ROW_IN_SOIL_SUBKIND_LIST_NOT_CHOSEN_SERVICE_MESSAGE = "Не выбрана строка в списке типов групп";
 
     public static final String CHOICE_BUTTON_TEXT = "Выбрать";
     public static final String ALERT_WINDOW_TITLE = "!!!";

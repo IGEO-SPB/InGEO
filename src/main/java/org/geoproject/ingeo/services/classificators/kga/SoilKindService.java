@@ -11,7 +11,7 @@ public interface SoilKindService {
 
     List<SoilKind> getBySoilClass(SoilClass soilClass);
 
-    List<SoilKindDto> getDtos(SoilClassKindGroup currentSoilKindGroupChoiceBox);
+    List<SoilKindDto> getDtos(Long currentSoilKindGroupId);
 
     SoilKind getById(Long id);
 }

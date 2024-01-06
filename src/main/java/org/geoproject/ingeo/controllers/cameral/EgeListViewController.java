@@ -5,9 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.apache.commons.lang.StringUtils;
+import org.controlsfx.control.SearchableComboBox;
 import org.geoproject.ingeo.controllers.NewAbstractStaticTableController;
 import org.geoproject.ingeo.controllers.functionalInterfaces.Description;
 import org.geoproject.ingeo.controllers.functionalInterfaces.GetComboBoxValue;
@@ -21,7 +23,7 @@ import org.geoproject.ingeo.dto.classificators.GenesisDto;
 import org.geoproject.ingeo.dto.classificators.HatchingDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.enums.ViewsEnum;
-import org.geoproject.ingeo.enums.dtoenums.EgeDTOFieldsEnum;
+import org.geoproject.ingeo.enums.dtoenums.EgeDtoFieldsEnum;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.services.classificators.ConsistencyService;
 import org.geoproject.ingeo.services.classificators.GenesisService;
@@ -81,7 +83,7 @@ public class EgeListViewController extends NewAbstractStaticTableController<Ege,
     @FXML
     TableColumn<EgeDto, ComboBox<ConsistencyDto>> consistency = new TableColumn<>();
     @FXML
-    TableColumn<EgeDto, ComboBox<HatchingDto>> hatching = new TableColumn<>();
+    TableColumn<EgeDto, SearchableComboBox<HatchingDto>> hatching = new TableColumn<>();
 
     @FXML
     ChoiceBox<EgeDto> egeNumberChoiceBox;
@@ -120,53 +122,77 @@ public class EgeListViewController extends NewAbstractStaticTableController<Ege,
     }
 
     @Override
-    public void setCellsFormat() {
-        tableView.setEditable(true);
-        tableView.getSelectionModel().setCellSelectionEnabled(false);
+    public void setCellFactory(List<String> excludeColumnNameList) {
+        columnsMap.values().forEach(column -> {
+            JavaFXCommonMethods.setCellFactory(column, tableView, observableDtoList,
+                    null, excludeColumnNameList);
+        });
+    }
 
-        //список для колонок с нестандартным поведением - например, choicebox.
-        // Обязательно заполнять!
-        var excludeColumnNameList = new ArrayList<>(Arrays.asList(
+
+    @Override
+    public List<String> getExcludeColumnNameList() {
+        return new ArrayList<>(Arrays.asList(
                 GENESIS_COLUMN,
                 DESCRIPTION_KGA_COLUMN,
                 GENESIS_DESCRIPTION_COLUMN,
                 HATCHING_COLUMN,
                 CONSISTENCY_COLUMN
         ));
+    }
 
-        columnsMap.values().forEach(e -> JavaFXCommonMethods.setCellFactory(e, tableView, observableDtoList,
-                null, excludeColumnNameList));
+    @Override
+    public void setTableViewCheckBoxes() {
+    }
 
+    @Override
+    public void setTableViewChoiceBoxes() {
         columnsMap.forEach((columnName, column) -> {
             switch (columnName) {
                 case GENESIS_COLUMN -> setGenesisChoiceBox();
                 case CONSISTENCY_COLUMN -> setConsistencyChoiceBox();
                 case HATCHING_COLUMN -> setHatchingChoiceBox();
-                default -> column.setCellValueFactory(new PropertyValueFactory<>(columnName));
             }
         });
+    }
 
+    @Override
+    public void mapDtosAndTableView() {
         columnsMap.forEach((columnName, column) ->
                 column.setOnEditCommit(event ->
                             event.getRowValue()
-                                    .setFieldValue(EgeDTOFieldsEnum.getEnumByName(columnName), event.getNewValue())
+                                    .setFieldValue(EgeDtoFieldsEnum.getEnumByName(columnName), event.getNewValue())
                 ));
 
+        columnsMap.forEach((columnName, column) -> {
+            if (!Objects.equals(columnName, GENESIS_COLUMN) &&
+                    !Objects.equals(columnName, GENESIS_DESCRIPTION_COLUMN) &&
+                    !Objects.equals(columnName, HATCHING_COLUMN) &&
+                    !Objects.equals(columnName, CONSISTENCY_COLUMN)
+            ) {
+                column.setCellValueFactory(new PropertyValueFactory<>(columnName));
+            }
+        });
+
+        setCellValueFactoryForGenesisDescription();
+    }
+
+    private void setCellValueFactoryForGenesisDescription() {
         ((TableColumn<EgeDto, String>) columnsMap.get(GENESIS_DESCRIPTION_COLUMN)).setCellValueFactory(data -> {
             var genesisDescription = StringUtils.EMPTY;
 
-            if (Objects.nonNull(data.getValue().getGenesisDto())) {
-                genesisDescription = data.getValue().getGenesisDto().getGenesisDescription();
+            var rowValue = data.getValue();
+
+            if (Objects.nonNull(rowValue.getGenesisDto())) {
+                genesisDescription = rowValue.getGenesisDto().getGenesisDescription();
             }
 
             return new SimpleStringProperty(genesisDescription);
         });
-
-        tableView.setItems(observableDtoList);
     }
 
     public void setGenesisChoiceBox() {
-        var genesisDtoList = genesisService.getEgeDtos();
+        var genesisDtoList = genesisService.getGenesisDtos();
         genesisDtoObservableList.clear();
         genesisDtoObservableList.addAll(genesisDtoList);
 
@@ -197,11 +223,11 @@ public class EgeListViewController extends NewAbstractStaticTableController<Ege,
         GetComboBoxValue<EgeDto, HatchingDto> getComboBoxValue = EgeDto::getHatchingDto;
         Settable<EgeDto, HatchingDto> settable = EgeDto::setHatchingDto;
 
-        Callback<TableColumn<EgeDto, ComboBox<HatchingDto>>, TableCell<EgeDto, ComboBox<HatchingDto>>> cellFactory =
+        Callback<TableColumn<EgeDto, SearchableComboBox<HatchingDto>>, TableCell<EgeDto, SearchableComboBox<HatchingDto>>> cellFactory =
                 hatchingColumn -> new CustomSearchableComboBoxTableCell<>(
-                        hatchingDtoObservableList,
-                        hatchingColumn,
                         observableDtoList,
+                        hatchingColumn,
+                        hatchingDtoObservableList,
                         COMBOBOX_LAST_COLUMN_PIXEL_GAP,
                         description,
                         getComboBoxValue,
@@ -322,7 +348,12 @@ public class EgeListViewController extends NewAbstractStaticTableController<Ege,
             } else {
                 childController.passEge(egeDto);
 
-                Refreshable refreshTable = () -> tableView.refresh();
+//                Refreshable refreshTable = () -> tableView.refresh();
+                Refreshable refreshTable = () -> {
+                    observableDtoList.clear();
+                    observableDtoList.addAll(dtos);
+                    tableView.setItems(observableDtoList);
+                };
 
                 childController.passTableRefreshLambda(refreshTable);
 
@@ -383,9 +414,9 @@ public class EgeListViewController extends NewAbstractStaticTableController<Ege,
                     dtos.remove(selectedIndex);
                 }
 
-            for (int i = 0; i < observableDtoList.size(); i++) {
-                dtos.get(i).setCodeNumber(i + SINGLE_CODE_NUMBER);
-            }
+                for (int i = 0; i < observableDtoList.size(); i++) {
+                    dtos.get(i).setCodeNumber(i + SINGLE_CODE_NUMBER);
+                }
 
                 observableDtoList.clear();
                 observableDtoList.addAll(dtos);
@@ -434,7 +465,7 @@ public class EgeListViewController extends NewAbstractStaticTableController<Ege,
     }
 
     @FXML
-    public void onPumpButtonClicked(){
+    public void onPumpButtonClicked() {
         log.info("Нажата кнопка смены экрана на окно Колонка...");
     }
 

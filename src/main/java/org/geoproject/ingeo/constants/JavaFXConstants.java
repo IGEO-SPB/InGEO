@@ -12,6 +12,8 @@ public class JavaFXConstants {
 
     public static final Integer SINGLE_CLICK_COUNT = 1;
 
+    public static final Float ZERO_FLOAT_VALUE = 0F;
+
     public static final String IS_FLOAT_VALUE_PATTERN = "\\d+.0$";
     public static final String FLOAT_SPLIT_PATTERN = ".0$";
     public static final String FLOAT_ROUND_VIEW_PATTERN = "%.2f";
@@ -32,6 +34,8 @@ public class JavaFXConstants {
     public static final String WATER_SAMPLE_PROPERTY_CHOICE_BOX_VALUE = "Выбрать";
 
 
+    public static final String SURVEY_POINT_CHOICE_BOX = "surveyPointChoiceBox";
+    public static final String SURVEY_POINT_NUMBER_CHOICE_BOX = "surveyPointNumberChoiceBox";
 
     // tableview
 
@@ -47,6 +51,20 @@ public class JavaFXConstants {
     public static final String GENESIS_DESCRIPTION_COLUMN = "genesisDescription";
     public static final String HATCHING_COLUMN = "hatching";
     public static final String CONSISTENCY_COLUMN = "consistency";
+    public static final String IS_EDITABLE_FROM_EGE_LIST = "isEditableFromEgeList";
+
+    public static final String ABSOLUTE_TOP_MARK_COLUMN = "absoluteTopMark";
+    public static final String LAYER_POWER_COLUMN = "layerPower";
+    public static final String LAYER_TOP_DEPTH_COLUMN = "layerTopDepth";
+    public static final String FIRST_LAYER_TOP_COLUMN = "firstLayerTop";
+
+
+    public static final String EGE_COLUMN = "ege";
+    public static final String SHORT_NAME_COLUMN = "shortName";
+    public static final String FIRST_LAYER_CONSISTENCY_COLUMN = "firstLayerConsistency";
+    public static final String SECOND_LAYER_CONSISTENCY_COLUMN = "secondLayerConsistency";
+    public static final String COLOR_COLUMN = "color";
+    public static final String LAYER_BOTTOM_DEPTH_COLUMN = "layerBottomDepth";
 
     public static final String KD_COLUMN = "kd";
     public static final String IS_EXCLUDED = "isExcluded";

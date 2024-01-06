@@ -2,6 +2,12 @@ package org.geoproject.ingeo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.geoproject.ingeo.dto.classificators.kga.ColorDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilClassDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilClassKindGroupDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilKindDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilSubkindAdjDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilSubkindDto;
 import org.geoproject.ingeo.models.classificators.kga.Color;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
@@ -20,14 +26,16 @@ import java.util.Map;
 public class DescriptionKgaDto {
 
     private Long egeId;
+    private Long boreholeLayerId;
 
     private String shortName;
 
-    private SoilClass soilClass;
+    private SoilClassDto soilClassDto;
 
-    private SoilClassKindGroup soilClassKindGroup;
+    private SoilClassKindGroupDto soilClassKindGroupDto;
 
-    private SoilKind soilKind;
+//    private SoilKind soilKind;
+    private SoilKindDto soilKindDto;
 
 //    private SoilKindGroupType soilKindGroupType;
 
@@ -52,9 +60,10 @@ public class DescriptionKgaDto {
 //    private SoilSubkind SS19;
 //    private SoilSubkind SS20;
 
-    private Map<String, SoilSubkind> soilSubkindMap;
+//    private Map<String, SoilSubkind> soilSubkindMap;
+    private Map<String, SoilSubkindDto> soilSubkindMap;
 
-    private Color color;
+    private ColorDto colorDto;
 
 //    private SoilSubkindAdj ssa1;
 //    private SoilSubkindAdj ssa2;
@@ -69,7 +78,8 @@ public class DescriptionKgaDto {
 //    private SoilSubkindAdj ssa11;
 //    private SoilSubkindAdj ssa12;
 
-    private Map<String, SoilSubkindAdj> soilSubkindAdjMap;
+//    private Map<String, SoilSubkindAdj> soilSubkindAdjMap;
+    private Map<String, SoilSubkindAdjDto> soilSubkindAdjMap;
 
     private Float waterDepth;
 

@@ -218,7 +218,7 @@ public class Ege {
     private SoilClassKindGroup soilClassKindGroup;
 
     @ManyToOne
-    @JoinColumn(name = "color")
+    @JoinColumn(name = "color_id")
     private Color color;
 
     //  След.два поля назначение пока не ясно, связаны с формуляром:

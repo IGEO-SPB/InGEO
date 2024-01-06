@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface SoilClassKindGroupRepository extends JpaRepository<SoilClassKindGroup, Long> {
 
-    List<SoilClassKindGroup> findBySoilClass(SoilClass soilClass, Sort sort);
+    List<SoilClassKindGroup> findBySoilClassId(Long soilClassId, Sort sort);
 }

@@ -35,5 +35,9 @@ public interface MainViewService<T, Y> {
 
     List<Y> getDtosByProject(Project project);
 
+    List<Y> getDtosBySurveyPointId(Long surveyPointId);
+
     Y cloneDto(Y egeDto);
+
+    void enrichEntity(Long updatedEntityId, Long sourceEntityId);
 }

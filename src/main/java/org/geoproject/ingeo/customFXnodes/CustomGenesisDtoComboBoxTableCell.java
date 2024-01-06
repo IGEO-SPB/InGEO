@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.effect.Glow;
 import javafx.util.StringConverter;
 import org.apache.commons.lang.StringUtils;
 import org.geoproject.ingeo.dto.classificators.GenesisDto;

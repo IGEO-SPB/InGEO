@@ -1,14 +1,13 @@
 package org.geoproject.ingeo.services.common.impl;
 
-import org.geoproject.ingeo.dto.SurveyPointDTO;
+import org.geoproject.ingeo.dto.SurveyPointDto;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.exceptions.NotImplemented;
 import org.geoproject.ingeo.mapper.SurveyPointMapper;
 import org.geoproject.ingeo.models.Project;
-import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
-import org.geoproject.ingeo.repositories.SurveyPointsRepository;
+import org.geoproject.ingeo.repositories.SurveyPointRepository;
 import org.geoproject.ingeo.services.common.SurveyPointsService;
 import org.geoproject.ingeo.utils.CurrentState;
 import lombok.RequiredArgsConstructor;
@@ -18,24 +17,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.geoproject.ingeo.constants.ServiceConstants.SPACE_PATTERN;
-
 @Service
 @RequiredArgsConstructor
 public class SurveyPointsServiceImpl implements SurveyPointsService {
 
-    private final SurveyPointsRepository surveyPointsRepository;
+    private final SurveyPointRepository surveyPointRepository;
     private final SurveyPointMapper surveyPointMapper;
     private final CurrentState currentState;
 
     @Override
     public SurveyPoint getById(Long id) {
-        return surveyPointsRepository.findById(id)
+        return surveyPointRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ExceptionTypeEnum.SURVEY_POINT_NOT_FOUND_EXCEPTION.getExceptionMessage("SurveyPoint")));
     }
 
     public List<SurveyPoint> getAll() {
-        return surveyPointsRepository.findAll();
+        return surveyPointRepository.findAll();
     }
 
 //    @Transactional
@@ -57,24 +54,24 @@ public class SurveyPointsServiceImpl implements SurveyPointsService {
             surveyPoint.setProject(currentState.getCurrentProject());
             surveyPoint.setNameNumber(surveyPoint.getSurveyPointsType().getSurveyTypeShortName() + " " + surveyPoint.getPointNumber());
         }
-        surveyPointsRepository.saveAll(surveyPoints);
+        surveyPointRepository.saveAll(surveyPoints);
     }
 
     @Override
     @Transactional
     public void update(SurveyPoint surveyPoint) {
-        surveyPointsRepository.save(surveyPoint);
+        surveyPointRepository.save(surveyPoint);
     }
 
     @Override
     @Transactional
     public void delete(List<SurveyPoint> surveyPoints) {
-        surveyPointsRepository.deleteAll(surveyPoints);
+        surveyPointRepository.deleteAll(surveyPoints);
     }
 
     @Override
     public List<SurveyPoint> getByProject(Project project) {
-        return surveyPointsRepository.findByProject(project, Sort.by("id"));
+        return surveyPointRepository.findByProject(project, Sort.by("id"));
     }
 
     @Override
@@ -84,53 +81,65 @@ public class SurveyPointsServiceImpl implements SurveyPointsService {
 
     @Override
     public SurveyPoint findByPointNumberAndProject(String number, Project project) {
-        return surveyPointsRepository.findByPointNumberAndProject(number, project);
+        return surveyPointRepository.findByPointNumberAndProject(number, project);
     }
 
     @Override
-    public void delete(SurveyPointDTO object) {
+    public void delete(SurveyPointDto object) {
         throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("delete in SurveyPointService"));
     }
 
     @Override
-    public void deleteByDto(SurveyPointDTO dto) {
+    public void deleteByDto(SurveyPointDto dto) {
 
     }
 
     @Override
-    public List<SurveyPointDTO> getDtos(List<SurveyPoint> objects) {
+    public List<SurveyPointDto> getDtos(List<SurveyPoint> objects) {
         throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("getDtos in SurveyPointService"));
     }
 
     @Override
-    public void updateFromDtos(List<SurveyPoint> objects, List<SurveyPointDTO> dtos) {
+    public void updateFromDtos(List<SurveyPoint> objects, List<SurveyPointDto> dtos) {
         throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("updateFromDtos"));
     }
 
     @Override
-    public void updateFromDtos(List<SurveyPointDTO> dtos) {
+    public void updateFromDtos(List<SurveyPointDto> dtos) {
 
     }
 
     @Override
-    public List<SurveyPointDTO> getDtosByProject(Project project) {
+    public List<SurveyPointDto> getDtosByProject(Project project) {
+        var surveyPoints = getByProject(project);
+
+        return surveyPointMapper.surveyPointToSurveyPointDto(surveyPoints);
+    }
+
+    @Override
+    public List<SurveyPointDto> getDtosBySurveyPointId(Long surveyPointId) {
         return null;
     }
 
     @Override
-    public SurveyPointDTO cloneDto(SurveyPointDTO egeDto) {
+    public SurveyPointDto cloneDto(SurveyPointDto egeDto) {
         throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("cloneDto"));
     }
 
     @Override
+    public void enrichEntity(Long updatedEntityId, Long sourceEntityId) {
+
+    }
+
+    @Override
     public SurveyPoint getByPointNumber(String pointNumber, Project project) {
-        return surveyPointsRepository.findByPointNumberAndProject(pointNumber, project);
+        return surveyPointRepository.findByPointNumberAndProject(pointNumber, project);
     }
 
     @Override
     public List<SurveyPoint> getAllByProject(Project project) {
         Sort sort = Sort.by("id");
 
-        return surveyPointsRepository.findByProject(project, sort);
+        return surveyPointRepository.findByProject(project, sort);
     }
 }

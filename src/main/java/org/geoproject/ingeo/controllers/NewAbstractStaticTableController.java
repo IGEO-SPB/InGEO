@@ -76,6 +76,9 @@ public abstract class NewAbstractStaticTableController<T, Y> {
         setObjectListForView();
 
         tableView.refresh();
+//        tableView.getItems().clear();
+//        tableView.setItems(observableDtoList);
+
     }
 
     public void onDeleteRowButtonClicked() {
@@ -83,11 +86,20 @@ public abstract class NewAbstractStaticTableController<T, Y> {
 
         int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
 
+        System.out.println("selectedIndex");
+        System.out.println(selectedIndex);
+
         Y object = tableView.getItems().get(selectedIndex);
         dtos.remove(object);
         observableDtoList.clear();
         observableDtoList.addAll(dtos);
         tableView.refresh();
+//        tableView.getItems().clear();
+//        tableView.setItems(observableDtoList);
+
+        if (selectedIndex > observableDtoList.size()) {
+            selectedIndex = selectedIndex - 1;
+        }
 
         tableView.getSelectionModel().select(selectedIndex);
 
@@ -112,7 +124,53 @@ public abstract class NewAbstractStaticTableController<T, Y> {
         }
     }
 
-    public abstract void setCellsFormat();
+    /**
+     * Маппинг дто на колонки таблицы. Установка CellFactory и CellValueFactory.
+     * Необходимо заполнять excludeColumnNameList - список для колонок с нестандартным поведением - например, choicebox.
+     * Это необходимо для корректной работы таблицы.
+     */
+    public void setCellsFormat() {
+        tableView.setEditable(true);
+        tableView.getSelectionModel().setCellSelectionEnabled(false);
+
+        var excludeColumnNameList = getExcludeColumnNameList();
+        setCellFactory(excludeColumnNameList);
+
+        mapDtosAndTableView();
+
+        setTableViewChoiceBoxes();
+        setTableViewCheckBoxes();
+
+
+        tableView.setItems(observableDtoList);
+
+
+
+//        dtos.clear();
+//        observableDtoList.clear();
+//
+//        setObjectListForView();
+//
+        tableView.refresh();
+    }
+
+    //region Сеттеры элементов таблицы
+
+    /**
+     * Необходимо заполнять excludeColumnNameList - список для колонок с нестандартным поведением - например, choicebox.
+     * Это необходимо для корректной работы таблицы.
+     */
+    public abstract List<String> getExcludeColumnNameList();
+
+    public abstract void setCellFactory(List<String> excludeColumnNameList);
+
+    public abstract void setTableViewChoiceBoxes();
+
+    public abstract void setTableViewCheckBoxes();
+
+    public abstract void mapDtosAndTableView();
+
+    //endregion
 
     //region Кнопки
     @FXML

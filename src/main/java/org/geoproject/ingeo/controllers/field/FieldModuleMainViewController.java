@@ -3,10 +3,9 @@ package org.geoproject.ingeo.controllers.field;
 import javafx.util.StringConverter;
 import lombok.extern.log4j.Log4j2;
 import org.geoproject.ingeo.controllers.AbstractMainViewController;
-import org.geoproject.ingeo.dto.SurveyPointDTO;
+import org.geoproject.ingeo.dto.SurveyPointDto;
 import org.geoproject.ingeo.models.*;
 import org.geoproject.ingeo.models.classificators.SurveyPointsType;
-import org.geoproject.ingeo.models.classificators.kga.SoilClass;
 import org.geoproject.ingeo.services.classificators.SurveyPointsTypesService;
 import org.geoproject.ingeo.services.MainViewService;
 import org.geoproject.ingeo.services.allProjects.impl.ProjectsServiceImpl;
@@ -38,7 +37,7 @@ import static org.geoproject.ingeo.constants.ServiceConstants.ZERO_INDEX;
 
 @Component
 @Log4j2
-public class FieldModuleMainViewController extends AbstractMainViewController<SurveyPoint, SurveyPointDTO> implements Initializable {
+public class FieldModuleMainViewController extends AbstractMainViewController<SurveyPoint, SurveyPointDto> implements Initializable {
     private final SurveyPointsTypesService surveyPointsTypesService;
     private final ProjectsServiceImpl projectsService;
 
@@ -70,7 +69,7 @@ public class FieldModuleMainViewController extends AbstractMainViewController<Su
     private TableColumn<SurveyPoint, String> boringType;
 
     public FieldModuleMainViewController(ConfigurableApplicationContext applicationContext,
-                                         MainViewService<SurveyPoint, SurveyPointDTO> service,
+                                         MainViewService<SurveyPoint, SurveyPointDto> service,
                                          CurrentState currentState, SurveyPointsTypesService surveyPointsTypesService,
                                          ProjectsServiceImpl projectsService) {
         super(currentState, applicationContext, service);

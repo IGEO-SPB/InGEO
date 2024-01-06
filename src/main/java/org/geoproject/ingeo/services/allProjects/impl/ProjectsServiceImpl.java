@@ -125,8 +125,18 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
+    public List<ProjectDto> getDtosBySurveyPointId(Long surveyPointId) {
+        throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("getDtosBySurveyPointId"));
+    }
+
+    @Override
     public ProjectDto cloneDto(ProjectDto egeDto) {
         throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("cloneDto"));
+    }
+
+    @Override
+    public void enrichEntity(Long updatedEntityId, Long sourceEntityId) {
+
     }
 
     @Override

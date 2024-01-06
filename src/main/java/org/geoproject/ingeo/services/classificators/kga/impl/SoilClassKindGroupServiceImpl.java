@@ -1,7 +1,8 @@
 package org.geoproject.ingeo.services.classificators.kga.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.geoproject.ingeo.models.classificators.kga.SoilClass;
+import org.geoproject.ingeo.dto.classificators.kga.SoilClassKindGroupDto;
+import org.geoproject.ingeo.mapper.classificators.kga.SoilClassKindGroupMapper;
 import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.repositories.classificators.kga.SoilClassKindGroupRepository;
 import org.geoproject.ingeo.services.classificators.kga.SoilClassKindGroupService;
@@ -17,11 +18,14 @@ import static org.geoproject.ingeo.constants.ServiceConstants.ID_FIELD;
 public class SoilClassKindGroupServiceImpl implements SoilClassKindGroupService {
 
     private final SoilClassKindGroupRepository soilClassKindGroupRepository;
+    private final SoilClassKindGroupMapper soilClassKindGroupMapper;
 
     @Override
-    public List<SoilClassKindGroup> getBySoilClass(SoilClass soilClass) {
+    public List<SoilClassKindGroupDto> getBySoilClassId(Long soilClassId) {
         var sort = Sort.by(ID_FIELD);
 
-        return soilClassKindGroupRepository.findBySoilClass(soilClass, sort);
+        var soilClassKindGroups = soilClassKindGroupRepository.findBySoilClassId(soilClassId, sort);
+
+        return soilClassKindGroupMapper.soilClassKindGroupToSoilClassKindGroupDto(soilClassKindGroups);
     }
 }

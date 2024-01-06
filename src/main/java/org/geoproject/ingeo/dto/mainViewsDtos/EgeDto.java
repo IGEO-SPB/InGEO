@@ -3,7 +3,7 @@ package org.geoproject.ingeo.dto.mainViewsDtos;
 import org.geoproject.ingeo.dto.classificators.ConsistencyDto;
 import org.geoproject.ingeo.dto.classificators.GenesisDto;
 import org.geoproject.ingeo.dto.classificators.HatchingDto;
-import org.geoproject.ingeo.enums.dtoenums.EgeDTOFieldsEnum;
+import org.geoproject.ingeo.enums.dtoenums.EgeDtoFieldsEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,42 +44,17 @@ public class EgeDto {
     private ConsistencyDto consistencyDto;
 
 
-    public void setFieldValue(EgeDTOFieldsEnum field, Object value) {
+    public void setFieldValue(EgeDtoFieldsEnum field, Object value) {
         switch (field) {
-            case EGE_NUMBER:
-                egeNumber = (String) value;
-                break;
-
-            case SHORT_NAME:
-                shortName = (String) value;
-                break;
-
-            case GENESIS:
-                genesisDto = (GenesisDto) value;
-                break;
-
-            case DESCRIPTION_CREDO_FORMULAR:
-                descriptionCredoFormular = (String) value;
-                break;
-
-            case DESCRIPTION_KGA:
-                descriptionKga = (String) value;
-                break;
-
-            case DESCRIPTION_FOR_ORGANISATION:
-                descriptionForOrganisation = (String) value;
-                break;
-
-            case HATCHING:
-                hatchingDto = (HatchingDto) value;
-                break;
-
-            case CONSISTENCY:
-                consistencyDto = (ConsistencyDto) value;
-                break;
-
-            default:
-                throw new IllegalArgumentException("Invalid field: " + field);
+            case EGE_NUMBER -> egeNumber = (String) value;
+            case SHORT_NAME -> shortName = (String) value;
+            case GENESIS -> genesisDto = (GenesisDto) value;
+            case DESCRIPTION_CREDO_FORMULAR -> descriptionCredoFormular = (String) value;
+            case DESCRIPTION_KGA -> descriptionKga = (String) value;
+            case DESCRIPTION_FOR_ORGANISATION -> descriptionForOrganisation = (String) value;
+            case HATCHING -> hatchingDto = (HatchingDto) value;
+            case CONSISTENCY -> consistencyDto = (ConsistencyDto) value;
+            default -> throw new IllegalArgumentException("Invalid field: " + field);
         }
     }
 }

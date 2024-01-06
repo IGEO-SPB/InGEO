@@ -60,7 +60,17 @@ public interface ProjectsService extends MainViewService<Project, ProjectDto> {
     }
 
     @Override
+    default List<ProjectDto> getDtosBySurveyPointId(Long surveyPointId) {
+        return null;
+    }
+
+    @Override
     ProjectDto cloneDto(ProjectDto egeDto);
+
+    @Override
+    default void enrichEntity(Long updatedEntityId, Long sourceEntityId) {
+
+    }
 
     Project getByContractNumber(String contractNumber);
 }

@@ -1,32 +1,5 @@
 package org.geoproject.ingeo.utils;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TablePosition;
-import org.geoproject.ingeo.controllers.functionalInterfaces.EntitiesUpdateable;
-import org.geoproject.ingeo.controllers.functionalInterfaces.NewRowAddable;
-import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
-import org.geoproject.ingeo.dto.methodDtos.WaterExtractFullDto;
-import org.geoproject.ingeo.dto.methodDtos.WaterExtractPartialDto;
-import org.geoproject.ingeo.dto.methodDtos.WaterSampleResultDto;
-import org.geoproject.ingeo.dto.classificators.AbstractClassificator;
-import org.geoproject.ingeo.enums.StageTitleEnum;
-import org.geoproject.ingeo.enums.ViewsEnum;
-import org.geoproject.ingeo.exceptions.UnpredictableException;
-import org.geoproject.ingeo.models.Project;
-import org.geoproject.ingeo.models.classificators.Pot;
-import org.geoproject.ingeo.models.classificators.Ring;
-import org.geoproject.ingeo.models.classificators.WeighingBottle;
-import org.geoproject.ingeo.models.classificators.kga.Color;
-import org.geoproject.ingeo.models.classificators.kga.SoilClass;
-import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
-import org.geoproject.ingeo.models.classificators.kga.SoilGroupType;
-import org.geoproject.ingeo.models.classificators.kga.SoilKindGroupType;
-import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
-import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
-import org.geoproject.ingeo.services.classificators.ClassificatorService;
 import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.Property;
@@ -36,48 +9,54 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.converter.FloatStringConverter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
+import org.geoproject.ingeo.controllers.functionalInterfaces.EntitiesUpdateable;
+import org.geoproject.ingeo.controllers.functionalInterfaces.NewRowAddable;
+import org.geoproject.ingeo.customFXnodes.CustomTextFieldTableCell;
+import org.geoproject.ingeo.dto.classificators.kga.ColorDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilClassDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilClassKindGroupDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilGroupTypeDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilKindGroupTypeDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilSubkindAdjDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilSubkindDto;
+import org.geoproject.ingeo.enums.StageTitleEnum;
+import org.geoproject.ingeo.enums.ViewsEnum;
+import org.geoproject.ingeo.models.Project;
+import org.geoproject.ingeo.models.classificators.Pot;
+import org.geoproject.ingeo.models.classificators.Ring;
+import org.geoproject.ingeo.models.classificators.WeighingBottle;
+import org.geoproject.ingeo.services.classificators.ClassificatorService;
 import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.function.LongFunction;
 
 import static org.geoproject.ingeo.constants.JavaFXConstants.FLOAT_SPLIT_PATTERN;
 import static org.geoproject.ingeo.constants.JavaFXConstants.IS_FLOAT_VALUE_PATTERN;
-import static org.geoproject.ingeo.constants.JavaFXConstants.SINGLE_COLUMN_INDEX;
-import static org.geoproject.ingeo.constants.JavaFXConstants.SINGLE_ROW_COUNT;
 import static org.geoproject.ingeo.constants.JavaFXConstants.TEXTFIELD_NUMERIC_PATTERN;
 import static org.geoproject.ingeo.constants.ServiceConstants.ALERT_WINDOW_TITLE;
-import static org.geoproject.ingeo.constants.ServiceConstants.SCIENTIFIC_NOTATION_PATTERN;
 
 @Log4j2
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -101,7 +80,7 @@ public final class JavaFXCommonMethods {
     }
 
     public static void tryChangeScene(ActionEvent event, String scenePath, ApplicationContext applicationContext,
-                                   String title) {
+                                      String title) {
         try {
             changeScene(event, scenePath, applicationContext, title);
         } catch (IOException ignored) {
@@ -127,6 +106,7 @@ public final class JavaFXCommonMethods {
         stage.setScene(scene);
         stage.centerOnScreen();
     }
+
     public static void changeScene(ActionEvent event, ViewsEnum view, ApplicationContext applicationContext) throws IOException {
         changeScene(event, view.getPath(), applicationContext, view.getTitle());
         currentView = view;
@@ -210,326 +190,10 @@ public final class JavaFXCommonMethods {
 
     public static <K, R, Y> void setCellFactory(TableColumn<K, R> tableColumn, TableView<Y> tableView,
                                                 ObservableList<Y> observableList, NewRowAddable newRowAddable,
-                                                ArrayList<String> excludeColumnNameList) {
-        tableColumn.setCellFactory(column -> new TableCell<K, R>() {
-            private TextField textField;
-
-            @Override
-            public void startEdit() {
-                super.startEdit();
-                if (this.textField == null) {
-                    this.createTextField();
-                }
-
-                this.textField.setText(textField.getText() == null ? "" : this.getString());
-
-                super.setGraphic(this.textField);
-                super.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-
-                System.out.println("SET RUNNABLE:");
-                Platform.runLater(() -> {
-                    System.out.println("INSIDE RUNNABLE:");
-
-                    this.textField.requestFocus();
-                    this.textField.selectAll();
-                });
-            }
-
-            @Override
-            public void cancelEdit() {
-                super.cancelEdit();
-                super.setText(this.getString());
-                super.setContentDisplay(ContentDisplay.TEXT_ONLY);
-            }
-
-            @Override
-            protected void updateItem(R item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    super.setText(StringUtils.EMPTY);
-                    super.setGraphic(null);
-                } else {
-                    String text;
-                    boolean isScientificNotation = this.getString().matches(SCIENTIFIC_NOTATION_PATTERN);
-
-                    if (isScientificNotation) {
-                        log.info("Value is in scientific notation");
-
-                        double doubleValue = Double.parseDouble(this.getString());
-
-                        DecimalFormat decimalFormat = new DecimalFormat("0.##################");
-
-                        text = decimalFormat.format(doubleValue);
-
-                        text = text.replace(',', '.');
-
-                    } else {
-                        log.info("Value is not in scientific notation");
-
-                        text = this.getString();
-                    }
-
-                    if (!column.getId().toLowerCase().matches(".*number.*")) {
-                        try {
-                            BigDecimal num = new BigDecimal(Float.parseFloat(text));
-
-//                            String numWithNoExponents = num.toPlainString();
-
-                            super.setText(String.format("%.2f", num));
-                        } catch (Exception e) {
-                            log.warn(e.getMessage());
-                            super.setText(text);
-                        }
-                    } else {
-                        super.setText(text);
-                    }
-
-                    super.setGraphic(this.textField);
-                    super.setContentDisplay(ContentDisplay.TEXT_ONLY);
-                }
-            }
-
-            private String getString() {
-                return super.getItem() == null ? StringUtils.EMPTY : String.valueOf(super.getItem());
-            }
-
-            private void createTextField() {
-                this.textField = new TextField(getString());
-
-                this.textField.setMinWidth(super.getWidth() - super.getGraphicTextGap() * 2);
-
-                this.textField.setOnKeyPressed(this::handleKeyEvent);
-
-//                this.textField.focusedProperty().addListener((observable, oldValue, isFocused) -> this.handleFocusChange(isFocused));
-
-                textField.focusedProperty().addListener((arg0, arg1, arg2) -> {
-                    if (!arg2) {
-                        setText(textField.getText());
-                        commitEditOrConvert();
-                    }
-                });
-            }
-
-            private void handleKeyEvent(KeyEvent keyEvent) {
-                int rowIndex = tableView.getSelectionModel().getSelectedIndex();
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    log.info("ENTER pressed");
-
-                    commitEditOrConvert();
-
-                    //TODO: в условие необходимо добавлять типы дто, которые мапятся на таблицы,
-                    // в тех случаях, когда по Enter требуется добавлять строку:
-
-                    if ((observableList.get(0) instanceof AbstractClassificator ||
-                            observableList.get(0) instanceof WaterSampleResultDto ||
-                            observableList.get(0) instanceof WaterExtractPartialDto ||
-                            observableList.get(0) instanceof WaterExtractFullDto ||
-                            observableList.get(0) instanceof EgeDto
-                    ) &&
-                            observableList.size() == rowIndex + SINGLE_ROW_COUNT) {
-                        if (Objects.nonNull(newRowAddable)) {
-                            newRowAddable.add();
-                        }
-                    }
-
-                    TableColumn<Y, ?> nextColumn = getEditableColumns().get(0);
-                    selectAndEditCell(tableView, rowIndex + SINGLE_COLUMN_INDEX, nextColumn);
-
-                } else if (keyEvent.getCode() == KeyCode.TAB) {
-                    log.info("TAB pressed");
-                    //!!!Желательно не называть колонки "number" кроме классификаторов
-                    //Если название содержит "number" надо добавить его в исключения
-                    if (column.getId().toLowerCase().contains("number") &&
-                            !column.getId().equalsIgnoreCase("egenumber") &&
-                            !column.getId().equalsIgnoreCase("labornumber") &&
-                            !column.getId().equalsIgnoreCase("surveyPointNumber")) {
-                        List<String> numbers = observableList.stream()
-                                .map(container -> ((AbstractClassificator) container).getNumber())
-                                .toList();
-
-                        if (checkIfNumberExistInDataBase(textField.getText(), numbers)) {
-                            this.cancelEdit();
-                        }
-                    }
-
-                    commitEditOrConvert();
-
-                    TableColumn<Y, ?> nextColumn = getNextColumn(!keyEvent.isShiftDown());
-
-                    selectAndEditCell(tableView, rowIndex, nextColumn);
-
-                } else if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    this.cancelEdit();
-                }
-            }
-
-            private void selectAndEditCell(TableView<Y> tableView, int rowIndex, TableColumn<Y, ?> nextColumn) {
-                tableView.layout();
-                tableView.getSelectionModel().select(rowIndex, nextColumn);
-                tableView.edit(rowIndex, nextColumn);
-                tableView.scrollToColumn(nextColumn);
-            }
-
-
-//            public void setDatePickerForDates() {
-//                Map<DatePicker, String> datePickerMap = new HashMap<>();
-//
-//                datePickerMap.put(assignmentDate, assignmentDate.getId());
-//                datePickerMap.put(startDate, startDate.getId());
-//                datePickerMap.put(endDate, endDate.getId());
-//
-//                datePickerMap.forEach((datePickerField, fieldName) ->
-//                        datePickerField.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-//                            dto.setFieldValue(ProjectDTOFieldsEnum.getEnumByName(fieldName), newValue);
-//                        }));
-//            }
-
-            private void commitEditOrConvert() {
-
-                System.out.println("1");
-
-                if (textField.getText().equals(StringUtils.EMPTY)) {
-                    System.out.println("2");
-
-                    commitEdit(null);
-                }
-
-                try {
-                    System.out.println("3");
-                    System.out.println(textField.getText());
-//                    setEditing(Boolean.TRUE);
-//                    startEdit();
-                    commitEdit((R) textField.getText());
-                } catch (ClassCastException e) {
-                    try {
-                        System.out.println("4");
-
-                        commitEdit((R) new FloatStringConverter().fromString(textField.getText()));
-                    } catch (NumberFormatException exception) {
-                        try {
-                            System.out.println("5");
-
-                            commitEdit((R) Boolean.valueOf(textField.getText()));
-                        } catch (ClassCastException e1) {
-
-                            if (textField.getText().matches(".*[-\\.].*[-\\.].*")) {
-                                log.info("This is date!!!");
-                                try {
-                                    System.out.println("6");
-
-                                    String[] split = textField.getText().split("-");
-                                    commitEdit((R) LocalDate.of(Integer.parseInt(split[0]),
-                                            Integer.parseInt(split[1]),
-                                            Integer.parseInt(split[2])));
-                                } catch (ArrayIndexOutOfBoundsException | NumberFormatException e2) {
-                                    System.out.println("7");
-
-                                    String[] split = textField.getText().split("\\.");
-                                    commitEdit((R) LocalDate.of(Integer.parseInt(split[2]),
-                                            Integer.parseInt(split[1]),
-                                            Integer.parseInt(split[0])));
-                                }
-                            }
-                            else if (textField.getText().matches(".*[,\\.].*")) {
-                                System.out.println("8");
-
-                                var text = textField.getText().replace(',', '.');
-
-                                commitEdit((R) new FloatStringConverter().fromString(text));
-                            }
-                            else {
-                                System.out.println("9");
-
-                                throw new UnpredictableException("JavaFXCommonMethods - private commitEditOrConvert() - string 388");
-                            }
-//                            commitEdit((R) textField.getText());
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void commitEdit(R item) {
-
-                if (isEditing()) {
-                    super.commitEdit(item);
-                } else {
-                    final TableView table = getTableView();
-                    if (table != null) {
-                        TablePosition position = new TablePosition(getTableView(), getTableRow().getIndex(), getTableColumn());
-                        TableColumn.CellEditEvent editEvent = new TableColumn.CellEditEvent(table, position, TableColumn.editCommitEvent(), item);
-
-                        Event.fireEvent(getTableColumn(), editEvent);
-                    }
-                    updateItem(item, false);
-
-                    if (table != null) {
-                        table.edit(-1, null);
-                    }
-
-                }
-            }
-
-//            private void handleFocusChange(Boolean isFocused) {
-//                if (isFocused) {
-//                    Platform.runLater(textField::selectAll);
-//                } else if (!isFocused && textField != null) {
-//                    commitEditOrConvert();
-//                }
-//            }
-
-            private TableColumn<Y, ?> getNextColumn(Boolean forward) {
-                List<TableColumn<Y, ?>> columns = getEditableColumns();
-
-                if (columns.size() < 2) {
-                    return null;
-                }
-                int currentIndex = columns.indexOf(this.getTableColumn());
-
-                int nextIndex = forward ? currentIndex + SINGLE_COLUMN_INDEX : currentIndex - SINGLE_COLUMN_INDEX;
-
-                if (forward && nextIndex > columns.size() - 1) {
-                    nextIndex = 0;
-                } else if (!forward && currentIndex < 0) {
-                    nextIndex = columns.size() - SINGLE_COLUMN_INDEX;
-                }
-
-                return columns.get(nextIndex);
-            }
-
-            private List<TableColumn<Y, ?>> getEditableColumns() {
-                List<TableColumn<Y, ?>> columns = new ArrayList<>();
-                for (var column : tableView.getColumns()) {
-                    columns.addAll(getEditableLeaves((TableColumn<Y, ?>) column));
-                }
-
-                return columns;
-            }
-
-            private List<TableColumn<Y, ?>> getEditableLeaves(TableColumn<Y, ?> tableColumn) {
-                List<TableColumn<Y, ?>> columns = new ArrayList<>();
-
-                if (tableColumn.getColumns().isEmpty()) {
-
-                    if (tableColumn.isEditable() &&
-                            (excludeColumnNameList == null || !excludeColumnNameList.contains(tableColumn.getId()))) {
-                        columns.add(tableColumn);
-                    }
-                    return columns;
-                } else {
-                    for (TableColumn<Y, ?> column : tableColumn.getColumns()) {
-                        columns.addAll(getEditableLeaves(column));
-                    }
-
-                    return columns;
-                }
-            }
-        });
-    }
-
-    private static boolean checkIfNumberExistInDataBase(String number,
-                                                        List<String> numbers) {
-        return numbers.contains(number);
+                                                List<String> excludeColumnNameList) {
+        tableColumn.setCellFactory(column ->
+                new CustomTextFieldTableCell<>(column, tableView, observableList, newRowAddable, excludeColumnNameList)
+        );
     }
 
     public static <Y> List<TableColumn<Y, ?>> getAllLeaves(TableColumn<Y, ?> root) {
@@ -729,7 +393,7 @@ public final class JavaFXCommonMethods {
 
                         System.out.println("SET RUNNABLE:");
                         Platform.runLater(() -> {
-                        System.out.println("INSIDE RUNNABLE:");
+                            System.out.println("INSIDE RUNNABLE:");
 //                            textField.clear();
 //                        numberTextField.setText(StringUtils.EMPTY);
                             numberTextField.clear();
@@ -749,8 +413,6 @@ public final class JavaFXCommonMethods {
                         String ringMassTextFieldId = textField.getId();
                         String[] splittedIdArray = ringMassTextFieldId.split("EmptyMass");
 
-                        System.out.println("splittedIdArray: " + Arrays.toString(splittedIdArray));
-
                         String suffix;
 
                         try {
@@ -766,8 +428,8 @@ public final class JavaFXCommonMethods {
 
                         if (
                                 Objects.nonNull(currentScene) &&
-                                Objects.nonNull(currentScene.getFocusOwner().getId()) &&
-                                !currentScene.getFocusOwner().getId().contains("Number")) {
+                                        Objects.nonNull(currentScene.getFocusOwner().getId()) &&
+                                        !currentScene.getFocusOwner().getId().contains("Number")) {
                             TextField numberTextField = (TextField) currentScene.lookup(numberTextFieldId);
 
                             if (Objects.isNull(numberTextField)) {
@@ -893,7 +555,7 @@ public final class JavaFXCommonMethods {
                 JavaFXCommonMethods.addListenerOnTextField(textField, classificatorService, entitiesUpdateable));
     }
 
-    public static <E> void setConverterForChoiceBox(ChoiceBox<E> choiceBox, LongFunction<SoilGroupType> getSoilGroupType) {
+    public static <E> void setConverterForChoiceBox(ChoiceBox<E> choiceBox, LongFunction<SoilGroupTypeDto> getSoilGroupTypeDto) {
         choiceBox.setConverter(new StringConverter<E>() {
             @Override
             public String toString(E object) {
@@ -902,21 +564,21 @@ public final class JavaFXCommonMethods {
                     return StringUtils.EMPTY;
                 }
 
-                if (object instanceof SoilClass soilClass) {
-                    return soilClass.getScName();
-                } else if (object instanceof SoilClassKindGroup soilClassKindGroup) {
-                    return soilClassKindGroup.getSoilKindGroup();
-                } else if (object instanceof SoilKindGroupType soilKindGroupType) {
-                    var soilGroupTypeId = soilKindGroupType.getSoilGroupType().getId();
-                    var soilKindGroupTypeName = getSoilGroupType.apply(soilGroupTypeId);
+                if (object instanceof SoilClassDto soilClassDto) {
+                    return soilClassDto.getScName();
+                } else if (object instanceof SoilClassKindGroupDto soilClassKindGroupDto) {
+                    return soilClassKindGroupDto.getSoilKindGroup();
+                } else if (object instanceof SoilKindGroupTypeDto soilKindGroupTypeDto) {
+                    var soilGroupTypeId = soilKindGroupTypeDto.getSoilGroupTypeDto().getId();
+                    var soilKindGroupTypeName = getSoilGroupTypeDto.apply(soilGroupTypeId);
 
                     return soilKindGroupTypeName.getGtName();
-                } else if (object instanceof SoilSubkind soilSubkind) {
-                    return soilSubkind.getSsDescr();
-                } else if (object instanceof SoilSubkindAdj soilSubkindAdj) {
-                    return soilSubkindAdj.getSsaDescr();
-                } else if (object instanceof Color color) {
-                    return color.getCltName();
+                } else if (object instanceof SoilSubkindDto soilSubkindDto) {
+                    return soilSubkindDto.getSsDescr();
+                } else if (object instanceof SoilSubkindAdjDto soilSubkindAdjDto) {
+                    return soilSubkindAdjDto.getSsaDescr();
+                } else if (object instanceof ColorDto colorDto) {
+                    return colorDto.getCltName();
                 }
 
                 return StringUtils.EMPTY;
@@ -935,6 +597,50 @@ public final class JavaFXCommonMethods {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public static StringConverter<Float> getFloatStringConverter() {
+        var floatStringConverter = new StringConverter<Float>() {
+            @Override
+            public String toString(Float object) {
+//              var valueFormatter = new DecimalFormat("0.000E0");
+                var valueFormatter = new DecimalFormat("0.00");
+
+                try {
+                    return valueFormatter.format(object);
+                } catch (IllegalArgumentException e) {
+                    log.error("JavaFXCommonMethods, string 623");
+                    log.error(e.getMessage());
+                    return valueFormatter.format(0);
+                }
+
+//                return StringUtils.EMPTY;
+            }
+
+            @Override
+            public Float fromString(String string) {
+                if (string.matches(".*[,\\.].*")) {
+                    var text = string.replace(',', '.');
+
+                    return Float.valueOf(text);
+                }
+
+                return null;
+            }
+        };
+
+        return floatStringConverter;
+    }
+
+    /**
+     * Проверка на глубину слоя. Низ слоя не должен быть больше, чем общая глубина.
+     *
+     * @param layerBottomDepth глубина подошвы слоя
+     * @param surveyPointDepth общая глубина выработки (точки исследования)
+     * @return true если глубина подошвы слоя меньше или равна глубине скважины, иначе - false
+     */
+    public static Boolean checkLayerDepth(Float layerBottomDepth, Float surveyPointDepth) {
+        return layerBottomDepth <= surveyPointDepth;
     }
 }
 

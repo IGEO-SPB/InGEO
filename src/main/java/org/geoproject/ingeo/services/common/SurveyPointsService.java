@@ -1,15 +1,14 @@
 package org.geoproject.ingeo.services.common;
 
-import org.geoproject.ingeo.dto.SurveyPointDTO;
+import org.geoproject.ingeo.dto.SurveyPointDto;
 import org.geoproject.ingeo.models.Project;
-import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.services.MainViewService;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-public interface SurveyPointsService extends MainViewService<SurveyPoint, SurveyPointDTO> {
+public interface SurveyPointsService extends MainViewService<SurveyPoint, SurveyPointDto> {
     @Override
     List<SurveyPoint> getAll();
 
@@ -37,31 +36,39 @@ public interface SurveyPointsService extends MainViewService<SurveyPoint, Survey
     SurveyPoint findByPointNumberAndProject(String number, Project project);
 
     @Override
-    void delete(SurveyPointDTO object);
+    void delete(SurveyPointDto object);
 
     @Override
-    default void deleteByDto(SurveyPointDTO dto) {
+    default void deleteByDto(SurveyPointDto dto) {
 
     }
 
     @Override
-    List<SurveyPointDTO> getDtos(List<SurveyPoint> objects);
+    List<SurveyPointDto> getDtos(List<SurveyPoint> objects);
 
     @Override
-    void updateFromDtos(List<SurveyPoint> objects, List<SurveyPointDTO> dtos);
+    void updateFromDtos(List<SurveyPoint> objects, List<SurveyPointDto> dtos);
 
     @Override
-    default void updateFromDtos(List<SurveyPointDTO> dtos) {
+    default void updateFromDtos(List<SurveyPointDto> dtos) {
 
     }
 
     @Override
-    default List<SurveyPointDTO> getDtosByProject(Project project) {
+    List<SurveyPointDto> getDtosByProject(Project project);
+
+    @Override
+    default List<SurveyPointDto> getDtosBySurveyPointId(Long surveyPointId) {
         return null;
     }
 
     @Override
-    SurveyPointDTO cloneDto(SurveyPointDTO egeDto);
+    SurveyPointDto cloneDto(SurveyPointDto egeDto);
+
+    @Override
+    default void enrichEntity(Long updatedEntityId, Long sourceEntityId) {
+
+    }
 
     SurveyPoint getByPointNumber(String pointNumber, Project project);
 
