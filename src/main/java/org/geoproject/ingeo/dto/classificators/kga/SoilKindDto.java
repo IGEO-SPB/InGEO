@@ -1,20 +1,7 @@
 package org.geoproject.ingeo.dto.classificators.kga;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
-import org.geoproject.ingeo.enums.dtoenums.classificators.SoilDtoFieldsEnum;
-import org.geoproject.ingeo.models.Ege;
-import org.geoproject.ingeo.models.classificators.kga.SoilClass;
-import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
-import org.geoproject.ingeo.models.classificators.kga.SoilKindGroupType;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -28,6 +15,8 @@ public class SoilKindDto {
     private String skTypeOne;
     private String skTypeTwo;
     private String skKind;
+    private String skDescr;
+
 
 //    public void setFieldValue(SoilDtoFieldsEnum field, Object value) {
 //        switch (field) {

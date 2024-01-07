@@ -8,10 +8,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
-public class SurveyPointDTO {
+public class SurveyPointDto {
 
     private Long id;
     private Project project;
@@ -41,4 +42,17 @@ public class SurveyPointDTO {
     private String pointComment;
     private List<BoreholeLayer> boreholeLayerList;
     private List<Sample> sampleList;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SurveyPointDto that = (SurveyPointDto) o;
+        return Objects.equals(project, that.project) && Objects.equals(pointNumber, that.pointNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(project, pointNumber);
+    }
 }

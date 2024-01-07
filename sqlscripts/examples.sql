@@ -29,3 +29,9 @@ ALTER TABLE sample
     ALTER COLUMN point_id SET NOT NULL;
 
 ALTER TABLE water_extract_partial_result ADD COLUMN NO3_txt float4;
+
+ALTER TABLE ege
+    RENAME COLUMN color TO color_id;
+
+ALTER TABLE ege
+ALTER COLUMN SSA1 TYPE int USING ssa1::integer;

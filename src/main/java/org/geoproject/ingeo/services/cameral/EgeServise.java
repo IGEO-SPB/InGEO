@@ -4,7 +4,6 @@ import org.geoproject.ingeo.dto.DescriptionKgaDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.Project;
-import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.services.MainViewService;
 import org.springframework.data.domain.Sort;
@@ -64,5 +63,15 @@ public interface EgeServise extends MainViewService<Ege, EgeDto> {
     List<EgeDto> getDtosByProject(Project project);
 
     @Override
+    default List<EgeDto> getDtosBySurveyPointId(Long surveyPointId) {
+        return null;
+    }
+
+    @Override
     EgeDto cloneDto(EgeDto egeDto);
+
+    @Override
+    default void enrichEntity(Long updatedEntityId, Long sourceEntityId) {
+
+    }
 }

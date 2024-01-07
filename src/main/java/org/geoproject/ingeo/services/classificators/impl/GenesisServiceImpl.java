@@ -44,7 +44,7 @@ public class GenesisServiceImpl implements GenesisService {
     }
 
     @Override
-    public List<GenesisDto> getEgeDtos() {
+    public List<GenesisDto> getGenesisDtos() {
         var genesisList = getAll();
 
         return genesisMapper.genesisToGenesisDto(genesisList);

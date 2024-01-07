@@ -925,3 +925,51 @@ public class Temp {
 
 //TODO: стратегия выделения ячеек и строк, в т.ч. через shift нескольких:
 //https://ru.stackoverflow.com/questions/951490/tableview-%D0%BA%D0%B0%D0%BA-%D0%B2%D1%8B%D0%B4%D0%B5%D0%BB%D1%8F%D1%82%D1%8C-%D1%8F%D1%87%D0%B5%D0%B9%D0%BA%D1%83-%D0%B0-%D0%BD%D0%B5-%D0%B2%D1%81%D1%8E-%D1%81%D1%82%D1%80%D0%BE%D0%BA%D1%83
+
+/**
+
+//    Tab simply goes to the next JavaFX control element that it knows about.
+//        The TableView had focus so when I pressed tab it went to the next control element which just so happened
+//        to be inside the table. Tab does not traverse through table cells.
+//
+//        So the work around I came to was to call the edit method on the first cell in the selected row:
+
+
+//            else if(code.isDigitKey()){
+//            TableView tv = scene.getSelectedTable();
+//            if(tv != null){
+//            tv.getSelectionModel().select(code.ordinal()-24);
+//            tv.getFocusModel().focus(code.ordinal()-24);
+//            tv.edit(code.ordinal()-24, ((TableColumn)(tv.getColumns().get(0))));
+//            }else{
+//            System.out.println("null");
+//            }
+//            }
+
+//            Then in my CellFactory for that column (It happens to be a Spinner), I override startEdit:
+
+//@Override
+//public void startEdit(){
+//        this.spinner.requestFocus();
+//        }
+
+//        Note the column and table must be editable.
+
+ */
+
+ /**
+ * Requests that this {@code Node} get the input focus, and that this
+ * {@code Node}'s top-level ancestor become the focused window. To be
+ * eligible to receive the focus, the node must be part of a scene, it and
+ * all of its ancestors must be visible, and it must not be disabled.
+ * If this node is eligible, this function will cause it to become this
+ * {@code Scene}'s "focus owner". Each scene has at most one focus owner
+ * node. The focus owner will not actually have the input focus, however,
+ * unless the scene belongs to a {@code Stage} that is both visible
+ * and active.
+ */
+//public void requestFocus() {
+//    if (getScene() != null) {
+//        getScene().requestFocus(this);
+//    }
+//}

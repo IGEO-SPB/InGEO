@@ -3,18 +3,24 @@ package org.geoproject.ingeo.services.cameral.impl;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NotImplementedException;
 import org.geoproject.ingeo.dto.DescriptionKgaDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilSubkindAdjDto;
+import org.geoproject.ingeo.dto.classificators.kga.SoilSubkindDto;
 import org.geoproject.ingeo.dto.mainViewsDtos.EgeDto;
 import org.geoproject.ingeo.exceptions.ConflictException;
 import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.exceptions.NotImplemented;
 import org.geoproject.ingeo.mapper.EgeMapper;
+import org.geoproject.ingeo.mapper.classificators.kga.SoilSubkindAdjMapper;
+import org.geoproject.ingeo.mapper.classificators.kga.SoilSubkindMapper;
 import org.geoproject.ingeo.models.Ege;
 import org.geoproject.ingeo.models.Project;
 import org.geoproject.ingeo.models.SurveyPoint;
-import org.geoproject.ingeo.models.classificators.kga.SoilSubkind;
-import org.geoproject.ingeo.models.classificators.kga.SoilSubkindAdj;
 import org.geoproject.ingeo.repositories.EgeRepository;
+import org.geoproject.ingeo.repositories.classificators.kga.ColorRepository;
+import org.geoproject.ingeo.repositories.classificators.kga.SoilClassKindGroupRepository;
+import org.geoproject.ingeo.repositories.classificators.kga.SoilClassRepository;
+import org.geoproject.ingeo.repositories.classificators.kga.SoilKindRepository;
 import org.geoproject.ingeo.repositories.classificators.kga.SoilSubkindAdjRepository;
 import org.geoproject.ingeo.repositories.classificators.kga.SoilSubkindRepository;
 import org.geoproject.ingeo.services.cameral.EgeServise;
@@ -26,7 +32,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -35,9 +40,16 @@ import java.util.stream.Collectors;
 public class EgeServiseImpl implements EgeServise {
 
     private final EgeRepository egeRepository;
-    private final EgeMapper egeMapper;
     private final SoilSubkindRepository soilSubkindRepository;
     private final SoilSubkindAdjRepository soilSubkindAdjRepository;
+    private final SoilClassRepository soilClassRepository;
+    private final SoilClassKindGroupRepository soilClassKindGroupRepository;
+    private final SoilKindRepository soilKindRepository;
+    private final ColorRepository colorRepository;
+
+    private final EgeMapper egeMapper;
+    private final SoilSubkindAdjMapper soilSubkindAdjMapper;
+    private final SoilSubkindMapper soilSubkindMapper;
 
     private final CurrentState currentState;
 
@@ -118,13 +130,6 @@ public class EgeServiseImpl implements EgeServise {
 
     @Override
     public void updateFromDtos(List<EgeDto> dtos) {
-        System.out.println("******");
-        dtos.forEach(dto -> {
-            System.out.println("-----");
-            System.out.println(dto.getEgeNumber());
-            System.out.println(dto.getCodeNumber());
-        });
-        System.out.println("******");
 
         var dtosToUpdate = dtos.stream()
                         .filter(egeDto -> Objects.nonNull(egeDto.getId()))
@@ -178,7 +183,7 @@ public class EgeServiseImpl implements EgeServise {
         return descriptionKgaDto;
     }
 
-    private void fillSoilSubkindMap(Map<String, SoilSubkind> soilSubkindMap, Class<?> clazz, Ege ege) {
+    private void fillSoilSubkindMap(Map<String, SoilSubkindDto> soilSubkindMap, Class<?> clazz, Ege ege) {
         soilSubkindMap.forEach((key, value) -> {
 
             try {
@@ -187,7 +192,7 @@ public class EgeServiseImpl implements EgeServise {
 
                 Long fieldValue = (Long) field.get(ege);
 
-                var newValue = getSoilSubkind(fieldValue);
+                var newValue = getSoilSubkindDto(fieldValue);
 
                 soilSubkindMap.put(key, newValue);
 
@@ -198,7 +203,7 @@ public class EgeServiseImpl implements EgeServise {
         });
     }
 
-    private void fillSoilSubkindAdjMap(Map<String, SoilSubkindAdj> soilSubkindAdjMap, Class<?> clazz,  Ege ege) {
+    private void fillSoilSubkindAdjMap(Map<String, SoilSubkindAdjDto> soilSubkindAdjMap, Class<?> clazz, Ege ege) {
         soilSubkindAdjMap.forEach((key, value) -> {
 
             try {
@@ -206,32 +211,43 @@ public class EgeServiseImpl implements EgeServise {
                 field.setAccessible(true);
 
                 var fieldValue = (Long) field.get(ege);
-                var newValue = getSoilSubkindAdj(fieldValue);
+                var newValue = getSoilSubkindAdjDto(fieldValue);
 
                 soilSubkindAdjMap.put(key, newValue);
 
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
-
         });
     }
 
-    private SoilSubkind getSoilSubkind(Long id) {
+    private SoilSubkindDto getSoilSubkindDto(Long id) {
 
         if (Objects.isNull(id)) {
             return null;
         }
-//                    .orElseThrow(() -> new NotFoundException(ExceptionTypeEnum.ENTITY_NOT_FOUND_EXCEPTION.getExceptionMessage(SOIL_SUBKIND_ENTITY_NAME)));
-        return soilSubkindRepository.findById(id).orElse(null);
+        var soilSubkind = soilSubkindRepository.findById(id).orElse(null);
+
+        if (Objects.isNull(soilSubkind)) {
+            return null;
+        }
+
+        return soilSubkindMapper.soilSubkindToSoilSubkindDto(soilSubkind);
     }
 
-    private SoilSubkindAdj getSoilSubkindAdj(Long id) {
+    private SoilSubkindAdjDto getSoilSubkindAdjDto(Long id) {
+
         if (Objects.isNull(id)) {
             return null;
         }
 
-        return soilSubkindAdjRepository.findById(id).orElse(null);
+        var soilSubkindAdj = soilSubkindAdjRepository.findById(id).orElse(null);
+
+        if (Objects.isNull(soilSubkindAdj)) {
+            return null;
+        }
+
+        return soilSubkindAdjMapper.soilSubkindAdjToSoilSubkindAdjDto(soilSubkindAdj);
     }
 
     private void setHatchingParameters(Ege ege) {
@@ -250,6 +266,18 @@ public class EgeServiseImpl implements EgeServise {
         egeMapper.updateEge(ege, descriptionKgaDto);
         ege.setShortName(descriptionKgaDto.getShortName());
 
+        var soilClass = soilClassRepository.findById(descriptionKgaDto.getSoilClassDto().getId());
+        soilClass.ifPresent(ege::setSoilClass);
+
+        var soilClassKindGroup = soilClassKindGroupRepository.findById(descriptionKgaDto.getSoilClassKindGroupDto().getId());
+        soilClassKindGroup.ifPresent(ege::setSoilClassKindGroup);
+
+        var soilKind = soilKindRepository.findById(descriptionKgaDto.getSoilKindDto().getId());
+        soilKind.ifPresent(ege::setSoilKind);
+
+        var color = colorRepository.findById(descriptionKgaDto.getColorDto().getId());
+        color.ifPresent(ege::setColor);
+
         egeRepository.save(ege);
     }
 
@@ -261,9 +289,19 @@ public class EgeServiseImpl implements EgeServise {
     }
 
     @Override
+    public List<EgeDto> getDtosBySurveyPointId(Long surveyPointId) {
+        return null;
+    }
+
+    @Override
     public EgeDto cloneDto(EgeDto egeDto) {
         var cloneDto = egeMapper.cloneEgeDto(egeDto);
-//        cloneDto.setId(null);
+
         return cloneDto;
+    }
+
+    @Override
+    public void enrichEntity(Long updatedEntityId, Long sourceEntityId) {
+
     }
 }

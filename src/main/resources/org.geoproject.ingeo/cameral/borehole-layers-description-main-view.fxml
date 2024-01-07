@@ -3,11 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitMenuButton?>
@@ -15,13 +13,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.cameral.BoreholeLayerMainViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.geoproject.ingeo.controllers.cameral.BoreholeLayerViewController">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -82,9 +79,6 @@
             </children>
         </VBox>
     </top>
-    <left>
-        <TreeView prefHeight="606.0" prefWidth="18.0" BorderPane.alignment="CENTER" />
-    </left>
     <bottom>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -106,53 +100,114 @@
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="923.0">
+            <VBox prefHeight="279.0" prefWidth="922.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="923.0" spacing="20.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="922.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onCameralModuleMainViewButtonClicked" prefHeight="42.0" prefWidth="192.0" text="Главная" />
-                        <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
-                        <Button layoutX="10.0" layoutY="12.0" mnemonicParsing="false" onAction="#onPumpButtonClicked" prefHeight="42.0" prefWidth="184.0" text="Колонка" />
-                        <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
-                        <Button mnemonicParsing="false" onAction="#onStatisticalProcesssingButtonClicked" prefHeight="42.0" prefWidth="214.0" text="Статистическая обработка" />
-                        <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                        <VBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="923.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="55.0" prefWidth="923.0" spacing="20.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#onCameralModuleMainViewButtonClicked" prefHeight="42.0" prefWidth="192.0" text="Главная" />
+                                    <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                                    <Button layoutX="10.0" layoutY="12.0" mnemonicParsing="false" onAction="#onPumpButtonClicked" prefHeight="42.0" prefWidth="184.0" text="Колонка" />
+                                    <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                                    <Button mnemonicParsing="false" onAction="#onStatisticalProcessingButtonClicked" prefHeight="42.0" prefWidth="214.0" text="Статистическая обработка" />
+                                    <Separator orientation="VERTICAL" prefHeight="43.0" visible="false" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-               </children>
-            </VBox>
-            <HBox prefHeight="44.0" prefWidth="902.0" spacing="30.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#onEgeListButtonClicked" text="Список ИГЭ (лок.список грунт.)" />
-                  <Button mnemonicParsing="false" onAction="#onBoreholeLayerButtonClicked" text="Послойное описание (лит.+конс.)" />
-                  <Button layoutX="228.0" layoutY="10.0" mnemonicParsing="false" text="Гидрогеология" />
-                  <Button layoutX="460.0" layoutY="10.0" mnemonicParsing="false" text="Консистенция" />
-                  <Button layoutX="692.0" layoutY="10.0" mnemonicParsing="false" text="Опробование" />
-               </children>
-            </HBox>
-                <Label prefHeight="26.0" prefWidth="182.0" text="Заполнение классификатора КГА" />
-                <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                    <children>
-                        <VBox prefHeight="100.0" prefWidth="159.0">
-                            <children>
-                                <Label text="Разновидность" />
-                                <ComboBox prefWidth="150.0" promptText="Категория" />
-                                <ComboBox prefWidth="150.0" promptText="Строка для записи" />
-                            </children>
+                  <Separator prefWidth="200.0" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="902.0" spacing="30.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onEgeListButtonClicked" text="Список ИГЭ (лок.список грунт.)" />
+                        <Button mnemonicParsing="false" onAction="#onBoreholeLayerButtonClicked" text="Послойное описание (лит.+конс.)" />
+                        <Button layoutX="228.0" layoutY="10.0" mnemonicParsing="false" text="Гидрогеология" />
+                        <Button layoutX="460.0" layoutY="10.0" mnemonicParsing="false" text="Консистенция" />
+                        <Button layoutX="692.0" layoutY="10.0" mnemonicParsing="false" text="Опробование" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="154.0" prefWidth="913.0" spacing="10.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="144.0" prefWidth="198.0" spacing="5.0">
+                           <children>
+                              <Label prefHeight="34.0" prefWidth="167.0" text="Выбрать точку исследования" />
+                                    <VBox prefHeight="28.0" prefWidth="185.0" spacing="5.0">
+                                        <children>
+                                    <HBox prefHeight="38.0" prefWidth="185.0" spacing="2.0">
+                                       <children>
+                                                    <Button mnemonicParsing="false" onAction="#onPreviousSurveyPointButtonClick" prefHeight="26.0" prefWidth="60.0" text="&lt;-" />
+                                                  <ChoiceBox fx:id="surveyPointChoiceBox" onAction="#onSurveyPointChoiceBoxClicked" prefHeight="26.0" prefWidth="98.0" />
+                                                    <Button mnemonicParsing="false" onAction="#onNextSurveyPointButtonClick" prefHeight="26.0" prefWidth="60.0" text="-&gt;" />
+                                       </children>
+                                    </HBox>
+                                        </children>
+                                    </VBox>
+                              <HBox prefHeight="34.0" prefWidth="185.0" spacing="2.0">
+                                 <children>
+                                    <Button fx:id="deleteRowButton" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" prefHeight="30.0" prefWidth="200.0" text="Удалить " />
+                                    <Button mnemonicParsing="false" onAction="#onDuplicateRowButtonClicked" prefHeight="30.0" prefWidth="200.0" text="Дублировать" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="53.0" prefHeight="34.0" prefWidth="185.0" spacing="2.0">
+                                 <children>
+                                    <Button minHeight="30.0" mnemonicParsing="false" onAction="#onAddNewRowAtTheEndButtonClicked" prefHeight="30.0" prefWidth="200.0" text="Новый слой" />
+                                    <Button fx:id="saveAllObjectsButton" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" prefHeight="30.0" prefWidth="200.0" text="Сохранить" />
+                                 </children>
+                              </HBox>
+                           </children>
                         </VBox>
-                        <VBox prefHeight="100.0" prefWidth="163.0">
-                            <children>
-                                <ComboBox prefHeight="26.0" prefWidth="112.0" promptText="Уточнение CL_SOIL_SUBKIND_ADJ" />
-                                <ComboBox prefWidth="150.0" promptText="Цвет" />
-                                <Label text="Вода , нас. с гл." />
-                                <TextField />
-                            </children>
+                        <Separator layoutX="571.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox prefHeight="144.0" prefWidth="153.0" spacing="5.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="144.0" prefWidth="108.0" spacing="2.0">
+                                       <children>
+                                                  <Label prefHeight="34.0" prefWidth="105.0" text="Общая &#10;глубина" />
+                                          <TextField fx:id="surveyPointDepth" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="144.0" prefWidth="108.0" spacing="2.0">
+                                       <children>
+                                          <Label prefHeight="34.0" prefWidth="105.0" text="Абсолютная&#10;отметка" />
+                                          <TextField fx:id="surveyPointAbsoluteMark" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Separator prefWidth="200.0" />
+                              <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="98.0" prefWidth="116.0" spacing="2.0">
+                                 <children>
+                                    <Label prefHeight="34.0" prefWidth="105.0" text="Копировать &#10;из выработки" />
+                                    <ChoiceBox fx:id="surveyPointNumberChoiceBox" onAction="#onSurveyPointNumberChoiceBoxClicked" prefHeight="29.0" prefWidth="95.0" />
+                                 </children>
+                              </VBox>
+                           </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <VBox minWidth="-Infinity" prefHeight="94.0" prefWidth="151.0">
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox alignment="CENTER" prefHeight="144.0" prefWidth="151.0" spacing="5.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="144.0" prefWidth="159.0" spacing="2.0">
+                                 <children>
+                                    <Button fx:id="soilKindChoiceViewButton" mnemonicParsing="false" onAction="#onSoilKindChoiceViewButtonClicked" prefHeight="59.0" prefWidth="130.0" text="Заполнение &#10;классификатора&#10;КГА" />
+                                    <Button mnemonicParsing="false" onAction="#onCopyDescriptionKgaToDescriptionCredoFormularButtonClicked" prefHeight="59.0" prefWidth="130.0" text="Копировать описание&#10;КГА в описание &#10;для чертежа" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                                <VBox minWidth="-Infinity" prefHeight="144.0" prefWidth="441.0">
                                     <children>
                                         <Label text="Уровни подземных вод" />
-                                        <TableView prefHeight="78.0" prefWidth="149.0">
+                                        <TableView fx:id="underGroundWaterTableView" prefHeight="125.0" prefWidth="174.0">
                                             <columns>
                                                 <TableColumn prefWidth="75.0" text="C1" />
                                                 <TableColumn prefWidth="75.0" text="C2" />
@@ -162,66 +217,39 @@
                                         </TableView>
                                     </children>
                                 </VBox>
-                            </children>
-                        </VBox>
-                        <VBox prefHeight="94.0" prefWidth="350.0">
-                            <children>
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="208.0" text="Расчет глубин" />
-                                <Button mnemonicParsing="false" text="Запись как по классификатору для локальный список грн." />
-                                <Label text="Копировать из выработки" />
-                                <MenuButton mnemonicParsing="false" text="№ выработки">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                                    </items>
-                                </MenuButton>
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
-                <HBox prefHeight="55.0" prefWidth="904.0">
-                    <children>
-                        <Button fx:id="saveAllBoreholeLayers" mnemonicParsing="false" onAction="#onSaveAllObjectsButtonClicked" text="Сохранить" />
-                        <Button fx:id="addNewRow" mnemonicParsing="false" onAction="#onAddNewRowButtonClicked" text="Добавить строку" />
-                        <Button fx:id="deleteSelectedRow" mnemonicParsing="false" onAction="#onDeleteRowButtonClicked" text="Удалить строку" />
-                        <VBox prefHeight="55.0" prefWidth="123.0">
-                            <children>
-                                <ChoiceBox fx:id="boreholeChoiceBox" prefWidth="150.0" />
-                                <HBox prefHeight="35.0" prefWidth="100.0">
-                                    <children>
-                                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="&lt;-" />
-                                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="-&gt;" />
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
                 <TableView fx:id="tableView" prefHeight="408.0" prefWidth="563.0">
                     <columns>
-                        <TableColumn fx:id="number" prefWidth="47.20002669095993" text="№ п/п" />
-                        <TableColumn fx:id="egeNumber" prefWidth="47.20002669095993" text="№ ИГЭ" />
-                        <TableColumn fx:id="soilType" prefWidth="47.9999885559082" text="Вид грунта (коротко)" />
-                        <TableColumn fx:id="layerBottomDepth" prefWidth="52.79998779296875" text="Глубина подошвы" />
-                        <TableColumn fx:id="absoluteTopMark" prefWidth="34.39994812011719" text="Абс.отметка кровли" />
-                        <TableColumn fx:id="layerPower" prefWidth="53.600006103515625" text="Мощность слоя" />
-                        <TableColumn fx:id="layerTopDepth" prefWidth="48.0" text="Глубина кровли слоя" />
+                        <TableColumn fx:id="ege" prefWidth="47.20002669095993" text="№ ИГЭ" />
+                        <TableColumn fx:id="shortName" editable="false" prefWidth="47.9999885559082" text="Вид грунта (коротко)" />
+                        <TableColumn fx:id="layerBottomDepth" prefWidth="71.20000457763672" text="Глубина подошвы" />
+                        <TableColumn fx:id="absoluteTopMark" editable="false" minWidth="0.0" prefWidth="55.20001220703125" text="Абс.отметка кровли" />
+                        <TableColumn fx:id="layerPower" editable="false" prefWidth="53.600006103515625" text="Мощность слоя" />
+                        <TableColumn fx:id="layerTopDepth" editable="false" prefWidth="48.0" text="Глубина кровли слоя" />
                         <TableColumn fx:id="egeNumber6" prefWidth="331.20001220703125" text="Консистенция">
                             <columns>
-                                <TableColumn fx:id="firstLayerTop" prefWidth="51.199951171875" text="Верх 1сл" />
+                                <TableColumn fx:id="firstLayerTop" editable="false" prefWidth="51.199951171875" text="Верх 1сл" />
                                 <TableColumn fx:id="firstLayerBottom" prefWidth="56.800048828125" text="Низ 1сл" />
-                                <TableColumn fx:id="firstLayerType" prefWidth="66.39996337890625" text="Тип 1 сл" />
-                                <TableColumn fx:id="secondLayerBottom" prefWidth="64.800048828125" text="Низ 2 сл" />
-                                <TableColumn fx:id="secondLayerType" minWidth="0.0" prefWidth="83.199951171875" text="Тип 2 сл" />
+                                <TableColumn fx:id="firstLayerConsistency" prefWidth="66.39996337890625" text="Тип 1 сл" />
+                                <TableColumn fx:id="secondLayerBottom" editable="false" prefWidth="64.800048828125" text="Низ 2 сл" />
+                                <TableColumn fx:id="secondLayerConsistency" minWidth="0.0" prefWidth="83.199951171875" text="Тип 2 сл" />
                             </columns>
                         </TableColumn>
-                        <TableColumn fx:id="isEditableFromEgeList" text="Защита" />
-                        <TableColumn fx:id="hatchingNameCredoAutocad" text="Штриховка" />
-                        <TableColumn fx:id="color" prefWidth="62.4000244140625" text="Цвет" />
-                        <TableColumn fx:id="water" prefWidth="75.199951171875" text="Вода нас. с гл." />
-                        <TableColumn fx:id="descriptionCredoFormular" minWidth="0.0" prefWidth="86.39996337890625" text="Локальный список гр. - для чертежа колонки, CREDO и ФОД" />
-                        <TableColumn fx:id="descriptionKga" prefWidth="101.60003662109375" text="Описание грунтов по классификатору КГА" />
+                        <TableColumn fx:id="isEditableFromEgeList" prefWidth="57.5999755859375" text="Защита" />
+                        <TableColumn fx:id="hatching" prefWidth="74.39996337890625" text="Штриховка" />
+                        <TableColumn fx:id="descriptionCredoFormular" minWidth="0.0" prefWidth="127.2000732421875" text="Локальный список гр. - для чертежа колонки, CREDO и ФОД" />
+                        <TableColumn fx:id="descriptionKga" editable="false" prefWidth="101.60003662109375" text="Описание грунтов по классификатору КГА" />
                     </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
                 </TableView>
             </children>
         </VBox>

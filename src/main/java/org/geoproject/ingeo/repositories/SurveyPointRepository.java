@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SurveyPointsRepository extends JpaRepository<SurveyPoint, Long> {
+public interface SurveyPointRepository extends JpaRepository<SurveyPoint, Long> {
 
     List<SurveyPoint> findByProject(Project project, Sort sort);
 

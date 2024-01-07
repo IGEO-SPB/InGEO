@@ -1,16 +1,16 @@
 package org.geoproject.ingeo.services.cameral;
 
-import org.geoproject.ingeo.dto.mainViewsDtos.BoreholeLayerDTO;
+import org.geoproject.ingeo.dto.DescriptionKgaDto;
+import org.geoproject.ingeo.dto.mainViewsDtos.BoreholeLayerDto;
 import org.geoproject.ingeo.models.BoreholeLayer;
 import org.geoproject.ingeo.models.Project;
-import org.geoproject.ingeo.models.Sample;
 import org.geoproject.ingeo.models.SurveyPoint;
 import org.geoproject.ingeo.services.MainViewService;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-public interface BoreHoleLayerMainService extends MainViewService<BoreholeLayer, BoreholeLayerDTO> {
+public interface BoreHoleLayerMainService extends MainViewService<BoreholeLayer, BoreholeLayerDto> {
 
     @Override
     List<BoreholeLayer> getAll();
@@ -37,29 +37,35 @@ public interface BoreHoleLayerMainService extends MainViewService<BoreholeLayer,
     List<BoreholeLayer> getBySurveyPoint(SurveyPoint surveyPoint, Sort laborNumber);
 
     @Override
-    void delete(BoreholeLayerDTO object);
+    void delete(BoreholeLayerDto object);
 
     @Override
-    default void deleteByDto(BoreholeLayerDTO dto) {
+    default void deleteByDto(BoreholeLayerDto dto) {
 
     }
 
     @Override
-    List<BoreholeLayerDTO> getDtos(List<BoreholeLayer> objects);
+    List<BoreholeLayerDto> getDtos(List<BoreholeLayer> objects);
 
     @Override
-    void updateFromDtos(List<BoreholeLayer> objects, List<BoreholeLayerDTO> dtos);
+    void updateFromDtos(List<BoreholeLayer> objects, List<BoreholeLayerDto> dtos);
 
     @Override
-    default void updateFromDtos(List<BoreholeLayerDTO> dtos) {
-
-    }
+    void updateFromDtos(List<BoreholeLayerDto> dtos);
 
     @Override
-    default List<BoreholeLayerDTO> getDtosByProject(Project project) {
-        return null;
-    }
+    List<BoreholeLayerDto> getDtosByProject(Project project);
 
     @Override
-    BoreholeLayerDTO cloneDto(BoreholeLayerDTO egeDto);
+    List<BoreholeLayerDto> getDtosBySurveyPointId(Long surveyPointId);
+
+    @Override
+    BoreholeLayerDto cloneDto(BoreholeLayerDto egeDto);
+
+    @Override
+    void enrichEntity(Long updatedEntityId, Long sourceEntityId);
+
+    DescriptionKgaDto getDescriptionKgaDto(Long egeId);
+
+    void updateBoreholeLayer(DescriptionKgaDto descriptionKgaDto);
 }

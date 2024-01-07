@@ -132,7 +132,17 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
+    public List<SampleDto> getDtosBySurveyPointId(Long surveyPointId) {
+        return null;
+    }
+
+    @Override
     public SampleDto cloneDto(SampleDto egeDto) {
         throw new NotImplemented(ExceptionTypeEnum.METHOD_NOT_IMPLEMENTED_EXCEPTION.getExceptionMessage("cloneDto"));
+    }
+
+    @Override
+    public void enrichEntity(Long updatedEntityId, Long sourceEntityId) {
+
     }
 }

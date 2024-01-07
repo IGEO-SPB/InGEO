@@ -66,5 +66,15 @@ public interface SampleService extends MainViewService<Sample, SampleDto> {
     }
 
     @Override
+    default List<SampleDto> getDtosBySurveyPointId(Long surveyPointId) {
+        return null;
+    }
+
+    @Override
     SampleDto cloneDto(SampleDto egeDto);
+
+    @Override
+    default void enrichEntity(Long updatedEntityId, Long sourceEntityId) {
+
+    }
 }

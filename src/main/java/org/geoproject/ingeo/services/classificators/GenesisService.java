@@ -18,5 +18,5 @@ public interface GenesisService {
 
     Genesis findByGiId(int giId);
 
-    List<GenesisDto> getEgeDtos();
+    List<GenesisDto> getGenesisDtos();
 }

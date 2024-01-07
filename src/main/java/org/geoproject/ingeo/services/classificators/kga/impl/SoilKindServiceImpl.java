@@ -6,7 +6,6 @@ import org.geoproject.ingeo.exceptions.ExceptionTypeEnum;
 import org.geoproject.ingeo.exceptions.NotFoundException;
 import org.geoproject.ingeo.mapper.classificators.kga.SoilKindMapper;
 import org.geoproject.ingeo.models.classificators.kga.SoilClass;
-import org.geoproject.ingeo.models.classificators.kga.SoilClassKindGroup;
 import org.geoproject.ingeo.models.classificators.kga.SoilKind;
 import org.geoproject.ingeo.repositories.classificators.kga.SoilKindRepository;
 import org.geoproject.ingeo.services.classificators.kga.SoilKindService;
@@ -27,8 +26,8 @@ public class SoilKindServiceImpl implements SoilKindService {
     }
 
     @Override
-    public List<SoilKindDto> getDtos(SoilClassKindGroup soilKindGroupChoiceBox) {
-        var soilKinds = soilKindRepository.findBySoilClassKindGroup(soilKindGroupChoiceBox);
+    public List<SoilKindDto> getDtos(Long soilKindGroupId) {
+        var soilKinds = soilKindRepository.findBySoilClassKindGroupId(soilKindGroupId);
 
         return soilKindMapper.soilKindToSoilKindDto(soilKinds);
     }
